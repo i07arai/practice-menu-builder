@@ -1,0 +1,129 @@
+
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>練習メニュービルダー</title>
+  <link rel="stylesheet" href="../styles/main.css" />
+</head>
+<body>
+  <div id="app">
+    <header class="app-header">
+      <h1>メニューを選択</h1>
+      <div class="session-inputs">
+        <label>日付
+          <input type="date" id="input-date" />
+        </label>
+        <label>開始
+          <input type="time" id="input-start" placeholder="--:--" />
+        </label>
+        <label>終了
+          <input type="time" id="input-end" placeholder="--:--" />
+        </label>
+      </div>
+      <div class="counts">
+        <div class="count-field">
+          <span>投手</span>
+          <button class="btn minus" data-role="P">−</button>
+          <input type="number" id="count-P" value="0" min="0" />
+          <button class="btn plus" data-role="P">＋</button>
+        </div>
+        <div class="count-field">
+          <span>内野</span>
+          <button class="btn minus" data-role="IF">−</button>
+          <input type="number" id="count-IF" value="0" min="0" />
+          <button class="btn plus" data-role="IF">＋</button>
+        </div>
+        <div class="count-field">
+          <span>外野</span>
+          <button class="btn minus" data-role="OF">−</button>
+          <input type="number" id="count-OF" value="0" min="0" />
+          <button class="btn plus" data-role="OF">＋</button>
+        </div>
+      </div>
+      <div class="category-filter">
+        <button class="chip" data-cat="投">投</button>
+        <button class="chip" data-cat="守">守</button>
+        <button class="chip" data-cat="打">打</button>
+        <button class="chip" data-cat="ｱｯﾌﾟ">ｱｯﾌﾟ</button>
+        <button class="chip active" data-cat="all">すべて</button>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="menu-list" id="menu-list"></section>
+
+      <section class="schedule">
+        <div class="schedule-header">
+          <h2>タイムスケジュール</h2>
+          <div class="lane-headers">
+            <div class="lane-header" data-lane="global">
+              <span class="lane-name" id="lane-name-global">全体</span>
+            </div>
+            <div class="lane-header editable" data-lane="lane1">
+              <span class="lane-name" id="lane-name-lane1">その他1</span>
+              <button class="edit-lane" data-lane="lane1" title="レーン名編集">✎</button>
+            </div>
+            <div class="lane-header editable" data-lane="lane2">
+              <span class="lane-name" id="lane-name-lane2">その他2</span>
+              <button class="edit-lane" data-lane="lane2" title="レーン名編集">✎</button>
+            </div>
+          </div>
+        </div>
+        <div class="grid" id="grid">
+          <!-- 時間グリッド／ブロックはJSで描画 -->
+        </div>
+        <div class="export">
+          <button id="btn-export-jpg" class="btn primary">JPGとして出力</button>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <div class="modal-backdrop" id="modal-backdrop" hidden></div>
+  <div class="modal" id="modal-lane" hidden>
+    <div class="modal-content">
+      <h3>レーンを選択</h3>
+      <div class="radio-group" id="lane-radio-group"></div>
+      <div class="modal-actions">
+        <button class="btn" id="lane-cancel">キャンセル</button>
+        <button class="btn primary" id="lane-ok">決定</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-time" hidden>
+    <div class="modal-content">
+      <h3>開始時刻と所要時間</h3>
+      <label>開始時刻（15分刻み）
+        <input type="time" id="pick-start" step="900" />
+      </label>
+      <label>所要時間（分）
+        <input type="number" id="pick-duration" min="5" step="5" />
+      </label>
+      <div class="modal-actions">
+        <button class="btn" id="time-cancel">キャンセル</button>
+        <button class="btn primary" id="time-ok">追加</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-rename" hidden>
+    <div class="modal-content">
+      <h3>レーン名を編集</h3>
+      <label>新しい名称
+        <input type="text" id="rename-input" maxlength="20" placeholder="例）投手／守備／打撃" />
+      </label>
+      <div class="modal-actions">
+        <button class="btn" id="rename-reset">リセット</button>
+        <button class="btn" id="rename-cancel">キャンセル</button>
+        <button class="btn primary" id="rename-ok">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="../src/app/main.js"></script>
+</body>
+</html>
