@@ -58,6 +58,7 @@
         <div class="schedule-header">
           <h2>タイムスケジュール</h2>
           <div class="lane-headers">
+            <div class="time-spacer"></div>
             <div class="lane-header" data-lane="global">
               <span class="lane-name" id="lane-name-global">全体</span>
             </div>
@@ -120,6 +121,17 @@
         <button class="btn" id="rename-reset">リセット</button>
         <button class="btn" id="rename-cancel">キャンセル</button>
         <button class="btn primary" id="rename-ok">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-delete" hidden>
+    <div class="modal-content">
+      <h3>予定を削除</h3>
+      <p id="delete-message">この予定を削除しますか？</p>
+      <div class="modal-actions">
+        <button class="btn" id="delete-cancel">キャンセル</button>
+        <button class="btn primary" id="delete-ok">削除</button>
       </div>
     </div>
   </div>

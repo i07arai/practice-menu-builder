@@ -45,21 +45,93 @@ export function renderGrid(state) {
   });
   wrapper.appendChild(timeCol);
 
-  ['global','lane1','lane2'].forEach(laneId => {
+  ['global','lane1','lane2'].forEach((laneId, laneIndex) => {
     const col = document.createElement('div');
     col.className = 'grid-col';
     col.style.position = 'relative';
     col.style.borderLeft = '1px solid #d9d9d9';
+    col.dataset.laneId = laneId;
     // Render blocks for this lane
     const blocks = state.blocks.filter(b => b.laneId === laneId);
-    blocks.forEach(b => {
+    blocks.forEach((b, idx) => {
       const el = document.createElement('div');
       el.className = 'block';
+      el.style.cursor = 'move';
+      el.draggable = false;
       const top = positionFromTime(times, b.start, step);
       const height = (b.durationMin / step) * rowHeight(step);
       el.style.top = `${top}px`;
       el.style.height = `${height}px`;
       el.innerHTML = `<div class="title">${b.title}</div><div class="sub">${b.durationMin}分</div>`;
+      
+      // Drag and drop functionality
+      let isDragging = false;
+      let dragStartTime = 0;
+      let startX, startY, startTop;
+      
+      el.addEventListener('mousedown', (e) => {
+        dragStartTime = Date.now();
+        startX = e.clientX;
+        startY = e.clientY;
+        startTop = el.offsetTop;
+        
+        const onMouseMove = (e) => {
+          if (!isDragging && (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5)) {
+            isDragging = true;
+            el.style.opacity = '0.7';
+            el.style.zIndex = '1000';
+          }
+          
+          if (isDragging) {
+            const deltaY = e.clientY - startY;
+            el.style.top = `${startTop + deltaY}px`;
+          }
+        };
+        
+        const onMouseUp = (e) => {
+          document.removeEventListener('mousemove', onMouseMove);
+          document.removeEventListener('mouseup', onMouseUp);
+          
+          if (isDragging) {
+            // Calculate new position
+            const rect = col.getBoundingClientRect();
+            const wrapperRect = wrapper.getBoundingClientRect();
+            const relativeX = e.clientX - wrapperRect.left;
+            
+            // Determine target lane
+            const timeColWidth = 64;
+            const laneWidth = (wrapperRect.width - timeColWidth) / 3;
+            const targetLaneIndex = Math.floor((relativeX - timeColWidth) / laneWidth);
+            const lanes = ['global', 'lane1', 'lane2'];
+            const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
+            
+            // Calculate new time
+            const colTop = wrapper.querySelector('.grid-col').getBoundingClientRect().top;
+            const blockTop = e.clientY - colTop + wrapper.scrollTop;
+            const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
+            const newTime = times[Math.min(newTimeIndex, times.length - 1)];
+            
+            // Update block
+            b.laneId = targetLaneId;
+            b.start = newTime;
+            
+            renderGrid(state);
+          } else if (Date.now() - dragStartTime < 300) {
+            // Quick click - show delete dialog
+            openDeleteConfirm(state, b, () => {
+              renderGrid(state);
+            });
+          }
+          
+          el.style.opacity = '1';
+          el.style.zIndex = 'auto';
+          isDragging = false;
+        };
+        
+        document.addEventListener('mousemove', onMouseMove);
+        document.addEventListener('mouseup', onMouseUp);
+      });
+      
       col.appendChild(el);
     });
     wrapper.appendChild(col);
@@ -68,7 +140,7 @@ export function renderGrid(state) {
   host.appendChild(wrapper);
 }
 
-function rowHeight(step) { return step === 15 ? 24 : 24; }
+function rowHeight(step) { return step === 15 ? 60 : 60; }
 function timeToMinutes(timeStr) {
   const [h, m] = timeStr.split(':').map(x => parseInt(x, 10));
   return h * 60 + m;
@@ -175,4 +247,28 @@ export function exportScheduleAsJPG(state) {
     a.href = dataUrl; a.download = `schedule_${state.session.date||'undated'}.jpg`;
     document.body.appendChild(a); a.click(); a.remove();
   });
+}
+// Delete confirmation modal
+export function openDeleteConfirm(state, block, onDeleted) {
+  const backdrop = document.getElementById('modal-backdrop');
+  const modal = document.getElementById('modal-delete');
+  const message = document.getElementById('delete-message');
+  const ok = document.getElementById('delete-ok');
+  const cancel = document.getElementById('delete-cancel');
+
+  message.textContent = `「${block.title}」を削除しますか？`;
+  backdrop.hidden = false; modal.hidden = false;
+  
+  ok.onclick = () => {
+    const index = state.blocks.indexOf(block);
+    if (index > -1) {
+      state.blocks.splice(index, 1);
+    }
+    backdrop.hidden = true; modal.hidden = true;
+    onDeleted();
+  };
+  
+  cancel.onclick = () => {
+    backdrop.hidden = true; modal.hidden = true;
+  };
 }
