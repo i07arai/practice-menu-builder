@@ -64,72 +64,102 @@ export function renderGrid(state) {
       el.style.height = `${height}px`;
       el.innerHTML = `<div class="title">${b.title}</div><div class="sub">${b.durationMin}分</div>`;
       
-      // Drag and drop functionality
+      // Drag and drop functionality (mouse and touch)
       let isDragging = false;
       let dragStartTime = 0;
       let startX, startY, startTop;
       
-      el.addEventListener('mousedown', (e) => {
+      const handleStart = (clientX, clientY) => {
         dragStartTime = Date.now();
-        startX = e.clientX;
-        startY = e.clientY;
+        startX = clientX;
+        startY = clientY;
         startTop = el.offsetTop;
+      };
+      
+      const handleMove = (clientX, clientY) => {
+        if (!isDragging && (Math.abs(clientX - startX) > 5 || Math.abs(clientY - startY) > 5)) {
+          isDragging = true;
+          el.style.opacity = '0.7';
+          el.style.zIndex = '1000';
+        }
         
-        const onMouseMove = (e) => {
-          if (!isDragging && (Math.abs(e.clientX - startX) > 5 || Math.abs(e.clientY - startY) > 5)) {
-            isDragging = true;
-            el.style.opacity = '0.7';
-            el.style.zIndex = '1000';
-          }
+        if (isDragging) {
+          const deltaY = clientY - startY;
+          el.style.top = `${startTop + deltaY}px`;
+        }
+      };
+      
+      const handleEnd = (clientX, clientY) => {
+        if (isDragging) {
+          // Calculate new position
+          const wrapperRect = wrapper.getBoundingClientRect();
+          const relativeX = clientX - wrapperRect.left;
           
-          if (isDragging) {
-            const deltaY = e.clientY - startY;
-            el.style.top = `${startTop + deltaY}px`;
-          }
-        };
+          // Determine target lane
+          const timeColWidth = 64;
+          const laneWidth = (wrapperRect.width - timeColWidth) / 3;
+          const targetLaneIndex = Math.floor((relativeX - timeColWidth) / laneWidth);
+          const lanes = ['global', 'lane1', 'lane2'];
+          const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
+          
+          // Calculate new time
+          const colTop = wrapper.querySelector('.grid-col').getBoundingClientRect().top;
+          const blockTop = clientY - colTop + wrapper.scrollTop;
+          const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
+          const newTime = times[Math.min(newTimeIndex, times.length - 1)];
+          
+          // Update block
+          b.laneId = targetLaneId;
+          b.start = newTime;
+          
+          renderGrid(state);
+        } else if (Date.now() - dragStartTime < 300) {
+          // Quick click/tap - show delete dialog
+          openDeleteConfirm(state, b, () => {
+            renderGrid(state);
+          });
+        }
         
+        el.style.opacity = '1';
+        el.style.zIndex = 'auto';
+        isDragging = false;
+      };
+      
+      // Mouse events
+      el.addEventListener('mousedown', (e) => {
+        e.preventDefault();
+        handleStart(e.clientX, e.clientY);
+        
+        const onMouseMove = (e) => handleMove(e.clientX, e.clientY);
         const onMouseUp = (e) => {
           document.removeEventListener('mousemove', onMouseMove);
           document.removeEventListener('mouseup', onMouseUp);
-          
-          if (isDragging) {
-            // Calculate new position
-            const rect = col.getBoundingClientRect();
-            const wrapperRect = wrapper.getBoundingClientRect();
-            const relativeX = e.clientX - wrapperRect.left;
-            
-            // Determine target lane
-            const timeColWidth = 64;
-            const laneWidth = (wrapperRect.width - timeColWidth) / 3;
-            const targetLaneIndex = Math.floor((relativeX - timeColWidth) / laneWidth);
-            const lanes = ['global', 'lane1', 'lane2'];
-            const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
-            
-            // Calculate new time
-            const colTop = wrapper.querySelector('.grid-col').getBoundingClientRect().top;
-            const blockTop = e.clientY - colTop + wrapper.scrollTop;
-            const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
-            const newTime = times[Math.min(newTimeIndex, times.length - 1)];
-            
-            // Update block
-            b.laneId = targetLaneId;
-            b.start = newTime;
-            
-            renderGrid(state);
-          } else if (Date.now() - dragStartTime < 300) {
-            // Quick click - show delete dialog
-            openDeleteConfirm(state, b, () => {
-              renderGrid(state);
-            });
-          }
-          
-          el.style.opacity = '1';
-          el.style.zIndex = 'auto';
-          isDragging = false;
+          handleEnd(e.clientX, e.clientY);
         };
         
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
+      });
+      
+      // Touch events
+      el.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+        const touch = e.touches[0];
+        handleStart(touch.clientX, touch.clientY);
+        
+        const onTouchMove = (e) => {
+          const touch = e.touches[0];
+          handleMove(touch.clientX, touch.clientY);
+        };
+        const onTouchEnd = (e) => {
+          document.removeEventListener('touchmove', onTouchMove);
+          document.removeEventListener('touchend', onTouchEnd);
+          const touch = e.changedTouches[0];
+          handleEnd(touch.clientX, touch.clientY);
+        };
+        
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        document.addEventListener('touchend', onTouchEnd);
       });
       
       col.appendChild(el);
