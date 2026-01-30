@@ -17,7 +17,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .counts-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: 14px; background: #f5f5f5; }
 .toggle-icon { transition: transform 0.2s; }
 .counts-toggle.open .toggle-icon { transform: rotate(180deg); }
-.counts { display: none; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+.counts { display: none; grid-template-columns: 1fr; gap: 8px; margin-top: 8px; }
 .counts.open { display: grid; }
 .count-field { display: grid; grid-template-columns: auto 32px 1fr 32px; align-items: center; gap: 4px; font-size: 16px; font-weight: bold; }
 .count-field span { min-width: 24px; text-align: center; }
