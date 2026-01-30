@@ -92,7 +92,7 @@ function updateMenuCandidates() {
             start: startTime,
             durationMin,
           });
-        });
+        }, laneId);
       });
     }
   });

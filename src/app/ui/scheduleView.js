@@ -227,15 +227,44 @@ export function openLanePicker(state, onDone) {
 }
 
 // Time picker modal
-export function openTimePicker(state, defaultDuration, onDone) {
+export function openTimePicker(state, defaultDuration, onDone, laneId = null) {
   const backdrop = document.getElementById('modal-backdrop');
   const modal = document.getElementById('modal-time');
   const startInput = document.getElementById('pick-start');
   const durInput = document.getElementById('pick-duration');
   durInput.value = String(defaultDuration || 20);
 
-  // Suggest start: if session.start set, use it; else use '09:00'
-  startInput.value = state.session.start || '09:00';
+  // Calculate suggested start time
+  let suggestedStart = state.session.start || '09:00';
+  
+  if (laneId) {
+    // Find the last block in the selected lane
+    const laneBlocks = state.blocks.filter(b => b.laneId === laneId);
+    if (laneBlocks.length > 0) {
+      // Find the block with the latest end time
+      let latestEndTime = null;
+      let latestEndMinutes = -1;
+      
+      laneBlocks.forEach(block => {
+        const [h, m] = block.start.split(':').map(n => parseInt(n, 10));
+        const startMinutes = h * 60 + m;
+        const endMinutes = startMinutes + block.durationMin;
+        
+        if (endMinutes > latestEndMinutes) {
+          latestEndMinutes = endMinutes;
+          const endH = Math.floor(endMinutes / 60);
+          const endM = endMinutes % 60;
+          latestEndTime = `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
+        }
+      });
+      
+      if (latestEndTime) {
+        suggestedStart = latestEndTime;
+      }
+    }
+  }
+  
+  startInput.value = suggestedStart;
 
   const ok = document.getElementById('time-ok');
   const cancel = document.getElementById('time-cancel');
