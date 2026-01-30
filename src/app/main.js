@@ -35,6 +35,25 @@ endInput.addEventListener('change', (e) => {
   renderGrid(state);
 });
 
+// Location inputs
+const locationSelect = document.getElementById('location-select');
+const locationText = document.getElementById('location-text');
+
+locationSelect.addEventListener('change', (e) => {
+  if (e.target.value === '‚»‚Ì‘¼') {
+    locationText.style.display = 'block';
+    locationText.focus();
+    state.session.location = locationText.value || '';
+  } else {
+    locationText.style.display = 'none';
+    state.session.location = e.target.value;
+  }
+});
+
+locationText.addEventListener('input', (e) => {
+  state.session.location = e.target.value;
+});
+
 // Toggle counts section
 const countsToggle = document.getElementById('counts-toggle');
 const countsContainer = document.getElementById('counts-container');

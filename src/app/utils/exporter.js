@@ -12,11 +12,18 @@ export function drawJPG(state, width, height) {
   ctx.font = 'bold 56px system-ui';
   ctx.fillText('タイムスケジュール', 50, 80);
   
-  // Date info
-  if (state.session.date) {
+  // Date and location info
+  if (state.session.date || state.session.location) {
     ctx.font = '32px system-ui';
     ctx.fillStyle = '#666666';
-    ctx.fillText(state.session.date, 50, 130);
+    let infoY = 130;
+    if (state.session.date) {
+      ctx.fillText(state.session.date, 50, infoY);
+      infoY += 45;
+    }
+    if (state.session.location) {
+      ctx.fillText(`場所: ${state.session.location}`, 50, infoY);
+    }
     ctx.fillStyle = '#000000';
   }
 

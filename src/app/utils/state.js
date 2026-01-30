@@ -1,7 +1,7 @@
 
 export class AppState {
   constructor() {
-    this.session = { date: '', start: '', end: '' };
+    this.session = { date: '', start: '', end: '', location: '是政Aグラウンド' };
     this.counts = { P: 0, IF: 0, OF: 0 };
     this.ui = { filterCat: null };
     // lanes

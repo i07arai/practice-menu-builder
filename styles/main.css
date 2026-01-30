@@ -13,6 +13,9 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .h1, h1 { font-size: 22px; margin: 0 0 8px; }
 .session-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .session-inputs label { display: flex; flex-direction: column; font-size: 12px; gap: 4px; }
+.location-section { margin-top: 12px; display: grid; gap: 4px; }
+.location-section label { font-size: 12px; }
+.location-section select, .location-section input { padding: 8px; font-size: 14px; border: 1px solid var(--line); border-radius: 6px; }
 .counts-section { margin-top: 12px; }
 .counts-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: 14px; background: #f5f5f5; }
 .toggle-icon { transition: transform 0.2s; }
