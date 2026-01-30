@@ -10,20 +10,19 @@ export function drawJPG(state, width, height) {
   ctx.fillRect(0, 0, width, height);
   ctx.fillStyle = '#000000';
   ctx.font = 'bold 56px system-ui';
-  ctx.fillText('タイムスケジュール', 50, 80);
   
-  // Date and location info
-  if (state.session.date || state.session.location) {
+  // タイトル：タイムスケジュール＠練習場所
+  let title = 'タイムスケジュール';
+  if (state.session.location) {
+    title += `＠${state.session.location}`;
+  }
+  ctx.fillText(title, 50, 80);
+  
+  // Date info
+  if (state.session.date) {
     ctx.font = '32px system-ui';
     ctx.fillStyle = '#666666';
-    let infoY = 130;
-    if (state.session.date) {
-      ctx.fillText(state.session.date, 50, infoY);
-      infoY += 45;
-    }
-    if (state.session.location) {
-      ctx.fillText(`場所: ${state.session.location}`, 50, infoY);
-    }
+    ctx.fillText(state.session.date, 50, 130);
     ctx.fillStyle = '#000000';
   }
 
