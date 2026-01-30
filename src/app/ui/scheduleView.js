@@ -1,5 +1,6 @@
 
 import { drawJPG } from '../utils/exporter.js';
+import { MENUS } from '../logic/menus.js';
 
 // Render time grid and blocks
 export function renderGrid(state) {
@@ -55,7 +56,9 @@ export function renderGrid(state) {
     const blocks = state.blocks.filter(b => b.laneId === laneId);
     blocks.forEach((b, idx) => {
       const el = document.createElement('div');
-      el.className = 'block';
+      const menu = MENUS.find(m => m.id === b.menuId);
+      const categoryClass = menu ? `block-${menu.categoryShort}` : '';
+      el.className = `block ${categoryClass}`.trim();
       el.style.cursor = 'move';
       el.draggable = false;
       const top = positionFromTime(times, b.start, step);
