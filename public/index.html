@@ -22,24 +22,29 @@
           <input type="time" id="input-end" placeholder="--:--" />
         </label>
       </div>
-      <div class="counts">
-        <div class="count-field">
-          <span>投手</span>
-          <button class="btn minus" data-role="P">−</button>
-          <input type="number" id="count-P" value="0" min="0" />
-          <button class="btn plus" data-role="P">＋</button>
-        </div>
-        <div class="count-field">
-          <span>内野</span>
-          <button class="btn minus" data-role="IF">−</button>
-          <input type="number" id="count-IF" value="0" min="0" />
-          <button class="btn plus" data-role="IF">＋</button>
-        </div>
-        <div class="count-field">
-          <span>外野</span>
-          <button class="btn minus" data-role="OF">−</button>
-          <input type="number" id="count-OF" value="0" min="0" />
-          <button class="btn plus" data-role="OF">＋</button>
+      <div class="counts-section">
+        <button class="btn counts-toggle" id="counts-toggle">
+          人数設定 <span class="toggle-icon">▼</span>
+        </button>
+        <div class="counts" id="counts-container">
+          <div class="count-field">
+            <span>P</span>
+            <button class="btn minus" data-role="P">−</button>
+            <input type="number" id="count-P" value="0" min="0" />
+            <button class="btn plus" data-role="P">＋</button>
+          </div>
+          <div class="count-field">
+            <span>IF</span>
+            <button class="btn minus" data-role="IF">−</button>
+            <input type="number" id="count-IF" value="0" min="0" />
+            <button class="btn plus" data-role="IF">＋</button>
+          </div>
+          <div class="count-field">
+            <span>OF</span>
+            <button class="btn minus" data-role="OF">−</button>
+            <input type="number" id="count-OF" value="0" min="0" />
+            <button class="btn plus" data-role="OF">＋</button>
+          </div>
         </div>
       </div>
       <div class="category-filter">

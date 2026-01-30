@@ -35,6 +35,14 @@ endInput.addEventListener('change', (e) => {
   renderGrid(state);
 });
 
+// Toggle counts section
+const countsToggle = document.getElementById('counts-toggle');
+const countsContainer = document.getElementById('counts-container');
+countsToggle.addEventListener('click', () => {
+  countsToggle.classList.toggle('open');
+  countsContainer.classList.toggle('open');
+});
+
 // Counts inputs and +/- buttons
 ['P','IF','OF'].forEach(role => {
   const input = document.getElementById(`count-${role}`);

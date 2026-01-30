@@ -13,12 +13,18 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .h1, h1 { font-size: 22px; margin: 0 0 8px; }
 .session-inputs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
 .session-inputs label { display: flex; flex-direction: column; font-size: 12px; gap: 4px; }
-.counts { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 12px; }
-.count-field { display: grid; grid-template-columns: auto 28px 1fr 28px; align-items: center; gap: 4px; font-size: 14px; }
-.count-field input { width: 100%; padding: 6px; font-size: 14px; }
+.counts-section { margin-top: 12px; }
+.counts-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: 14px; background: #f5f5f5; }
+.toggle-icon { transition: transform 0.2s; }
+.counts-toggle.open .toggle-icon { transform: rotate(180deg); }
+.counts { display: none; grid-template-columns: 1fr 1fr 1fr; gap: 8px; margin-top: 8px; }
+.counts.open { display: grid; }
+.count-field { display: grid; grid-template-columns: auto 32px 1fr 32px; align-items: center; gap: 4px; font-size: 16px; font-weight: bold; }
+.count-field span { min-width: 24px; text-align: center; }
+.count-field input { width: 100%; padding: 8px 4px; font-size: 16px; text-align: center; }
 .btn { padding: 6px 10px; font-size: 14px; border: 1px solid var(--line); border-radius: 6px; background: #fff; }
 .btn.primary { background: var(--primary); color: #fff; border-color: var(--primary); }
-.btn.minus, .btn.plus { width: 28px; height: 28px; border-radius: 6px; }
+.btn.minus, .btn.plus { width: 32px; height: 32px; border-radius: 6px; font-size: 18px; display: flex; align-items: center; justify-content: center; }
 .category-filter { display: flex; gap: 6px; margin-top: 12px; }
 .chip { border: 1px solid var(--line); border-radius: 20px; padding: 6px 10px; background: #fff; }
 .chip.active { background: #eef3ff; border-color: var(--primary); color: var(--primary); }
