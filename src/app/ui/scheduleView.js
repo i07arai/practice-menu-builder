@@ -294,13 +294,13 @@ export function openRenameLane(state, laneId, onSave, onReset) {
   reset.onclick = () => { backdrop.hidden = true; modal.hidden = true; onReset(); };
 }
 
-// Export to JPG (1080x1920)
+// Export to JPG (1080x3840)
 export function exportScheduleAsJPG(state) {
   const btnExport = document.getElementById('btn-export-jpg');
   if (!btnExport) return;
   
   btnExport.addEventListener('click', () => {
-    const width = 1080, height = 1920;
+    const width = 1080, height = 3840;
     const dataUrl = drawJPG(state, width, height);
     const a = document.createElement('a');
     a.href = dataUrl; a.download = `schedule_${state.session.date||'undated'}.jpg`;
