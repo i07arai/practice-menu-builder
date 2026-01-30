@@ -7,8 +7,8 @@ export class AppState {
     // lanes
     this.lanes = [
       { id: 'global', name: '全体', editable: false },
-      { id: 'lane1', name: 'その他1', editable: true },
-      { id: 'lane2', name: 'その他2', editable: true }
+      { id: 'lane1', name: '他1', editable: true },
+      { id: 'lane2', name: '他2', editable: true }
     ];
     this.lanesById = Object.fromEntries(this.lanes.map(l => [l.id, l]));
     // schedule blocks
@@ -25,7 +25,7 @@ export class AppState {
   resetLaneName(laneId) {
     const lane = this.lanesById[laneId];
     if (!lane || !lane.editable) return;
-    lane.name = laneId === 'lane1' ? 'その他1' : 'その他2';
+    lane.name = laneId === 'lane1' ? '他1' : '他2';
   }
 }
 
