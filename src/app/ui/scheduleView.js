@@ -303,7 +303,15 @@ export function exportScheduleAsJPG(state) {
     const width = 1080, height = 1920;
     const dataUrl = drawJPG(state, width, height);
     const a = document.createElement('a');
-    a.href = dataUrl; a.download = `schedule_${state.session.date||'undated'}.jpg`;
+    
+    // Format filename: YYYY年MM月DD日 練習スケジュール.jpg
+    let filename = '練習スケジュール.jpg';
+    if (state.session.date) {
+      const [year, month, day] = state.session.date.split('-');
+      filename = `${year}年${month}月${day}日 練習スケジュール.jpg`;
+    }
+    
+    a.href = dataUrl; a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
   });
 }
