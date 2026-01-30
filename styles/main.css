@@ -53,6 +53,10 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .menu-list { display: flex; flex-direction: column; gap: 10px; }
 .menu-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; grid-template-columns: 1fr auto; align-items: center; background: var(--card-bg); box-shadow: var(--shadow-sm); transition: var(--transition); }
 .menu-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+.menu-card.menu-±¯Ìß { background: linear-gradient(135deg, #ffe4cc 0%, #ffd4b3 100%); }
+.menu-card.menu-“Š { background: linear-gradient(135deg, #ffccdd 0%, #ffb3cc 100%); }
+.menu-card.menu-Žç { background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%); }
+.menu-card.menu-‘Å { background: linear-gradient(135deg, #ccffdd 0%, #b3ffcc 100%); }
 .menu-card h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--fg); }
 .menu-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .menu-actions { display: flex; gap: 8px; }
@@ -71,7 +75,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .block:hover { box-shadow: var(--shadow-md); transform: scale(1.02); }
 .block-±¯Ìß { background: linear-gradient(135deg, #ffe4cc 0%, #ffd4b3 100%); }
 .block-“Š { background: linear-gradient(135deg, #ffccdd 0%, #ffb3cc 100%); }
-.block-Žç { background: linear-gradient(135deg, #fff9cc 0%, #fff4b3 100%); }
+.block-Žç { background: linear-gradient(135deg, #cce5ff 0%, #b3d9ff 100%); }
 .block-‘Å { background: linear-gradient(135deg, #ccffdd 0%, #b3ffcc 100%); }
 .block .title { font-weight: 600; font-size: 13px; line-height: 1.4; margin-bottom: 4px; word-break: break-word; color: var(--fg); }
 .block .sub { font-size: 11px; color: var(--muted); line-height: 1.3; }

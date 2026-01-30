@@ -13,7 +13,7 @@ export function renderMenuList(menus, { onSelect }) {
   }
   menus.forEach(menu => {
     const card = document.createElement('div');
-    card.className = 'menu-card';
+    card.className = `menu-card menu-${menu.categoryShort}`;
     const left = document.createElement('div');
     const right = document.createElement('div');
     right.className = 'menu-actions';
