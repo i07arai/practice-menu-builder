@@ -45,7 +45,7 @@ export function drawJPG(state, width, height) {
   const gridTop = startY + headerH + 10;
   const gridBottom = height - 100;
   const gridHeight = gridBottom - gridTop;
-  const rowPx = 60; // per 15 min (same as UI)
+  const rowPx = 120; // per 15 min (doubled for better visibility)
   
   // Determine time range
   const startTime = state.session.start || '09:00';
