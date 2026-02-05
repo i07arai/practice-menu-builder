@@ -89,11 +89,14 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 
 /* Modal */
 .modal-backdrop { position: fixed; inset: 0; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); }
-.modal { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; width: min(92vw, 380px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
-.modal-content { padding: 20px; display: grid; gap: 14px; }
-.modal-content h3 { margin: 0; font-size: 18px; font-weight: 700; color: var(--primary); }
-.modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
-.modal-actions .btn { color: var(--fg); }
+.modal { position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--card-bg); border: 1px solid var(--line); border-radius: 16px; width: min(92vw, 380px); box-shadow: 0 8px 24px rgba(0,0,0,0.15); max-height: 90vh; overflow-y: auto; }
+.modal-content { padding: 24px; display: grid; gap: 18px; }
+.modal-content h3 { margin: 0; font-size: 22px; font-weight: 700; color: var(--primary); }
+.modal-content p { font-size: 16px; line-height: 1.6; margin: 0; }
+.modal-content label { font-size: 16px; display: flex; flex-direction: column; gap: 8px; }
+.modal-content input, .modal-content select { font-size: 16px; padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+.modal-actions .btn { color: var(--fg); font-size: 16px; padding: 12px 20px; min-width: 80px; }
 .modal-actions .btn.primary { color: #fff; }
 
 /* Count selector menu */
