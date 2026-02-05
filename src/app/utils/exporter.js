@@ -10,6 +10,21 @@ const CATEGORY_COLORS = {
   'batting': '#c0edb0'
 };
 
+// 角丸四角形を描画するヘルパー関数
+function roundRect(ctx, x, y, width, height, radius) {
+  ctx.beginPath();
+  ctx.moveTo(x + radius, y);
+  ctx.lineTo(x + width - radius, y);
+  ctx.quadraticCurveTo(x + width, y, x + width, y + radius);
+  ctx.lineTo(x + width, y + height - radius);
+  ctx.quadraticCurveTo(x + width, y + height, x + width - radius, y + height);
+  ctx.lineTo(x + radius, y + height);
+  ctx.quadraticCurveTo(x, y + height, x, y + height - radius);
+  ctx.lineTo(x, y + radius);
+  ctx.quadraticCurveTo(x, y, x + radius, y);
+  ctx.closePath();
+}
+
 export function drawJPG(state, width, height) {
   const canvas = document.createElement('canvas');
   canvas.width = width; canvas.height = height;
@@ -47,9 +62,13 @@ export function drawJPG(state, width, height) {
   lanes.forEach((id, i) => {
     const name = state.lanesById[id].name;
     const x = leftX + i * laneW;
+    
+    // 角丸四角形の枠線を描画
     ctx.strokeStyle = '#000000';
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, startY, laneW, headerH);
+    roundRect(ctx, x, startY, laneW, headerH, 10);
+    ctx.stroke();
+    
     ctx.font = 'bold 40px system-ui';
     ctx.fillStyle = '#000000';
     const textWidth = ctx.measureText(name).width;
@@ -100,14 +119,16 @@ export function drawJPG(state, width, height) {
     const menu = MENUS.find(m => m.id === b.menuId);
     const bgColor = menu && CATEGORY_COLORS[menu.category] ? CATEGORY_COLORS[menu.category] : '#ffffff';
     
-    // Draw block background
+    // Draw block background with rounded corners
     ctx.fillStyle = bgColor;
-    ctx.fillRect(x, y, laneW - 4, h);
+    roundRect(ctx, x, y, laneW - 4, h, 8);
+    ctx.fill();
     
-    // Draw block border
+    // Draw block border with rounded corners
     ctx.strokeStyle = '#000000'; 
     ctx.lineWidth = 2;
-    ctx.strokeRect(x, y, laneW - 4, h);
+    roundRect(ctx, x, y, laneW - 4, h, 8);
+    ctx.stroke();
     
     // Draw text
     ctx.fillStyle = '#000000';
