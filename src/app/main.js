@@ -18,9 +18,11 @@ function initDate() {
 }
 initDate();
 
-// Start/End are initially blank
-startInput.value = '';
-endInput.value = '';
+// Start/End default times
+startInput.value = '09:00';
+endInput.value = '12:00';
+state.session.start = '09:00';
+state.session.end = '12:00';
 
 // Bind session inputs
 dateInput.addEventListener('change', (e) => {
@@ -110,7 +112,7 @@ countsToggle.addEventListener('click', () => {
   // Plus button
   document.querySelectorAll(`.btn.plus[data-role="${role}"]`).forEach(btn => btn.addEventListener('click', () => {
     const current = Math.max(0, parseInt(display.textContent || '0', 10));
-    const newVal = Math.min(9, current + 1);
+    const newVal = current + 1; // è„å¿Ç»Çµ
     display.textContent = String(newVal);
     state.counts[role] = newVal;
     updateMenuCandidates();

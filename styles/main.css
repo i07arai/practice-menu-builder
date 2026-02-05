@@ -38,8 +38,9 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .counts.open { display: grid; }
 .count-field { display: grid; grid-template-columns: auto 32px 1fr 32px; align-items: center; gap: 4px; font-size: 16px; font-weight: 600; padding: 4px; border-radius: 8px; background: var(--card-bg); }
 .count-field span { min-width: 24px; text-align: center; color: var(--fg); }
-.count-display { width: 100%; padding: 8px 4px; font-size: 16px; text-align: center; border: 1px solid var(--line); border-radius: 6px; background: var(--card-bg); font-weight: 600; transition: var(--transition); cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 40px; }
+.count-display { width: 100%; padding: 8px 4px; font-size: 16px; text-align: center; border: 1px solid var(--line); border-radius: 6px; background: var(--card-bg); font-weight: 600; transition: var(--transition); cursor: pointer; display: flex; align-items: center; justify-content: center; min-height: 40px; color: var(--fg); -webkit-tap-highlight-color: transparent; }
 .count-display:hover { background: #f8f9fa; border-color: var(--primary); }
+.count-display:active { color: var(--fg); }
 .count-field input { width: 100%; padding: 8px 4px; font-size: 16px; text-align: center; border: 1px solid var(--line); border-radius: 6px; background: var(--card-bg); font-weight: 600; transition: var(--transition); }
 .count-field input:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1); }
 .btn { padding: 6px 10px; font-size: 14px; border: 1px solid var(--line); border-radius: 6px; background: var(--card-bg); cursor: pointer; transition: var(--transition); font-weight: 500; }
@@ -50,8 +51,9 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .btn.minus, .btn.plus { width: 32px; height: 32px; border-radius: 6px; font-size: 18px; display: flex; align-items: center; justify-content: center; background: var(--primary); color: white; border: none; }
 .btn.minus:hover, .btn.plus:hover { background: var(--primary-dark); }
 .category-filter { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
-.chip { border: 1px solid var(--line); border-radius: 20px; padding: 8px 14px; background: var(--card-bg); cursor: pointer; transition: var(--transition); font-size: 13px; font-weight: 500; }
+.chip { border: 1px solid var(--line); border-radius: 20px; padding: 8px 14px; background: var(--card-bg); cursor: pointer; transition: var(--transition); font-size: 13px; font-weight: 500; color: var(--fg); -webkit-tap-highlight-color: transparent; }
 .chip:hover { background: #f8f9fa; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
+.chip:active { color: var(--fg); }
 .chip.active { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-color: var(--primary); color: white; box-shadow: var(--shadow-sm); }
 .app-main { display: grid; gap: 12px; padding: 16px; }
 .menu-list { display: flex; flex-direction: column; gap: 10px; }
