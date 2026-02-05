@@ -1,5 +1,15 @@
 
 // 簡易JPGエクスポート：Canvasに描画してDataURLを返す
+import { MENUS } from '../logic/menus.js';
+
+// カテゴリごとの色定義
+const CATEGORY_COLORS = {
+  'warmup': '#ffd4b3',
+  'pitching': '#ffb3cc',
+  'fielding': '#b3d9ff',
+  'batting': '#c0edb0'
+};
+
 export function drawJPG(state, width, height) {
   const canvas = document.createElement('canvas');
   canvas.width = width; canvas.height = height;
@@ -11,8 +21,8 @@ export function drawJPG(state, width, height) {
   ctx.fillStyle = '#000000';
   ctx.font = 'bold 56px system-ui';
   
-  // タイトル：タイムスケジュール＠練習場所
-  let title = 'タイムスケジュール';
+  // タイトル：スケジュール＠練習場所
+  let title = 'スケジュール';
   if (state.session.location) {
     title += `＠${state.session.location}`;
   }
@@ -86,8 +96,12 @@ export function drawJPG(state, width, height) {
     const y = gridTop + topIdx * rowPx + 2;
     const h = Math.max(rowPx - 4, Math.round(b.durationMin / step) * rowPx - 4);
     
+    // メニュー情報からカテゴリを取得
+    const menu = MENUS.find(m => m.id === b.menuId);
+    const bgColor = menu && CATEGORY_COLORS[menu.category] ? CATEGORY_COLORS[menu.category] : '#ffffff';
+    
     // Draw block background
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = bgColor;
     ctx.fillRect(x, y, laneW - 4, h);
     
     // Draw block border
