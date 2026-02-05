@@ -285,6 +285,43 @@ export function openTimePicker(state, defaultDuration, onDone, laneId = null) {
   cancel.onclick = () => { backdrop.hidden = true; modal.hidden = true; };
 }
 
+// Time picker modal for editing (start time is fixed)
+export function openTimePickerForEdit(state, currentStart, currentDuration, onDone) {
+  const backdrop = document.getElementById('modal-backdrop');
+  const modal = document.getElementById('modal-time');
+  const startInput = document.getElementById('pick-start');
+  const durInput = document.getElementById('pick-duration');
+  
+  // 開始時間を固定し、読み取り専用に
+  startInput.value = currentStart;
+  startInput.readOnly = true;
+  startInput.style.backgroundColor = '#f0f0f0';
+  
+  durInput.value = String(currentDuration);
+
+  const ok = document.getElementById('time-ok');
+  const cancel = document.getElementById('time-cancel');
+  backdrop.hidden = false; modal.hidden = false;
+  
+  ok.onclick = () => {
+    const dur = Math.max(5, parseInt(durInput.value||'15',10));
+    backdrop.hidden = true; modal.hidden = true;
+    // 開始時間は変更せず、所要時間だけ変更
+    onDone(currentStart, dur);
+    
+    // リセット
+    startInput.readOnly = false;
+    startInput.style.backgroundColor = '';
+  };
+  
+  cancel.onclick = () => {
+    backdrop.hidden = true; modal.hidden = true;
+    // リセット
+    startInput.readOnly = false;
+    startInput.style.backgroundColor = '';
+  };
+}
+
 // Rename lane modal
 export function openRenameLane(state, laneId, onSave, onReset) {
   const backdrop = document.getElementById('modal-backdrop');
@@ -308,8 +345,15 @@ export function exportScheduleAsJPG(state) {
   
   btnExport.addEventListener('click', () => {
     // 重複チェック
-    if (hasOverlappingBlocks(state)) {
-      alert('予定が重複しています。JPEG出力できません。\n重複している予定を修正してください。');
+    const overlaps = findOverlappingBlocks(state);
+    if (overlaps.length > 0) {
+      let message = '予定が重複しています。JPEG出力できません。\n\n重複箇所：\n';
+      overlaps.forEach((overlap, index) => {
+        const laneName = state.lanesById[overlap.laneId].name;
+        message += `${index + 1}. ${laneName}: 「${overlap.block1.title}」と「${overlap.block2.title}」\n`;
+        message += `   ${overlap.block1.start}～(${overlap.block1.durationMin}分) と ${overlap.block2.start}～(${overlap.block2.durationMin}分)\n`;
+      });
+      alert(message);
       return;
     }
     
@@ -329,9 +373,9 @@ export function exportScheduleAsJPG(state) {
   });
 }
 
-// 重複チェック関数
-function hasOverlappingBlocks(state) {
-  // 各レーンごとにブロックをチェック
+// 重複チェック関数（詳細情報を返す）
+function findOverlappingBlocks(state) {
+  const overlaps = [];
   const lanes = ['global', 'lane1', 'lane2'];
   
   for (const laneId of lanes) {
@@ -356,12 +400,16 @@ function hasOverlappingBlocks(state) {
       const nextStart = nh * 60 + nm;
       
       if (currentEnd > nextStart) {
-        return true; // 重複あり
+        overlaps.push({
+          laneId,
+          block1: current,
+          block2: next
+        });
       }
     }
   }
   
-  return false; // 重複なし
+  return overlaps;
 }
 
 // Delete confirmation modal
@@ -389,12 +437,12 @@ export function openDeleteConfirm(state, block, onDeleted) {
     backdrop.hidden = true;
     modal.hidden = true;
     
-    // 時間編集モーダルを開く
-    openTimePicker(state, block.durationMin, (newStart, newDuration) => {
+    // 開始時間固定で時間編集モーダルを開く
+    openTimePickerForEdit(state, block.start, block.durationMin, (newStart, newDuration) => {
       block.start = newStart;
       block.durationMin = newDuration;
       onDeleted(); // Re-render
-    }, block.laneId);
+    });
   };
   
   cancel.onclick = () => {
