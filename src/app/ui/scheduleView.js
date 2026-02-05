@@ -217,7 +217,7 @@ export function openLanePicker(state, onDone) {
   lanes.forEach(id => {
     const l = state.lanesById[id];
     const label = document.createElement('label');
-    label.style.display = 'flex'; label.style.alignItems = 'center'; label.style.gap = '8px'; label.style.marginBottom = '6px';
+    label.style.display = 'flex'; label.style.alignItems = 'center'; label.style.gap = '12px'; label.style.marginBottom = '10px';
     const radio = document.createElement('input'); radio.type = 'radio'; radio.name = 'lane-radio'; radio.value = id;
     label.appendChild(radio);
     label.appendChild(document.createTextNode(l.name));
