@@ -1,10 +1,20 @@
 
 import { AppState, nextFutureSundayYMD } from './utils/state.js';
-import { MENUS, isEligible } from './logic/menus.js';
+import { MENUS, isEligible, loadMenuConfig } from './logic/menus.js';
 import { renderMenuList } from './ui/menuPanel.js';
 import { renderGrid, addBlockToSchedule, exportScheduleAsJPG, openLanePicker, openTimePicker, openRenameLane } from './ui/scheduleView.js';
 
 const state = new AppState();
+
+// 設定ファイルを読み込んでから初期化
+async function initialize() {
+  // メニュー設定を読み込み
+  await loadMenuConfig();
+  
+  // Initial render
+  renderGrid(state);
+  updateMenuCandidates();
+}
 
 // --- Initialize session date (next future Sunday) ---
 const dateInput = document.getElementById('input-date');
@@ -138,10 +148,6 @@ chips.forEach(ch => ch.addEventListener('click', () => {
   updateMenuCandidates();
 }));
 
-// Initial render
-renderGrid(state);
-updateMenuCandidates();
-
 function updateMenuCandidates() {
   const list = MENUS.filter(m => isEligible(m, state.counts));
   const filtered = state.ui.filterCat ? list.filter(m => m.categoryShort === state.ui.filterCat) : list;
@@ -180,3 +186,6 @@ function updateMenuCandidates() {
 
 // Export button setup (delegated to scheduleView)
 exportScheduleAsJPG(state);
+
+// アプリケーションを初期化
+initialize();

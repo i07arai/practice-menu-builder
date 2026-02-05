@@ -1,0 +1,97 @@
+{
+  "menus": [
+    {
+      "id": "warmup",
+      "name": "アップ",
+      "categoryShort": "ｱｯﾌﾟ",
+      "category": "warmup",
+      "durationDefaultMin": 15,
+      "conditions": {
+        "minTotal": 1
+      }
+    },
+    {
+      "id": "all_knock",
+      "name": "全体ノック",
+      "categoryShort": "守",
+      "category": "fielding",
+      "durationDefaultMin": 30,
+      "conditions": {
+        "minTotal": 4
+      }
+    },
+    {
+      "id": "free_batting",
+      "name": "フリーバッティング",
+      "categoryShort": "打",
+      "category": "batting",
+      "durationDefaultMin": 60,
+      "conditions": {
+        "minP": 1,
+        "minTotal": 9
+      }
+    },
+    {
+      "id": "tee_batting",
+      "name": "ティーバッティング",
+      "categoryShort": "打",
+      "category": "batting",
+      "durationDefaultMin": 30,
+      "conditions": {
+        "minTotal": 2
+      }
+    },
+    {
+      "id": "infield_knock",
+      "name": "内野ノック",
+      "categoryShort": "守",
+      "category": "fielding",
+      "durationDefaultMin": 30,
+      "conditions": {
+        "minPlusIF": 3,
+        "minTotal": 6
+      }
+    },
+    {
+      "id": "outfield_knock",
+      "name": "外野ノック",
+      "categoryShort": "守",
+      "category": "fielding",
+      "durationDefaultMin": 30,
+      "conditions": {
+        "minOF": 3,
+        "minTotal": 6
+      }
+    },
+    {
+      "id": "pitching",
+      "name": "ピッチング練習",
+      "categoryShort": "投",
+      "category": "pitching",
+      "durationDefaultMin": 30,
+      "conditions": {
+        "minP": 1,
+        "minTotal": 4
+      }
+    },
+    {
+      "id": "pepper",
+      "name": "ゴロペッパー",
+      "categoryShort": "守",
+      "category": "fielding",
+      "durationDefaultMin": 15,
+      "conditions": {
+        "minTotal": 2
+      }
+    }
+  ],
+  "説明": {
+    "conditions": {
+      "minP": "投手の最小人数",
+      "minIF": "内野の最小人数",
+      "minOF": "外野の最小人数",
+      "minTotal": "全体の最小人数",
+      "minPlusIF": "投手+内野の最小人数"
+    }
+  }
+}

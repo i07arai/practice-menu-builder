@@ -44,7 +44,14 @@ assets/icons/         # 画像やアイコン（必要に応じて）
 - JPGは**簡易描画**。見た目はCSSと若干異なる場合があります（視認性重視）
 
 ## 追記・拡張のヒント
-- `src/app/logic/menus.js` に新メニューを追加し、`condition` 関数で人数条件を定義。
+- **メニュー設定は `config/menus-config.json` で編集可能**
+  - メニュー名、所要時間、人数条件などをJSONファイルで簡単に変更できます
+  - 条件の設定方法：
+    - `minP`: 投手の最小人数
+    - `minIF`: 内野の最小人数
+    - `minOF`: 外野の最小人数
+    - `minTotal`: 全体の最小人数
+    - `minPlusIF`: 投手+内野の最小人数
 - レーン名変更は `state.renameLane()` / `state.resetLaneName()` を利用。
 - 画面比をA4向けにしたい場合は、`exporter.js` の `width/height` を差し替えます。
 
