@@ -353,7 +353,7 @@ export function exportScheduleAsJPG(state) {
         message += `${index + 1}. ${laneName}: 「${overlap.block1.title}」と「${overlap.block2.title}」\n`;
         message += `   ${overlap.block1.start}～(${overlap.block1.durationMin}分) と ${overlap.block2.start}～(${overlap.block2.durationMin}分)\n`;
       });
-      alert(message);
+      showAlert('JPEG出力エラー', message);
       return;
     }
     
@@ -448,4 +448,33 @@ export function openDeleteConfirm(state, block, onDeleted) {
   cancel.onclick = () => {
     backdrop.hidden = true; modal.hidden = true;
   };
+}
+
+// カスタムアラートモーダル
+function showAlert(title, message) {
+  const backdrop = document.getElementById('modal-backdrop');
+  const modal = document.getElementById('modal-alert');
+  const titleEl = document.getElementById('alert-title');
+  const messageEl = document.getElementById('alert-message');
+  const okBtn = document.getElementById('alert-ok');
+  
+  titleEl.textContent = title;
+  messageEl.textContent = message;
+  backdrop.hidden = false;
+  modal.hidden = false;
+  
+  okBtn.onclick = () => {
+    backdrop.hidden = true;
+    modal.hidden = true;
+  };
+  
+  // Enterキーでも閉じられるように
+  const handleEnter = (e) => {
+    if (e.key === 'Enter') {
+      backdrop.hidden = true;
+      modal.hidden = true;
+      document.removeEventListener('keydown', handleEnter);
+    }
+  };
+  document.addEventListener('keydown', handleEnter);
 }
