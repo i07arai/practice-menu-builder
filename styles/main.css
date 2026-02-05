@@ -94,6 +94,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .modal-content h3 { margin: 0; font-size: 18px; font-weight: 700; color: var(--primary); }
 .modal-actions { display: flex; justify-content: flex-end; gap: 8px; }
 .modal-actions .btn { color: var(--fg); }
+.modal-actions .btn.primary { color: #fff; }
 
 /* Count selector menu */
 .count-selector { position: absolute; background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-md); padding: 4px; z-index: 1000; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
