@@ -10,7 +10,7 @@
 <body>
   <div id="app">
     <header class="app-header">
-      <h1>メニューを選択</h1>
+      <h1>二小クラブ練習メニュー</h1>
       <div class="session-inputs">
         <label>日付
           <input type="date" id="input-date" />
@@ -40,19 +40,19 @@
           <div class="count-field">
             <span>投手</span>
             <button class="btn minus" data-role="P">−</button>
-            <input type="number" id="count-P" value="0" min="0" />
+            <div class="count-display" id="count-P" data-role="P">0</div>
             <button class="btn plus" data-role="P">＋</button>
           </div>
           <div class="count-field">
             <span>内野</span>
             <button class="btn minus" data-role="IF">−</button>
-            <input type="number" id="count-IF" value="0" min="0" />
+            <div class="count-display" id="count-IF" data-role="IF">0</div>
             <button class="btn plus" data-role="IF">＋</button>
           </div>
           <div class="count-field">
             <span>外野</span>
             <button class="btn minus" data-role="OF">−</button>
-            <input type="number" id="count-OF" value="0" min="0" />
+            <div class="count-display" id="count-OF" data-role="OF">0</div>
             <button class="btn plus" data-role="OF">＋</button>
           </div>
         </div>

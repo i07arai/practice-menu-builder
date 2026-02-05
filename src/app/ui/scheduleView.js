@@ -54,10 +54,14 @@ export function renderGrid(state) {
     col.dataset.laneId = laneId;
     // Render blocks for this lane
     const blocks = state.blocks.filter(b => b.laneId === laneId);
+    console.log(`Lane: ${laneId}, Blocks: ${blocks.length}`, blocks); // デバッグ
     blocks.forEach((b, idx) => {
+      console.log(`Block data:`, b); // ブロックデータ全体を出力
       const el = document.createElement('div');
       const menu = MENUS.find(m => m.id === b.menuId);
-      const categoryClass = menu ? `block-${menu.categoryShort}` : '';
+      console.log(`menuId: ${b.menuId}, found menu:`, menu); // menuIdと検索結果
+      const categoryClass = menu ? `block-${menu.category}` : '';
+      console.log(`Category class: '${categoryClass}', Full className: 'block ${categoryClass}'`); // クラス名を確認
       el.className = `block ${categoryClass}`.trim();
       el.style.cursor = 'move';
       el.draggable = false;

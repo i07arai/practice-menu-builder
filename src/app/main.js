@@ -64,19 +64,65 @@ countsToggle.addEventListener('click', () => {
 
 // Counts inputs and +/- buttons
 ['P','IF','OF'].forEach(role => {
-  const input = document.getElementById(`count-${role}`);
-  input.addEventListener('input', () => {
-    const v = Math.max(0, parseInt(input.value || '0', 10));
-    state.counts[role] = v;
-    updateMenuCandidates();
+  const display = document.getElementById(`count-${role}`);
+  
+  // Click to show selector
+  display.addEventListener('click', (e) => {
+    // Remove any existing selector
+    document.querySelectorAll('.count-selector').forEach(s => s.remove());
+    
+    // Create selector menu
+    const selector = document.createElement('div');
+    selector.className = 'count-selector';
+    
+    for (let i = 0; i <= 9; i++) {
+      const item = document.createElement('div');
+      item.className = 'count-selector-item';
+      item.textContent = i;
+      item.addEventListener('click', () => {
+        display.textContent = i;
+        state.counts[role] = i;
+        updateMenuCandidates();
+        selector.remove();
+      });
+      selector.appendChild(item);
+    }
+    
+    // Position selector below the display
+    const rect = display.getBoundingClientRect();
+    selector.style.position = 'fixed';
+    selector.style.top = `${rect.bottom + 4}px`;
+    selector.style.left = `${rect.left}px`;
+    selector.style.width = `${rect.width}px`;
+    
+    document.body.appendChild(selector);
+    
+    // Close on click outside
+    const closeSelector = (ev) => {
+      if (!selector.contains(ev.target) && ev.target !== display) {
+        selector.remove();
+        document.removeEventListener('click', closeSelector);
+      }
+    };
+    setTimeout(() => document.addEventListener('click', closeSelector), 0);
   });
+  
+  // Plus button
   document.querySelectorAll(`.btn.plus[data-role="${role}"]`).forEach(btn => btn.addEventListener('click', () => {
-    input.value = String(Math.max(0, parseInt(input.value || '0', 10)) + 1);
-    const v = parseInt(input.value, 10); state.counts[role] = v; updateMenuCandidates();
+    const current = Math.max(0, parseInt(display.textContent || '0', 10));
+    const newVal = Math.min(9, current + 1);
+    display.textContent = String(newVal);
+    state.counts[role] = newVal;
+    updateMenuCandidates();
   }));
+  
+  // Minus button
   document.querySelectorAll(`.btn.minus[data-role="${role}"]`).forEach(btn => btn.addEventListener('click', () => {
-    input.value = String(Math.max(0, parseInt(input.value || '0', 10) - 1));
-    const v = parseInt(input.value, 10); state.counts[role] = v; updateMenuCandidates();
+    const current = Math.max(0, parseInt(display.textContent || '0', 10));
+    const newVal = Math.max(0, current - 1);
+    display.textContent = String(newVal);
+    state.counts[role] = newVal;
+    updateMenuCandidates();
   }));
 });
 
