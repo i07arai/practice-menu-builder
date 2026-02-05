@@ -307,6 +307,12 @@ export function exportScheduleAsJPG(state) {
   if (!btnExport) return;
   
   btnExport.addEventListener('click', () => {
+    // 重複チェック
+    if (hasOverlappingBlocks(state)) {
+      alert('予定が重複しています。JPEG出力できません。\n重複している予定を修正してください。');
+      return;
+    }
+    
     const width = 1080, height = 1920;
     const dataUrl = drawJPG(state, width, height);
     const a = document.createElement('a');
@@ -322,15 +328,52 @@ export function exportScheduleAsJPG(state) {
     document.body.appendChild(a); a.click(); a.remove();
   });
 }
+
+// 重複チェック関数
+function hasOverlappingBlocks(state) {
+  // 各レーンごとにブロックをチェック
+  const lanes = ['global', 'lane1', 'lane2'];
+  
+  for (const laneId of lanes) {
+    const laneBlocks = state.blocks.filter(b => b.laneId === laneId);
+    
+    // ブロックを時間順にソート
+    laneBlocks.sort((a, b) => {
+      const [ah, am] = a.start.split(':').map(n => parseInt(n, 10));
+      const [bh, bm] = b.start.split(':').map(n => parseInt(n, 10));
+      return (ah * 60 + am) - (bh * 60 + bm);
+    });
+    
+    // 隣接するブロックをチェック
+    for (let i = 0; i < laneBlocks.length - 1; i++) {
+      const current = laneBlocks[i];
+      const next = laneBlocks[i + 1];
+      
+      const [ch, cm] = current.start.split(':').map(n => parseInt(n, 10));
+      const currentEnd = ch * 60 + cm + current.durationMin;
+      
+      const [nh, nm] = next.start.split(':').map(n => parseInt(n, 10));
+      const nextStart = nh * 60 + nm;
+      
+      if (currentEnd > nextStart) {
+        return true; // 重複あり
+      }
+    }
+  }
+  
+  return false; // 重複なし
+}
+
 // Delete confirmation modal
 export function openDeleteConfirm(state, block, onDeleted) {
   const backdrop = document.getElementById('modal-backdrop');
   const modal = document.getElementById('modal-delete');
   const message = document.getElementById('delete-message');
   const ok = document.getElementById('delete-ok');
+  const editBtn = document.getElementById('edit-time');
   const cancel = document.getElementById('delete-cancel');
 
-  message.textContent = `「${block.title}」を削除しますか？`;
+  message.textContent = `「${block.title}」（${block.start}〜、${block.durationMin}分）`;
   backdrop.hidden = false; modal.hidden = false;
   
   ok.onclick = () => {
@@ -340,6 +383,18 @@ export function openDeleteConfirm(state, block, onDeleted) {
     }
     backdrop.hidden = true; modal.hidden = true;
     onDeleted();
+  };
+  
+  editBtn.onclick = () => {
+    backdrop.hidden = true;
+    modal.hidden = true;
+    
+    // 時間編集モーダルを開く
+    openTimePicker(state, block.durationMin, (newStart, newDuration) => {
+      block.start = newStart;
+      block.durationMin = newDuration;
+      onDeleted(); // Re-render
+    }, block.laneId);
   };
   
   cancel.onclick = () => {
