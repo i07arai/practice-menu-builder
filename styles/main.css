@@ -104,3 +104,4 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .count-selector { position: absolute; background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px; box-shadow: var(--shadow-md); padding: 4px; z-index: 1000; display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
 .count-selector-item { padding: 12px; text-align: center; font-size: 16px; font-weight: 600; border-radius: 6px; cursor: pointer; transition: var(--transition); background: var(--card-bg); }
 .count-selector-item:hover { background: var(--primary); color: white; }
+.count-selector-item:last-child { grid-column: 2; }
