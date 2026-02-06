@@ -64,7 +64,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .menu-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; grid-template-columns: 1fr auto; align-items: center; background: var(--card-bg); box-shadow: var(--shadow-sm); transition: var(--transition); }
 .menu-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
 .menu-card.menu-warmup { background: linear-gradient(135deg, #ffead9 0%, #ffdcc0 100%) !important; }
-.menu-card.menu-pitching { background: linear-gradient(135deg, #ffd9e7 0%, #ffc0d5 100%) !important; }
+.menu-card.menu-pitching { background: linear-gradient(135deg, #ffe6f0 0%, #ffd9e7 100%) !important; }
 .menu-card.menu-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; }
 .menu-card.menu-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; }
 .menu-card h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--fg); }
@@ -86,7 +86,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .block { position: absolute; left: 1px; right: 0; border: 2px solid #555555; border-radius: 6px; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 10px 8px; overflow: visible; min-height: 50px; display: flex; flex-direction: column; justify-content: center; box-shadow: var(--shadow-sm); cursor: move; transition: var(--transition); }
 .block:hover { box-shadow: var(--shadow-md); transform: scale(1.02); }
 .block-warmup { background: linear-gradient(135deg, #ffead9 0%, #ffdcc0 100%) !important; }
-.block-pitching { background: linear-gradient(135deg, #ffd9e7 0%, #ffc0d5 100%) !important; }
+.block-pitching { background: linear-gradient(135deg, #ffe6f0 0%, #ffd9e7 100%) !important; }
 .block-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; }
 .block-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; }
 .block .title { font-weight: 600; font-size: 13px; line-height: 1.4; margin-bottom: 4px; word-break: break-word; color: var(--fg); }
