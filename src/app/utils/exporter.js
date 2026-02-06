@@ -5,7 +5,7 @@ import { MENUS } from '../logic/menus.js';
 // カテゴリごとの色定義
 const CATEGORY_COLORS = {
   'warmup': '#ffdcc0',
-  'pitching': '#ffd9e7',
+  'pitching': '#ffcdde',
   'fielding': '#c0dfff',
   'batting': '#caedbc'
 };
