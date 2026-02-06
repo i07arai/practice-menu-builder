@@ -51,6 +51,9 @@ endInput.addEventListener('change', (e) => {
 const locationSelect = document.getElementById('location-select');
 const locationText = document.getElementById('location-text');
 
+// Initialize location
+state.session.location = locationSelect.value;
+
 locationSelect.addEventListener('change', (e) => {
   if (e.target.value === '‚»‚Ì‘¼') {
     locationText.style.display = 'block';
