@@ -68,6 +68,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .menu-actions { display: flex; gap: 8px; }
 .schedule { border-top: 2px solid var(--line); padding-top: 12px; margin-top: 8px; }
 .schedule-header { display: grid; gap: 8px; }
+.schedule-header h2 { text-align: center; margin: 0; font-size: 18px; font-weight: 700; color: var(--primary); }
 .lane-headers { display: grid; grid-template-columns: 64px 1fr 1fr 1fr; gap: 4px; }
 .time-spacer { width: 64px; }
 .lane-header { border: 1px solid var(--line); border-radius: 8px; padding: 10px 8px; text-align: center; display: flex; justify-content: center; align-items: center; gap: 6px; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); font-weight: 600; box-shadow: var(--shadow-sm); }
@@ -96,6 +97,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .modal-content label { font-size: 16px; display: flex; flex-direction: column; gap: 8px; }
 .radio-group { display: flex; flex-direction: column; align-items: center; }
 .radio-group label { flex-direction: row; align-items: center; gap: 12px; margin-bottom: 10px; width: 120px; }
+.radio-group input[type="radio"]:checked { accent-color: rgb(14, 84, 117); }
 .modal-content input, .modal-content select { font-size: 16px; padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 .modal-actions .btn { color: var(--fg); font-size: 16px; padding: 12px 20px; min-width: 80px; }

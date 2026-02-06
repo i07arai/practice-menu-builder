@@ -51,15 +51,38 @@ export function drawJPG(state, width, height) {
     ctx.fillStyle = '#000000';
   }
 
+  // Determine which lanes have blocks
+  const lanesWithBlocks = {
+    global: state.blocks.some(b => b.laneId === 'global'),
+    lane1: state.blocks.some(b => b.laneId === 'lane1'),
+    lane2: state.blocks.some(b => b.laneId === 'lane2')
+  };
+  
+  // Determine visible lanes
+  let visibleLanes = [];
+  if (!lanesWithBlocks.lane1 && !lanesWithBlocks.lane2) {
+    // 全体レーンのみ
+    visibleLanes = ['global'];
+  } else if (lanesWithBlocks.lane1 && !lanesWithBlocks.lane2) {
+    // 全体と他1のみ
+    visibleLanes = ['global', 'lane1'];
+  } else if (!lanesWithBlocks.lane1 && lanesWithBlocks.lane2) {
+    // 全体と他2のみ
+    visibleLanes = ['global', 'lane2'];
+  } else {
+    // すべて表示
+    visibleLanes = ['global', 'lane1', 'lane2'];
+  }
+  
   // Lane headers with time column spacer
   const timeColWidth = 120;
-  const laneW = Math.floor((width - timeColWidth - 80) / 3);
+  const laneCount = visibleLanes.length;
+  const laneW = Math.floor((width - timeColWidth - 80) / laneCount);
   const startY = 160;
   const headerH = 80;
   const leftX = timeColWidth;
-  const lanes = ['global','lane1','lane2'];
   
-  lanes.forEach((id, i) => {
+  visibleLanes.forEach((id, i) => {
     const name = state.lanesById[id].name;
     const x = leftX + i * laneW;
     
@@ -107,7 +130,8 @@ export function drawJPG(state, width, height) {
 
   // Draw blocks per lane
   state.blocks.forEach(b => {
-    const laneIndex = b.laneId === 'global' ? 0 : (b.laneId === 'lane1' ? 1 : 2);
+    const laneIndex = visibleLanes.indexOf(b.laneId);
+    if (laneIndex === -1) return; // Skip if lane is not visible
     const x = leftX + laneIndex * laneW + 2;
     const topIdx = times.indexOf(b.start);
     if (topIdx === -1) return; // Skip if time not found
