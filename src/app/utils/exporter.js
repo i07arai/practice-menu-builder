@@ -116,12 +116,23 @@ export function drawJPG(state, width, height) {
   ctx.font = '32px system-ui';
   times.forEach((t, idx) => {
     const y = gridTop + idx * rowPx;
-    ctx.strokeStyle = '#cccccc';
-    ctx.lineWidth = 1;
+    
+    // 30分ごと（偶数インデックス）は実線、15分ごと（奇数）は点線
+    if (idx % 2 === 0) {
+      ctx.strokeStyle = '#cccccc';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([]);
+    } else {
+      ctx.strokeStyle = '#d9d9d9';
+      ctx.lineWidth = 1;
+      ctx.setLineDash([5, 5]);
+    }
+    
     ctx.beginPath(); 
     ctx.moveTo(leftX, y); 
     ctx.lineTo(width - 50, y); 
     ctx.stroke();
+    ctx.setLineDash([]); // リセット
     
     if (idx % 2 === 0) { 
       ctx.fillStyle = '#666666'; 
