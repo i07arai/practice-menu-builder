@@ -109,6 +109,8 @@ export function renderGrid(state) {
           }
         } else if (!isDragging && (Math.abs(clientX - startX) > 5 || Math.abs(clientY - startY) > 5)) {
           isDragging = true;
+          el.style.transition = 'none';
+          el.style.willChange = 'top, opacity';
           el.style.opacity = '0.7';
           el.style.zIndex = '1000';
         }
@@ -160,6 +162,10 @@ export function renderGrid(state) {
           });
         }
         
+        if (isDragging || isResizing) {
+          el.style.transition = '';
+          el.style.willChange = '';
+        }
         el.style.opacity = '1';
         el.style.zIndex = 'auto';
         isDragging = false;
