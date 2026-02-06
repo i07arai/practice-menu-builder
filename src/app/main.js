@@ -87,7 +87,8 @@ countsToggle.addEventListener('click', () => {
     const selector = document.createElement('div');
     selector.className = 'count-selector';
     
-    for (let i = 0; i <= 9; i++) {
+    // 1-9, then 0
+    for (let i = 1; i <= 9; i++) {
       const item = document.createElement('div');
       item.className = 'count-selector-item';
       item.textContent = i;
@@ -99,6 +100,17 @@ countsToggle.addEventListener('click', () => {
       });
       selector.appendChild(item);
     }
+    // Add 0 at the end
+    const item0 = document.createElement('div');
+    item0.className = 'count-selector-item';
+    item0.textContent = 0;
+    item0.addEventListener('click', () => {
+      display.textContent = 0;
+      state.counts[role] = 0;
+      updateMenuCandidates();
+      selector.remove();
+    });
+    selector.appendChild(item0);
     
     // Position selector below the display
     const rect = display.getBoundingClientRect();
