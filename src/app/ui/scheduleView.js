@@ -71,6 +71,9 @@ export function renderGrid(state) {
       el.style.height = `${height}px`;
       el.innerHTML = `<div class="title">${b.title}</div><div class="sub">${b.durationMin}分</div><div class="resize-handle"></div>`;
       
+      // Cache DOM elements
+      const subDiv = el.querySelector('.sub');
+      
       // Drag and drop functionality (mouse and touch)
       let isDragging = false;
       let isResizing = false;
@@ -87,6 +90,8 @@ export function renderGrid(state) {
         // Check if clicking on resize handle
         if (target && target.classList.contains('resize-handle')) {
           isResizing = true;
+          el.style.transition = 'none';
+          el.style.willChange = 'height';
         }
       };
       
@@ -99,7 +104,6 @@ export function renderGrid(state) {
           
           // Update duration display
           const newDuration = Math.round(newHeight / rowHeight(step)) * step;
-          const subDiv = el.querySelector('.sub');
           if (subDiv) {
             subDiv.textContent = `${newDuration}分`;
           }
@@ -122,6 +126,8 @@ export function renderGrid(state) {
           const newDuration = Math.round(newHeight / rowHeight(step)) * step;
           b.durationMin = Math.max(step, newDuration);
           
+          el.style.transition = '';
+          el.style.willChange = '';
           renderGrid(state);
           isResizing = false;
         } else if (isDragging) {
