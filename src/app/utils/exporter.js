@@ -41,13 +41,15 @@ export function drawJPG(state, width, height) {
   if (state.session.location) {
     title += `＠${state.session.location}`;
   }
-  ctx.fillText(title, 50, 80);
+  const titleWidth = ctx.measureText(title).width;
+  ctx.fillText(title, (width - titleWidth) / 2, 80);
   
   // Date info
   if (state.session.date) {
     ctx.font = '32px system-ui';
     ctx.fillStyle = '#666666';
-    ctx.fillText(state.session.date, 50, 130);
+    const dateWidth = ctx.measureText(state.session.date).width;
+    ctx.fillText(state.session.date, (width - dateWidth) / 2, 130);
     ctx.fillStyle = '#000000';
   }
 
