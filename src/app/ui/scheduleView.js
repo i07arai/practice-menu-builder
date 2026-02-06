@@ -118,6 +118,24 @@ export function renderGrid(state) {
         if (isDragging) {
           const deltaY = clientY - startY;
           el.style.top = `${startTop + deltaY}px`;
+          
+          // Highlight target lane
+          const wrapperRect = wrapper.getBoundingClientRect();
+          const relativeX = clientX - wrapperRect.left;
+          const timeColWidth = 64;
+          const laneWidth = (wrapperRect.width - timeColWidth) / 3;
+          const targetLaneIndex = Math.floor((relativeX - timeColWidth) / laneWidth);
+          const lanes = ['global', 'lane1', 'lane2'];
+          const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
+          
+          // Remove highlight from all lanes
+          wrapper.querySelectorAll('.grid-col').forEach(c => c.classList.remove('drag-target'));
+          
+          // Add highlight to target lane
+          const targetCol = wrapper.querySelector(`.grid-col[data-lane-id="${targetLaneId}"]`);
+          if (targetCol) {
+            targetCol.classList.add('drag-target');
+          }
         }
       };
       
@@ -166,6 +184,10 @@ export function renderGrid(state) {
           el.style.transition = '';
           el.style.willChange = '';
         }
+        
+        // Remove lane highlight
+        wrapper.querySelectorAll('.grid-col').forEach(c => c.classList.remove('drag-target'));
+        
         el.style.opacity = '1';
         el.style.zIndex = 'auto';
         isDragging = false;

@@ -78,6 +78,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .grid-table th, .grid-table td { border: 1px solid var(--line); }
 .grid-time { width: 64px; font-size: 12px; color: var(--muted); text-align: right; padding-right: 6px; font-weight: 500; }
 .grid-col { position: relative; min-height: 200px; background: #fafbfc; }
+.grid-col.drag-target { background: rgba(16, 98, 135, 0.1); transition: background 0.15s ease; }
 .block { position: absolute; left: 1px; right: 0; border: 2px solid #555555; border-radius: 6px; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%); padding: 10px 8px; overflow: visible; min-height: 50px; display: flex; flex-direction: column; justify-content: center; box-shadow: var(--shadow-sm); cursor: move; transition: var(--transition); }
 .block:hover { box-shadow: var(--shadow-md); transform: scale(1.02); }
 .block-warmup { background: linear-gradient(135deg, #ffe4cc 0%, #ffd4b3 100%) !important; }
