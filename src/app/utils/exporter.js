@@ -4,10 +4,10 @@ import { MENUS } from '../logic/menus.js';
 
 // カテゴリごとの色定義
 const CATEGORY_COLORS = {
-  'warmup': '#ffd4b3',
-  'pitching': '#ffb3cc',
-  'fielding': '#b3d9ff',
-  'batting': '#c0edb0'
+  'warmup': '#ffe4cc',
+  'pitching': '#ffccdd',
+  'fielding': '#cce5ff',
+  'batting': '#d4ecc8'
 };
 
 // 角丸四角形を描画するヘルパー関数
