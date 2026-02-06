@@ -10,7 +10,10 @@
 <body>
   <div id="app">
     <header class="app-header">
-      <h1>二小クラブ練習メニュー</h1>
+      <div class="header-title">
+        <h1>二小クラブ練習メニュー</h1>
+        <a href="#" id="help-link" class="help-link">使い方</a>
+      </div>
       <div class="session-inputs">
         <label>日付
           <input type="date" id="input-date" />
@@ -158,6 +161,39 @@
       <p id="alert-message" style="white-space: pre-line;"></p>
       <div class="modal-actions">
         <button class="btn primary" id="alert-ok">OK</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-help" hidden>
+    <div class="modal-content">
+      <h3>使い方</h3>
+      <div class="help-content">
+        <section>
+          <h4>1. 練習日時を設定</h4>
+          <p>日付、開始・終了時間、練習場所を選択します。</p>
+        </section>
+        <section>
+          <h4>2. 人数を設定</h4>
+          <p>投手・内野・外野の人数をタップして選択します。1〜9、0の順で選べます。10人以上は「＋」ボタンで追加できます。</p>
+        </section>
+        <section>
+          <h4>3. メニューを追加</h4>
+          <p>表示されたメニューをタップすると、レーン選択画面が表示されます。全体・他1・他2から選んで「決定」を押すと、スケジュールに追加されます。</p>
+        </section>
+        <section>
+          <h4>4. スケジュールを編集</h4>
+          <p><strong>移動：</strong>メニューをドラッグして時間やレーンを変更できます。<br>
+          <strong>時間変更：</strong>メニュー下部の横線をドラッグして所要時間を変更できます。<br>
+          <strong>削除：</strong>メニューをタップして「削除」を選択します。</p>
+        </section>
+        <section>
+          <h4>5. 画像出力</h4>
+          <p>「スケジュール画像出力」ボタンで画像として保存できます。</p>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button class="btn primary" id="help-close">閉じる</button>
       </div>
     </div>
   </div>

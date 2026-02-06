@@ -202,5 +202,29 @@ function updateMenuCandidates() {
 // Export button setup (delegated to scheduleView)
 exportScheduleAsJPG(state);
 
+// Help modal
+const helpLink = document.getElementById('help-link');
+const helpModal = document.getElementById('modal-help');
+const helpBackdrop = document.getElementById('modal-backdrop');
+const helpClose = document.getElementById('help-close');
+
+helpLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  helpBackdrop.hidden = false;
+  helpModal.hidden = false;
+});
+
+helpClose.addEventListener('click', () => {
+  helpBackdrop.hidden = true;
+  helpModal.hidden = true;
+});
+
+helpBackdrop.addEventListener('click', () => {
+  if (!helpModal.hidden) {
+    helpBackdrop.hidden = true;
+    helpModal.hidden = true;
+  }
+});
+
 // アプリケーションを初期化
 initialize();
