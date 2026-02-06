@@ -54,7 +54,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .btn.primary:hover { background: var(--primary-dark); box-shadow: var(--shadow-md); }
 .btn.minus, .btn.plus { width: 32px; height: 32px; border-radius: 6px; font-size: 18px; display: flex; align-items: center; justify-content: center; background: var(--primary); color: white; border: none; }
 .btn.minus:hover, .btn.plus:hover { background: var(--primary-dark); }
-.category-filter { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; }
+.category-filter { display: flex; gap: 6px; margin-top: 12px; flex-wrap: wrap; justify-content: center; }
 .chip { border: 1px solid var(--line); border-radius: 20px; padding: 8px 14px; background: var(--card-bg); cursor: pointer; transition: var(--transition); font-size: 13px; font-weight: 500; color: var(--fg); -webkit-tap-highlight-color: transparent; }
 .chip:hover { background: #f8f9fa; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .chip:active { color: var(--fg); }
