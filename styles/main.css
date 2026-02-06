@@ -94,6 +94,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .modal-content h3 { margin: 0; font-size: 22px; font-weight: 700; color: var(--primary); }
 .modal-content p { font-size: 16px; line-height: 1.6; margin: 0; }
 .modal-content label { font-size: 16px; display: flex; flex-direction: column; gap: 8px; }
+.radio-group label { flex-direction: row; align-items: center; gap: 12px; margin-bottom: 10px; }
 .modal-content input, .modal-content select { font-size: 16px; padding: 12px; border: 1px solid var(--line); border-radius: 6px; }
 .modal-actions { display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
 .modal-actions .btn { color: var(--fg); font-size: 16px; padding: 12px 20px; min-width: 80px; }
