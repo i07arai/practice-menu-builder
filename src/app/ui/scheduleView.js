@@ -69,22 +69,41 @@ export function renderGrid(state) {
       const height = (b.durationMin / step) * rowHeight(step);
       el.style.top = `${top}px`;
       el.style.height = `${height}px`;
-      el.innerHTML = `<div class="title">${b.title}</div><div class="sub">${b.durationMin}分</div>`;
+      el.innerHTML = `<div class="title">${b.title}</div><div class="sub">${b.durationMin}分</div><div class="resize-handle"></div>`;
       
       // Drag and drop functionality (mouse and touch)
       let isDragging = false;
+      let isResizing = false;
       let dragStartTime = 0;
-      let startX, startY, startTop;
+      let startX, startY, startTop, startHeight;
       
-      const handleStart = (clientX, clientY) => {
+      const handleStart = (clientX, clientY, target) => {
         dragStartTime = Date.now();
         startX = clientX;
         startY = clientY;
         startTop = el.offsetTop;
+        startHeight = el.offsetHeight;
+        
+        // Check if clicking on resize handle
+        if (target && target.classList.contains('resize-handle')) {
+          isResizing = true;
+        }
       };
       
       const handleMove = (clientX, clientY) => {
-        if (!isDragging && (Math.abs(clientX - startX) > 5 || Math.abs(clientY - startY) > 5)) {
+        if (isResizing) {
+          // Resize mode
+          const deltaY = clientY - startY;
+          const newHeight = Math.max(rowHeight(step), startHeight + deltaY);
+          el.style.height = `${newHeight}px`;
+          
+          // Update duration display
+          const newDuration = Math.round(newHeight / rowHeight(step)) * step;
+          const subDiv = el.querySelector('.sub');
+          if (subDiv) {
+            subDiv.textContent = `${newDuration}分`;
+          }
+        } else if (!isDragging && (Math.abs(clientX - startX) > 5 || Math.abs(clientY - startY) > 5)) {
           isDragging = true;
           el.style.opacity = '0.7';
           el.style.zIndex = '1000';
@@ -97,7 +116,15 @@ export function renderGrid(state) {
       };
       
       const handleEnd = (clientX, clientY) => {
-        if (isDragging) {
+        if (isResizing) {
+          // Update block duration
+          const newHeight = parseInt(el.style.height);
+          const newDuration = Math.round(newHeight / rowHeight(step)) * step;
+          b.durationMin = Math.max(step, newDuration);
+          
+          renderGrid(state);
+          isResizing = false;
+        } else if (isDragging) {
           // Calculate new position
           const wrapperRect = wrapper.getBoundingClientRect();
           const relativeX = clientX - wrapperRect.left;
@@ -135,7 +162,7 @@ export function renderGrid(state) {
       // Mouse events
       el.addEventListener('mousedown', (e) => {
         e.preventDefault();
-        handleStart(e.clientX, e.clientY);
+        handleStart(e.clientX, e.clientY, e.target);
         
         const onMouseMove = (e) => handleMove(e.clientX, e.clientY);
         const onMouseUp = (e) => {
@@ -152,7 +179,7 @@ export function renderGrid(state) {
       el.addEventListener('touchstart', (e) => {
         e.preventDefault();
         const touch = e.touches[0];
-        handleStart(touch.clientX, touch.clientY);
+        handleStart(touch.clientX, touch.clientY, e.target);
         
         const onTouchMove = (e) => {
           const touch = e.touches[0];
