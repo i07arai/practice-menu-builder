@@ -7,7 +7,8 @@ export function renderMenuList(menus, { onSelect }) {
   if (menus.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'menu-card';
-    empty.innerHTML = '<h3>条件を満たすメニューがありません</h3><div class="menu-meta">人数やカテゴリを調整してください</div>';
+    empty.style.textAlign = 'center';
+    empty.innerHTML = '<h3 style="margin-bottom: 8px;">条件を満たすメニューがありません</h3><div class="menu-meta">人数やカテゴリを調整してください</div>';
     host.appendChild(empty);
     return;
   }
