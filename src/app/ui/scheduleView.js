@@ -52,6 +52,26 @@ export function renderGrid(state) {
     col.style.position = 'relative';
     col.style.borderLeft = '1px solid #d9d9d9';
     col.dataset.laneId = laneId;
+    
+    // Add horizontal lines for each time slot
+    times.forEach((t, idx) => {
+      const line = document.createElement('div');
+      line.style.position = 'absolute';
+      line.style.top = `${idx * rowHeight(step)}px`;
+      line.style.left = '0';
+      line.style.right = '0';
+      line.style.height = '1px';
+      
+      // 30分ごと（偶数インデックス）は実線、15分ごと（奇数）は点線
+      if (idx % 2 === 0) {
+        line.style.borderTop = '1px solid #d9d9d9';
+      } else {
+        line.style.borderTop = '1px dashed #e9ecef';
+      }
+      line.style.pointerEvents = 'none';
+      col.appendChild(line);
+    });
+    
     // Render blocks for this lane
     const blocks = state.blocks.filter(b => b.laneId === laneId);
     console.log(`Lane: ${laneId}, Blocks: ${blocks.length}`, blocks); // デバッグ
