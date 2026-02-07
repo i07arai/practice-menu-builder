@@ -148,13 +148,47 @@ export function renderGrid(state) {
           const lanes = ['global', 'lane1', 'lane2'];
           const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
           
-          // Remove highlight from all lanes
+          // Remove highlight from all lanes and existing preview
           wrapper.querySelectorAll('.grid-col').forEach(c => c.classList.remove('drag-target'));
+          const existingPreview = wrapper.querySelector('.drag-preview');
+          if (existingPreview) existingPreview.remove();
           
           // Add highlight to target lane
           const targetCol = wrapper.querySelector(`.grid-col[data-lane-id="${targetLaneId}"]`);
           if (targetCol) {
             targetCol.classList.add('drag-target');
+            
+            // Calculate preview position
+            const colTop = wrapper.querySelector('.grid-col').getBoundingClientRect().top;
+            const blockTop = clientY - colTop + wrapper.scrollTop;
+            const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
+            const newTime = times[Math.min(newTimeIndex, times.length - 1)];
+            const topPx = timeTop(newTime, timeRange, step);
+            
+            // Create preview shadow
+            const preview = document.createElement('div');
+            preview.className = 'drag-preview';
+            preview.style.position = 'absolute';
+            preview.style.left = '1px';
+            preview.style.right = '0';
+            preview.style.top = `${topPx}px`;
+            preview.style.height = `${rowHeight(step) * (b.durationMin / step)}px`;
+            preview.style.border = '2px dashed rgba(16, 98, 135, 0.5)';
+            preview.style.borderRadius = '6px';
+            preview.style.background = 'rgba(16, 98, 135, 0.1)';
+            preview.style.pointerEvents = 'none';
+            preview.style.zIndex = '999';
+            
+            // Add time label to preview
+            const timeLabel = document.createElement('div');
+            timeLabel.textContent = `${newTime}〜`;
+            timeLabel.style.fontSize = '11px';
+            timeLabel.style.color = 'var(--primary)';
+            timeLabel.style.fontWeight = '600';
+            timeLabel.style.padding = '4px';
+            preview.appendChild(timeLabel);
+            
+            targetCol.appendChild(preview);
           }
         }
       };
@@ -207,6 +241,8 @@ export function renderGrid(state) {
         
         // Remove lane highlight
         wrapper.querySelectorAll('.grid-col').forEach(c => c.classList.remove('drag-target'));
+        const existingPreview = wrapper.querySelector('.drag-preview');
+        if (existingPreview) existingPreview.remove();
         
         el.style.opacity = '1';
         el.style.zIndex = 'auto';
@@ -499,7 +535,6 @@ export function openDeleteConfirm(state, block, onDeleted) {
   const modal = document.getElementById('modal-delete');
   const message = document.getElementById('delete-message');
   const ok = document.getElementById('delete-ok');
-  const editBtn = document.getElementById('edit-time');
   const cancel = document.getElementById('delete-cancel');
 
   message.textContent = `「${block.title}」（${block.start}〜、${block.durationMin}分）`;
@@ -512,18 +547,6 @@ export function openDeleteConfirm(state, block, onDeleted) {
     }
     backdrop.hidden = true; modal.hidden = true;
     onDeleted();
-  };
-  
-  editBtn.onclick = () => {
-    backdrop.hidden = true;
-    modal.hidden = true;
-    
-    // 開始時間固定で時間編集モーダルを開く
-    openTimePickerForEdit(state, block.start, block.durationMin, (newStart, newDuration) => {
-      block.start = newStart;
-      block.durationMin = newDuration;
-      onDeleted(); // Re-render
-    });
   };
   
   cancel.onclick = () => {
