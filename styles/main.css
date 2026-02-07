@@ -59,7 +59,6 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .chip { border: 1px solid var(--line); border-radius: 20px; padding: 8px 14px; background: var(--card-bg); cursor: pointer; transition: var(--transition); font-size: 13px; font-weight: 500; color: var(--fg); -webkit-tap-highlight-color: transparent; }
 .chip:hover { background: #f8f9fa; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .chip:active { color: var(--fg); }
-.chip.active { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%); border-color: var(--primary); color: white; box-shadow: var(--shadow-sm); }
 
 /* カテゴリフィルタ未選択時の色付け */
 .chip.category-all { background: linear-gradient(135deg, #E8E5FF 0%, #D6D3F7 100%) !important; border-color: #E8E5FF; color: #4B3F8C; }
@@ -67,6 +66,9 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .chip.category-pitching { background: linear-gradient(135deg, #ffe0eb 0%, #ffcdde 100%) !important; border-color: #ffe0eb; color: #b03a6a; }
 .chip.category-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; border-color: #d9ecff; color: #106287; }
 .chip.category-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; border-color: #dcf2d2; color: #198754; }
+
+/* フィルタ選択時は予定表追加ボタンと同じ色 */
+.chip.active { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important; border-color: var(--primary) !important; color: white !important; box-shadow: var(--shadow-sm); }
 .app-main { display: grid; gap: 12px; padding: 16px; }
 .menu-list { display: flex; flex-direction: column; gap: 10px; }
 .menu-card { border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: grid; grid-template-columns: 1fr auto; align-items: center; background: var(--card-bg); box-shadow: var(--shadow-sm); transition: var(--transition); }
