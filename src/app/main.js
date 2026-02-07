@@ -229,6 +229,11 @@ const helpModal = document.getElementById('modal-help');
 const helpBackdrop = document.getElementById('modal-backdrop');
 const helpClose = document.getElementById('help-close');
 
+// Purpose modal
+const purposeLink = document.getElementById('purpose-link');
+const purposeModal = document.getElementById('modal-purpose');
+const purposeClose = document.getElementById('purpose-close');
+
 helpLink.addEventListener('click', (e) => {
   e.preventDefault();
   helpBackdrop.hidden = false;
@@ -250,11 +255,6 @@ helpBackdrop.addEventListener('click', () => {
     purposeModal.hidden = true;
   }
 });
-
-// Purpose modal
-const purposeLink = document.getElementById('purpose-link');
-const purposeModal = document.getElementById('modal-purpose');
-const purposeClose = document.getElementById('purpose-close');
 
 purposeLink.addEventListener('click', (e) => {
   e.preventDefault();
