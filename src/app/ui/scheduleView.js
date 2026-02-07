@@ -158,12 +158,12 @@ export function renderGrid(state) {
           if (targetCol) {
             targetCol.classList.add('drag-target');
             
-            // Calculate preview position
-            const colTop = wrapper.querySelector('.grid-col').getBoundingClientRect().top;
-            const blockTop = clientY - colTop + wrapper.scrollTop;
+            // Calculate preview position using current Y position
+            const colRect = targetCol.getBoundingClientRect();
+            const blockTop = clientY - colRect.top + targetCol.parentElement.scrollTop;
             const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
             const newTime = times[Math.min(newTimeIndex, times.length - 1)];
-            const topPx = timeTop(newTime, timeRange, step);
+            const topPx = positionFromTime(times, newTime, step);
             
             // Create preview shadow
             const preview = document.createElement('div');
