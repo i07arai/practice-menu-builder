@@ -245,6 +245,27 @@ helpBackdrop.addEventListener('click', () => {
     helpBackdrop.hidden = true;
     helpModal.hidden = true;
   }
+  if (!purposeModal.hidden) {
+    helpBackdrop.hidden = true;
+    purposeModal.hidden = true;
+  }
+});
+
+// Purpose modal
+const purposeLink = document.getElementById('purpose-link');
+const purposeModal = document.getElementById('modal-purpose');
+const purposeClose = document.getElementById('purpose-close');
+
+purposeLink.addEventListener('click', (e) => {
+  e.preventDefault();
+  // 使い方モーダルを閉じて目的モーダルを開く
+  helpModal.hidden = true;
+  purposeModal.hidden = false;
+});
+
+purposeClose.addEventListener('click', () => {
+  helpBackdrop.hidden = true;
+  purposeModal.hidden = true;
 });
 
 // アプリケーションを初期化
