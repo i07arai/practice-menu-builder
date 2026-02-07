@@ -233,6 +233,7 @@ const helpClose = document.getElementById('help-close');
 const purposeLink = document.getElementById('purpose-link');
 const purposeModal = document.getElementById('modal-purpose');
 const purposeClose = document.getElementById('purpose-close');
+const purposeBack = document.getElementById('purpose-back');
 
 helpLink.addEventListener('click', (e) => {
   e.preventDefault();
@@ -266,6 +267,12 @@ purposeLink.addEventListener('click', (e) => {
 purposeClose.addEventListener('click', () => {
   helpBackdrop.hidden = true;
   purposeModal.hidden = true;
+});
+
+purposeBack.addEventListener('click', () => {
+  // 目的モーダルを閉じて使い方モーダルを開く
+  purposeModal.hidden = true;
+  helpModal.hidden = false;
 });
 
 // アプリケーションを初期化
