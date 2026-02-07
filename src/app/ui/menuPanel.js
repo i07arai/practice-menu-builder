@@ -9,6 +9,7 @@ export function renderMenuList(menus, { onSelect }) {
     empty.className = 'menu-card';
     empty.style.textAlign = 'center';
     empty.style.gridTemplateColumns = '1fr';
+    empty.style.minHeight = '68px';
     empty.innerHTML = '<h3 style="margin-bottom: 8px; white-space: nowrap;">条件を満たすメニューがありません</h3><div class="menu-meta">人数やカテゴリを調整してください</div>';
     host.appendChild(empty);
     return;
