@@ -30,9 +30,9 @@ initDate();
 
 // Start/End default times
 startInput.value = '09:00';
-endInput.value = '12:00';
+endInput.value = '11:00';
 state.session.start = '09:00';
-state.session.end = '12:00';
+state.session.end = '11:00';
 
 // Bind session inputs
 dateInput.addEventListener('change', (e) => {
