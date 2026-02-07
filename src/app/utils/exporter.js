@@ -46,7 +46,7 @@ export function drawJPG(state, width, height) {
   
   // 日時情報
   if (state.session.date) {
-    ctx.font = '32px system-ui';
+    ctx.font = '45px system-ui';
     ctx.fillStyle = '#666666';
     
     // YYYY-MM-DDをYYYY/MM/DDに変換
