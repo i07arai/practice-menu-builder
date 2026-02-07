@@ -39,7 +39,28 @@ dateInput.addEventListener('change', (e) => {
   state.session.date = e.target.value;
 });
 startInput.addEventListener('change', (e) => {
-  state.session.start = e.target.value;
+  // 現在の開始時間と終了時間の差分（分）を計算
+  const oldStart = state.session.start || '09:00';
+  const oldEnd = state.session.end || '11:00';
+  const [oldStartH, oldStartM] = oldStart.split(':').map(Number);
+  const [oldEndH, oldEndM] = oldEnd.split(':').map(Number);
+  const durationMin = (oldEndH * 60 + oldEndM) - (oldStartH * 60 + oldStartM);
+  
+  // 新しい開始時間を設定
+  const newStart = e.target.value;
+  state.session.start = newStart;
+  
+  // 新しい終了時間を計算（開始時間 + 差分）
+  const [newStartH, newStartM] = newStart.split(':').map(Number);
+  const newEndTotalMin = (newStartH * 60 + newStartM) + durationMin;
+  const newEndH = Math.floor(newEndTotalMin / 60);
+  const newEndM = newEndTotalMin % 60;
+  const newEnd = `${String(newEndH).padStart(2, '0')}:${String(newEndM).padStart(2, '0')}`;
+  
+  // 終了時間を更新
+  state.session.end = newEnd;
+  endInput.value = newEnd;
+  
   renderGrid(state);
 });
 endInput.addEventListener('change', (e) => {
