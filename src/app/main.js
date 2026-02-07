@@ -232,7 +232,6 @@ const helpClose = document.getElementById('help-close');
 // Purpose modal
 const purposeLink = document.getElementById('purpose-link');
 const purposeModal = document.getElementById('modal-purpose');
-const purposeClose = document.getElementById('purpose-close');
 const purposeBack = document.getElementById('purpose-back');
 
 helpLink.addEventListener('click', (e) => {
@@ -262,11 +261,6 @@ purposeLink.addEventListener('click', (e) => {
   // 使い方モーダルを閉じて目的モーダルを開く
   helpModal.hidden = true;
   purposeModal.hidden = false;
-});
-
-purposeClose.addEventListener('click', () => {
-  helpBackdrop.hidden = true;
-  purposeModal.hidden = true;
 });
 
 purposeBack.addEventListener('click', () => {
