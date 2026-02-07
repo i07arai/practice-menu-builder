@@ -44,12 +44,22 @@ export function drawJPG(state, width, height) {
   const titleWidth = ctx.measureText(title).width;
   ctx.fillText(title, (width - titleWidth) / 2, 80);
   
-  // Date info
+  // 日時情報
   if (state.session.date) {
     ctx.font = '32px system-ui';
     ctx.fillStyle = '#666666';
-    const dateWidth = ctx.measureText(state.session.date).width;
-    ctx.fillText(state.session.date, (width - dateWidth) / 2, 130);
+    
+    // YYYY-MM-DDをYYYY/MM/DDに変換
+    const dateStr = state.session.date.replace(/-/g, '/');
+    
+    // 開始時間と終了時間を取得
+    const startTime = state.session.start || '';
+    const endTime = state.session.end || '';
+    
+    // "日時：YYYY/MM/DD　HH:MM～HH:MM" の形式で表示
+    const dateTimeStr = `日時：${dateStr}　${startTime}～${endTime}`;
+    const dateTimeWidth = ctx.measureText(dateTimeStr).width;
+    ctx.fillText(dateTimeStr, (width - dateTimeWidth) / 2, 130);
     ctx.fillStyle = '#000000';
   }
 
