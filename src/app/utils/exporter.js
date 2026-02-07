@@ -59,7 +59,7 @@ export function drawJPG(state, width, height) {
     // "日時：YYYY/MM/DD　HH:MM～HH:MM" の形式で表示
     const dateTimeStr = `日時：${dateStr}　${startTime}～${endTime}`;
     const dateTimeWidth = ctx.measureText(dateTimeStr).width;
-    ctx.fillText(dateTimeStr, (width - dateTimeWidth) / 2, 130);
+    ctx.fillText(dateTimeStr, (width - dateTimeWidth) / 2, 150);
     ctx.fillStyle = '#000000';
   }
 
