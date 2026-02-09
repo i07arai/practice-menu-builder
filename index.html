@@ -73,11 +73,17 @@
           </div>
         </div>
       </div>
-      <div class="category-filter" id="category-filter"></div>
+      <div class="category-filter" id="category-filter">
+        <button class="chip category-pitching" data-cat="投">投</button>
+        <button class="chip category-fielding" data-cat="守">守</button>
+        <button class="chip category-batting" data-cat="打">打</button>
+        <button class="chip category-warmup" data-cat="ｱｯﾌﾟ">ｱｯﾌﾟ</button>
+        <button class="chip category-all active" data-cat="all">すべて</button>
+      </div>
     </header>
 
     <main class="app-main">
-      <section id="menu-panel" class="menu-list"></section>
+      <section class="menu-list" id="menu-list"></section>
       <section class="schedule">
         <div class="schedule-header">
           <h2>予定表</h2>
@@ -104,8 +110,134 @@
     </main>
   </div>
 
+  <!-- Modals -->
+  <div class="modal-backdrop" id="modal-backdrop" hidden></div>
+  
+  <div class="modal" id="modal-lane" hidden>
+    <div class="modal-content">
+      <h3>レーンを選択</h3>
+      <div class="radio-group" id="lane-radio-group"></div>
+      <div class="modal-actions">
+        <button class="btn" id="lane-cancel">キャンセル</button>
+        <button class="btn primary" id="lane-ok">決定</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-time" hidden>
+    <div class="modal-content">
+      <h3>開始時刻と所要時間</h3>
+      <label>開始時刻（15分刻み）
+        <input type="time" id="pick-start" step="900" />
+      </label>
+      <label>所要時間（分）
+        <input type="number" id="pick-duration" min="5" step="5" />
+      </label>
+      <div class="modal-actions">
+        <button class="btn" id="time-cancel">キャンセル</button>
+        <button class="btn primary" id="time-ok">追加</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-rename" hidden>
+    <div class="modal-content">
+      <h3>レーン名を編集</h3>
+      <label>新しい名称
+        <input type="text" id="rename-input" maxlength="20" placeholder="例）投手／守備／打撃" />
+      </label>
+      <div class="modal-actions">
+        <button class="btn" id="rename-reset">リセット</button>
+        <button class="btn" id="rename-cancel">キャンセル</button>
+        <button class="btn primary" id="rename-ok">保存</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-delete" hidden>
+    <div class="modal-content">
+      <h3>予定を編集</h3>
+      <p id="delete-message">この予定をどうしますか？</p>
+      <div class="modal-actions">
+        <button class="btn" id="delete-cancel">キャンセル</button>
+        <button class="btn primary" id="delete-ok">削除</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-alert" hidden>
+    <div class="modal-content">
+      <h3 id="alert-title">通知</h3>
+      <p id="alert-message" style="white-space: pre-line;"></p>
+      <div class="modal-actions">
+        <button class="btn primary" id="alert-ok">OK</button>
+      </div>
+    </div>
+  </div>
+
   <!-- Modal container -->
   <div id="modal-container"></div>
+
+  <div class="modal" id="modal-help" hidden>
+    <div class="modal-content">
+      <h3>使い方</h3>
+      <div class="help-content">
+        <section>
+          <p style="margin-bottom: 12px;"><a href="#" id="purpose-link" style="color: var(--primary); text-decoration: underline;">→ このアプリの目的</a></p>
+        </section>
+        <section>
+          <h4>1. 練習日時を設定</h4>
+          <p>日付、開始・終了時間、練習場所を選択します。</p>
+          <p>※日付の初期値は直近の日曜日となっています。</p> 
+        </section>
+        <section>
+          <h4>2. 人数を設定</h4>
+          <p>投手・内野・外野の人数をタップして選択します。1?9、0の順で選べます。10人以上は「＋」ボタンで追加できます。</p>
+        </section>
+        <section>
+          <h4>3. メニューを追加</h4>
+          <p>表示されたメニューをタップすると、レーン選択画面が表示されます。全体・他1・他2から選んで「決定」を押すと、スケジュールに追加されます。</p>
+          <p>※他1・他2は、ブルペンや外野スペースなどに変更可能です。</p>
+        </section>
+        <section>
+          <h4>4. スケジュールを編集</h4>
+          <p><strong>移動：</strong>メニューをドラッグして時間やレーンを変更できます。<br>
+          <strong>時間変更：</strong>メニュー下部の横線をドラッグして所要時間を変更できます。<br>
+          <strong>削除：</strong>メニューをタップして「削除」を選択します。</p>
+        </section>
+        <section>
+          <h4>5. 画像出力</h4>
+          <p>「スケジュール画像出力」ボタンで画像として保存できます。</p>
+          <p>※練習メニューが重なっている(被っている)場合は出力できませんので調整してください。</p>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button class="btn primary" id="help-close">閉じる</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="modal-purpose" hidden>
+    <div class="modal-content">
+      <h3>このアプリの目的</h3>
+      <div class="help-content">
+        <section>
+          <h4>１．たてまえ</h4>
+          <p>このアプリは、二小クラブの練習スケジュールを効率的に作成・管理するためのツールとして開発したものです。</p>
+          <p>参加人数に応じて適切なメニューを提案し、時間配分を視覚的に確認しながらスケジュールを組むことができます。</p>
+          <p>作成したスケジュールは画像として保存し、SNSツールなどで共有することができます。</p>
+        </section>
+        <section>
+          <h4>２．ほんね</h4>
+          <p>練習参加可否イベントへの参加／不参加の表明がどうしても疎かになってしまう開発者が、参加／不参加の表明に意味を持たせようと開発しました。</p>
+          <p>人数によってできるメニューが限られてくるため、参加／不参加を早く決めないとと思うようになるし、この練習があるなら行こうかと思えるようになることを期待して開発しています。</p>
+        </section>
+      </div>
+      <div class="modal-actions">
+        <button class="btn primary" id="purpose-back">使い方へ戻る</button>
+      </div>
+    </div>
+  </div>
 
   <script type="module" src="./src/app/main.js"></script>
 </body>
