@@ -119,29 +119,15 @@ function renderRosterUI() {
   const roster = getRoster();
   const rosterGrid = document.querySelector('.roster-grid');
   
-  console.log('=== renderRosterUI called ===');
-  console.log('Roster data:', roster);
-  console.log('Roster length:', roster.length);
-  console.log('Roster grid element:', rosterGrid);
-  
-  if (!rosterGrid) {
-    console.error('❌ Roster grid not found!');
-    return;
-  }
-  
+  if (!rosterGrid) return;
   if (roster.length === 0) {
-    console.warn('⚠️ Roster is empty');
     rosterGrid.innerHTML = '<p style="text-align:center;color:#999;grid-column:1/-1;">名簿データがありません</p>';
     return;
   }
   
-  // Clear existing content
   rosterGrid.innerHTML = '';
-  console.log('Roster grid cleared, adding players...');
   
-  // Generate checkboxes from roster config
-  roster.forEach((player, index) => {
-    console.log(`Adding player ${index + 1}:`, player.name);
+  roster.forEach((player) => {
     const label = document.createElement('label');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
@@ -152,15 +138,11 @@ function renderRosterUI() {
     label.appendChild(document.createTextNode(' ' + player.name));
     rosterGrid.appendChild(label);
     
-    // Add change listener
     checkbox.addEventListener('change', () => {
       updateRosterCount();
       updateMenuCandidates();
     });
   });
-  
-  console.log(`✅ Successfully added ${roster.length} players to roster grid`);
-  console.log('Roster grid children count:', rosterGrid.children.length);
 }
 
 function updateRosterCount() {
