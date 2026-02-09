@@ -6,11 +6,15 @@ export async function loadRosterConfig() {
   try {
     // 常に相対パスを使用（GitHub Pages対応）
     const basePath = './config/member-config.json';
-    console.log('Loading roster from:', basePath);
-    console.log('Current pathname:', window.location.pathname);
+    const fullUrl = new URL(basePath, window.location.href);
+    console.log('🔍 Loading roster from:', basePath);
+    console.log('🔍 Full URL:', fullUrl.href);
+    console.log('🔍 Current location:', window.location.href);
     const response = await fetch(basePath);
+    console.log('📡 Response status:', response.status, response.statusText);
     if (!response.ok) {
-      console.warn('member-config.json not found, using default roster');
+      console.error('❌ member-config.json not found (404), using default roster');
+      console.error('❌ Attempted URL:', fullUrl.href);
       return;
     }
     const config = await response.json();
