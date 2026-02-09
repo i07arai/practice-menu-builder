@@ -1,6 +1,7 @@
 
 import { AppState, nextFutureSundayYMD } from './utils/state.js';
 import { MENUS, isEligible, loadMenuConfig } from './logic/menus.js';
+import { getRoster, loadRosterConfig } from './logic/roster.js';
 import { renderMenuList } from './ui/menuPanel.js';
 import { renderGrid, addBlockToSchedule, exportScheduleAsJPG, openLanePicker, openTimePicker, openRenameLane } from './ui/scheduleView.js';
 
@@ -10,6 +11,12 @@ const state = new AppState();
 async function initialize() {
   // ƒƒjƒ…[Ý’è‚ð“Ç‚Ýž‚Ý
   await loadMenuConfig();
+  
+  // –¼•ëÝ’è‚ð“Ç‚Ýž‚Ý
+  await loadRosterConfig();
+  
+  // –¼•ëUI‚ð¶¬
+  renderRosterUI();
   
   // Initial render
   renderGrid(state);
@@ -114,16 +121,41 @@ countModeSelect.addEventListener('change', (e) => {
   updateMenuCandidates();
 });
 
-// Roster checkboxes
-const rosterCheckboxes = rosterInput.querySelectorAll('input[type="checkbox"]');
-rosterCheckboxes.forEach(cb => {
-  cb.addEventListener('change', () => {
-    updateRosterCount();
-    updateMenuCandidates();
+// Render roster UI from config
+function renderRosterUI() {
+  const roster = getRoster();
+  const rosterGrid = document.querySelector('.roster-grid');
+  
+  if (!rosterGrid || roster.length === 0) {
+    console.warn('Roster grid not found or roster is empty');
+    return;
+  }
+  
+  // Clear existing content
+  rosterGrid.innerHTML = '';
+  
+  // Generate checkboxes from roster config
+  roster.forEach((player) => {
+    const label = document.createElement('label');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.dataset.playerId = player.id;
+    checkbox.dataset.name = player.name;
+    
+    label.appendChild(checkbox);
+    label.appendChild(document.createTextNode(' ' + player.name));
+    rosterGrid.appendChild(label);
+    
+    // Add change listener
+    checkbox.addEventListener('change', () => {
+      updateRosterCount();
+      updateMenuCandidates();
+    });
   });
-});
+}
 
 function updateRosterCount() {
+  const rosterCheckboxes = rosterInput.querySelectorAll('input[type="checkbox"]');
   const checkedCount = Array.from(rosterCheckboxes).filter(cb => cb.checked).length;
   rosterCountDisplay.textContent = checkedCount;
   
