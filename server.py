@@ -1,10 +1,10 @@
+# -*- coding: utf-8 -*-
 import http.server
 import socketserver
-from pathlib import Path
 
 class UTF8Handler(http.server.SimpleHTTPRequestHandler):
     def end_headers(self):
-        # UTF-8エンコーディングを明示的に設定
+        # Set UTF-8 encoding for all text files
         if self.path.endswith('.html'):
             self.send_header('Content-Type', 'text/html; charset=utf-8')
         elif self.path.endswith('.js'):
