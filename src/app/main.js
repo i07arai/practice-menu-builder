@@ -7,22 +7,6 @@ import { renderGrid, addBlockToSchedule, exportScheduleAsJPG, openLanePicker, op
 
 const state = new AppState();
 
-// 設定ファイルを読み込んでから初期化
-async function initialize() {
-  // メニュー設定を読み込み
-  await loadMenuConfig();
-  
-  // 名簿設定を読み込み
-  await loadRosterConfig();
-  
-  // 名簿UIを生成
-  renderRosterUI();
-  
-  // Initial render
-  renderGrid(state);
-  updateMenuCandidates();
-}
-
 // --- Initialize session date (next future Sunday) ---
 const dateInput = document.getElementById('input-date');
 const startInput = document.getElementById('input-start');
@@ -357,6 +341,22 @@ purposeBack.addEventListener('click', () => {
   purposeModal.hidden = true;
   helpModal.hidden = false;
 });
+
+// 設定ファイルを読み込んでから初期化
+async function initialize() {
+  // メニュー設定を読み込み
+  await loadMenuConfig();
+  
+  // 名簿設定を読み込み
+  await loadRosterConfig();
+  
+  // 名簿UIを生成
+  renderRosterUI();
+  
+  // Initial render
+  renderGrid(state);
+  updateMenuCandidates();
+}
 
 // アプリケーションを初期化
 initialize();
