@@ -4,7 +4,7 @@ let ROSTER = [];
 
 export async function loadRosterConfig() {
   try {
-    const response = await fetch('../config/member-config.json');
+    const response = await fetch('/config/member-config.json');
     if (!response.ok) {
       console.warn('member-config.json not found, using default roster');
       return;
