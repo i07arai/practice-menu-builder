@@ -8,7 +8,11 @@ async function loadMenuConfig() {
   if (configLoaded) return MENUS;
   
   try {
-    const response = await fetch('/config/menus-config.json');
+    // 相対パスを使用（file://プロトコルでも動作）
+    const basePath = window.location.pathname.includes('index.html') 
+      ? './config/menus-config.json' 
+      : '/config/menus-config.json';
+    const response = await fetch(basePath);
     const config = await response.json();
     
     // 条件オブジェクトをcondition関数に変換

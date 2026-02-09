@@ -4,7 +4,12 @@ let ROSTER = [];
 
 export async function loadRosterConfig() {
   try {
-    const response = await fetch('/config/member-config.json');
+    // 相対パスを使用（file://プロトコルでも動作）
+    const basePath = window.location.pathname.includes('index.html') 
+      ? './config/member-config.json' 
+      : '/config/member-config.json';
+    console.log('Loading roster from:', basePath);
+    const response = await fetch(basePath);
     if (!response.ok) {
       console.warn('member-config.json not found, using default roster');
       return;

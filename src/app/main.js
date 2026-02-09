@@ -126,8 +126,19 @@ function renderRosterUI() {
   const roster = getRoster();
   const rosterGrid = document.querySelector('.roster-grid');
   
-  if (!rosterGrid || roster.length === 0) {
-    console.warn('Roster grid not found or roster is empty');
+  console.log('renderRosterUI called');
+  console.log('Roster length:', roster.length);
+  console.log('Roster grid element:', rosterGrid);
+  
+  if (!rosterGrid) {
+    console.error('Roster grid not found!');
+    return;
+  }
+  
+  if (roster.length === 0) {
+    console.warn('Roster is empty');
+    return;
+  }
     return;
   }
   
