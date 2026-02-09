@@ -1,58 +1,58 @@
 {
-  "_description": "ƒƒ“ƒo[i–¼•ëjİ’èƒtƒ@ƒCƒ‹",
-  "_usage": "—ûK‚ÉQ‰Á‚·‚éƒƒ“ƒo[‚Ìî•ñ‚ğŠÇ—‚µ‚Ü‚·",
+  "_description": "ãƒ¡ãƒ³ãƒãƒ¼ï¼ˆåç°¿ï¼‰è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«",
+  "_usage": "ç·´ç¿’ã«å‚åŠ ã™ã‚‹ãƒ¡ãƒ³ãƒãƒ¼ã®æƒ…å ±ã‚’ç®¡ç†ã—ã¾ã™",
   "_fields": {
-    "id": "ˆêˆÓ‚ÌIDi•K{A”’lj",
-    "name": "ƒƒ“ƒo[‚Ì–¼‘Oi•K{A•¶š—ñj",
-    "position": "ƒ|ƒWƒVƒ‡ƒ“i”CˆÓA'P'=“ŠèA'IF'=“à–ìA'OF'=ŠO–ìA'C'=•ßèAnull=–¢İ’èj",
-    "role": "–ğŠ„i'player'=‘IèA'coach'=ƒR[ƒ`j",
-    "attributes": "’Ç‰Á‚Ì‘®«î•ñi”CˆÓAƒIƒuƒWƒFƒNƒgj"
+    "id": "ä¸€æ„ã®IDï¼ˆå¿…é ˆã€æ•°å€¤ï¼‰",
+    "name": "ãƒ¡ãƒ³ãƒãƒ¼ã®åå‰ï¼ˆå¿…é ˆã€æ–‡å­—åˆ—ï¼‰",
+    "position": "ãƒã‚¸ã‚·ãƒ§ãƒ³ï¼ˆä»»æ„ã€'P'=æŠ•æ‰‹ã€'IF'=å†…é‡ã€'OF'=å¤–é‡ã€'C'=æ•æ‰‹ã€null=æœªè¨­å®šï¼‰",
+    "role": "å½¹å‰²ï¼ˆ'player'=é¸æ‰‹ã€'coach'=ã‚³ãƒ¼ãƒï¼‰",
+    "attributes": "è¿½åŠ ã®å±æ€§æƒ…å ±ï¼ˆä»»æ„ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‰"
   },
   "_example_attributes": {
-    "grade": "Šw”Ni—á: 6j",
-    "number": "”w”Ô†i—á: 10j",
-    "skill": "“¾ˆÓ•ª–ìi—á: '‘ÅŒ‚'A'ç”õ'A'‘–—Û'j",
-    "notes": "”õli—á: 'ƒŠ[ƒ_['j"
+    "grade": "å­¦å¹´ï¼ˆä¾‹: 6ï¼‰",
+    "number": "èƒŒç•ªå·ï¼ˆä¾‹: 10ï¼‰",
+    "skill": "å¾—æ„åˆ†é‡ï¼ˆä¾‹: 'æ‰“æ’ƒ'ã€'å®ˆå‚™'ã€'èµ°å¡'ï¼‰",
+    "notes": "å‚™è€ƒï¼ˆä¾‹: 'ãƒªãƒ¼ãƒ€ãƒ¼'ï¼‰"
   },
   "players": [
     {
       "id": 1,
-      "name": "‚ ‚ ‚ ",
+      "name": "ã‚ã‚ã‚ã‚",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 2,
-      "name": "‚¢‚¢‚¢",
+      "name": "ã„ã„ã„",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 3,
-      "name": "“c’†",
+      "name": "ç”°ä¸­",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 4,
-      "name": "‚P‚Q‚R",
+      "name": "ï¼‘ï¼’ï¼“",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 5,
-      "name": "‚ ‚ i‚ j",
+      "name": "ã‚ã‚ï¼ˆã‚ï¼‰",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 6,
-      "name": "‚ ‚ (‚ )",
+      "name": "ã‚ã‚(ã‚)",
       "position": null,
       "role": "player",
       "attributes": {}
@@ -66,28 +66,28 @@
     },
     {
       "id": 8,
-      "name": "‰ª“cF88",
+      "name": "å²¡ç”°ï¼š88",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 9,
-      "name": "‚©‚ñ‚Æ‚­:00",
+      "name": "ã‹ã‚“ã¨ã:00",
       "position": null,
       "role": "coach",
       "attributes": {}
     },
     {
       "id": 10,
-      "name": "‚±[‚¿:22",
+      "name": "ã“ãƒ¼ã¡:22",
       "position": null,
       "role": "coach",
       "attributes": {}
     },
     {
       "id": 11,
-      "name": "ƒeƒXƒg",
+      "name": "ãƒ†ã‚¹ãƒˆ",
       "position": null,
       "role": "player",
       "attributes": {}
@@ -101,21 +101,21 @@
     },
     {
       "id": 13,
-      "name": "‚¢‚¢i‚ j",
+      "name": "ã„ã„ï¼ˆã‚ï¼‰",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 14,
-      "name": "“å“å(‚ )",
+      "name": "ç˜ç˜(ã‚)",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 15,
-      "name": "ƒeƒeƒBƒX",
+      "name": "ãƒ†ãƒ†ã‚£ã‚¹",
       "position": null,
       "role": "player",
       "attributes": {}
@@ -129,14 +129,14 @@
     },
     {
       "id": 17,
-      "name": "‚Ş‚Ş‚Ş",
+      "name": "ã‚€ã‚€ã‚€",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 18,
-      "name": "‚ç‚¢‚ç‚¢",
+      "name": "ã‚‰ã„ã‚‰ã„",
       "position": null,
       "role": "player",
       "attributes": {}
@@ -157,28 +157,28 @@
     },
     {
       "id": 21,
-      "name": "F:33",
+      "name": "ï¼š:33",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 22,
-      "name": "‚Ç‚Ç‚ñ‚Ï",
+      "name": "ã©ã©ã‚“ã±",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 23,
-      "name": "||||||",
+      "name": "ï¼ï¼ï¼ï¼ï¼ï¼",
       "position": null,
       "role": "player",
       "attributes": {}
     },
     {
       "id": 24,
-      "name": "Å‘å’l",
+      "name": "æœ€å¤§å€¤",
       "position": null,
       "role": "player",
       "attributes": {}
