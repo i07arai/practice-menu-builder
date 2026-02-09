@@ -35,10 +35,47 @@
         <input type="text" id="location-text" placeholder="場所を入力" style="display:none;" />
       </div>
       <div class="counts-section">
-        <button class="btn counts-toggle" id="counts-toggle">
-          人数設定 <span class="toggle-icon">▼</span>
-        </button>
-        <div class="counts" id="counts-container">
+        <label for="count-mode-select" style="font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 4px;">人数設定</label>
+        <select id="count-mode-select" class="count-mode-select">
+          <option value="roster">名簿入力</option>
+          <option value="position">ポジション入力</option>
+        </select>
+        
+        <!-- 名簿入力UI -->
+        <div class="roster-input" id="roster-input">
+          <div class="roster-grid">
+            <label><input type="checkbox" data-name="あああ"> あああ</label>
+            <label><input type="checkbox" data-name="かんとく:00"> かんとく:00</label>
+            <label><input type="checkbox" data-name="むむむ"> むむむ</label>
+            <label><input type="checkbox" data-name="いいい"> いいい</label>
+            <label><input type="checkbox" data-name="こーち:22"> こーち:22</label>
+            <label><input type="checkbox" data-name="らいらい"> らいらい</label>
+            <label><input type="checkbox" data-name="田中"> 田中</label>
+            <label><input type="checkbox" data-name="テスト"> テスト</label>
+            <label><input type="checkbox" data-name="&&"> &&</label>
+            <label><input type="checkbox" data-name="１２３"> １２３</label>
+            <label><input type="checkbox" data-name="12345"> 12345</label>
+            <label><input type="checkbox" data-name="?!?!"> ?!?!</label>
+            <label><input type="checkbox" data-name="ああ（あ）"> ああ（あ）</label>
+            <label><input type="checkbox" data-name="いい（あ）"> いい（あ）</label>
+            <label><input type="checkbox" data-name="：:33"> ：:33</label>
+            <label><input type="checkbox" data-name="ああ(あ)"> ああ(あ)</label>
+            <label><input type="checkbox" data-name="灘灘(あ)"> 灘灘(あ)</label>
+            <label><input type="checkbox" data-name="どどんぱ"> どどんぱ</label>
+            <label><input type="checkbox" data-name="SHISHIDA"> SHISHIDA</label>
+            <label><input type="checkbox" data-name="テティス"> テティス</label>
+            <label><input type="checkbox" data-name="－－－－－－"> －－－－－－</label>
+            <label><input type="checkbox" data-name="岡田：88"> 岡田：88</label>
+            <label><input type="checkbox" data-name="abcde"> abcde</label>
+            <label><input type="checkbox" data-name="最大値"> 最大値</label>
+          </div>
+          <div class="roster-summary">
+            <span>選択人数: <strong id="roster-count">0</strong>人</span>
+          </div>
+        </div>
+        
+        <!-- ポジション入力UI(既存) -->
+        <div class="position-input" id="position-input" style="display: none;">
           <div class="count-field">
             <span>投手</span>
             <button class="btn minus" data-role="P">?</button>

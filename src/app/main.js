@@ -90,13 +90,61 @@ locationText.addEventListener('input', (e) => {
   state.session.location = e.target.value;
 });
 
+// Count mode selector (roster vs position)
+const countModeSelect = document.getElementById('count-mode-select');
+const rosterInput = document.getElementById('roster-input');
+const positionInput = document.getElementById('position-input');
+const rosterCountDisplay = document.getElementById('roster-count');
+
+// Initialize: show roster input by default
+let countMode = 'roster';
+rosterInput.style.display = 'block';
+positionInput.style.display = 'none';
+
+countModeSelect.addEventListener('change', (e) => {
+  countMode = e.target.value;
+  if (countMode === 'roster') {
+    rosterInput.style.display = 'block';
+    positionInput.style.display = 'none';
+    updateRosterCount();
+  } else {
+    rosterInput.style.display = 'none';
+    positionInput.style.display = 'block';
+  }
+  updateMenuCandidates();
+});
+
+// Roster checkboxes
+const rosterCheckboxes = rosterInput.querySelectorAll('input[type="checkbox"]');
+rosterCheckboxes.forEach(cb => {
+  cb.addEventListener('change', () => {
+    updateRosterCount();
+    updateMenuCandidates();
+  });
+});
+
+function updateRosterCount() {
+  const checkedCount = Array.from(rosterCheckboxes).filter(cb => cb.checked).length;
+  rosterCountDisplay.textContent = checkedCount;
+  
+  // Update state.counts for menu filtering
+  // When in roster mode, treat all checked as total count
+  if (countMode === 'roster') {
+    state.counts.P = Math.ceil(checkedCount / 3);  // Rough distribution
+    state.counts.IF = Math.ceil(checkedCount / 3);
+    state.counts.OF = Math.ceil(checkedCount / 3);
+  }
+}
+
 // Toggle counts section
 const countsToggle = document.getElementById('counts-toggle');
 const countsContainer = document.getElementById('counts-container');
-countsToggle.addEventListener('click', () => {
-  countsToggle.classList.toggle('open');
-  countsContainer.classList.toggle('open');
-});
+if (countsToggle) {
+  countsToggle.addEventListener('click', () => {
+    countsToggle.classList.toggle('open');
+    countsContainer.classList.toggle('open');
+  });
+}
 
 // Counts inputs and +/- buttons
 ['P','IF','OF'].forEach(role => {
