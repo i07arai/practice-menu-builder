@@ -36,22 +36,22 @@ startInput.addEventListener('change', (e) => {
   const [oldStartH, oldStartM] = oldStart.split(':').map(Number);
   const [oldEndH, oldEndM] = oldEnd.split(':').map(Number);
   const durationMin = (oldEndH * 60 + oldEndM) - (oldStartH * 60 + oldStartM);
-  
+
   // 新しい開始時間を設定
   const newStart = e.target.value;
   state.session.start = newStart;
-  
+
   // 新しい終了時間を計算（開始時間 + 差分）
   const [newStartH, newStartM] = newStart.split(':').map(Number);
   const newEndTotalMin = (newStartH * 60 + newStartM) + durationMin;
   const newEndH = Math.floor(newEndTotalMin / 60);
   const newEndM = newEndTotalMin % 60;
   const newEnd = `${String(newEndH).padStart(2, '0')}:${String(newEndM).padStart(2, '0')}`;
-  
+
   // 終了時間を更新
   state.session.end = newEnd;
   endInput.value = newEnd;
-  
+
   renderGrid(state);
 });
 endInput.addEventListener('change', (e) => {
@@ -118,26 +118,26 @@ countModeSelect.addEventListener('change', (e) => {
 function renderRosterUI() {
   const roster = getRoster();
   const rosterGrid = document.querySelector('.roster-grid');
-  
+
   if (!rosterGrid) return;
   if (roster.length === 0) {
     rosterGrid.innerHTML = '<p style="text-align:center;color:#999;grid-column:1/-1;">名簿データがありません</p>';
     return;
   }
-  
+
   rosterGrid.innerHTML = '';
-  
+
   roster.forEach((player) => {
     const label = document.createElement('label');
     const checkbox = document.createElement('input');
     checkbox.type = 'checkbox';
     checkbox.dataset.playerId = player.id;
     checkbox.dataset.name = player.name;
-    
+
     label.appendChild(checkbox);
     label.appendChild(document.createTextNode(' ' + player.name));
     rosterGrid.appendChild(label);
-    
+
     checkbox.addEventListener('change', () => {
       updateRosterCount();
       updateMenuCandidates();
@@ -150,33 +150,33 @@ function updateRosterCount() {
     console.warn('rosterInput or rosterCountDisplay not found');
     return;
   }
-  
+
   const rosterCheckboxes = rosterInput.querySelectorAll('input[type="checkbox"]');
   const checkedBoxes = Array.from(rosterCheckboxes).filter(cb => cb.checked);
   const checkedCount = checkedBoxes.length;
   rosterCountDisplay.textContent = checkedCount;
-  
+
   // Update state.counts for menu filtering
   // When in roster mode, calculate actual position counts from selected members
   if (countMode === 'roster') {
     // Get selected player IDs
     const selectedPlayerIds = checkedBoxes.map(cb => parseInt(cb.dataset.playerId));
     const roster = getRoster();
-    
+
     // Calculate position counts from selected players
     let pCount = 0;
     let ifCount = 0;
     let ofCount = 0;
-    
+
     selectedPlayerIds.forEach(playerId => {
       const player = roster.find(p => p.id === playerId);
       if (!player) return;
-      
+
       // Count main position
       if (player.position === 'P') pCount++;
       else if (player.position === 'IF') ifCount++;
       else if (player.position === 'OF') ofCount++;
-      
+
       // Count sub positions (if any)
       if (player.subPositions && Array.isArray(player.subPositions)) {
         player.subPositions.forEach(pos => {
@@ -186,10 +186,12 @@ function updateRosterCount() {
         });
       }
     });
-    
+
     state.counts.P = pCount;
     state.counts.IF = ifCount;
     state.counts.OF = ofCount;
+    // 合計人数（positionがnullの人も含む）
+    state.counts.total = checkedCount;
   }
 }
 
@@ -206,16 +208,16 @@ if (countsToggle) {
 // Counts inputs and +/- buttons
 ['P','IF','OF'].forEach(role => {
   const display = document.getElementById(`count-${role}`);
-  
+
   // Click to show selector
   display.addEventListener('click', (e) => {
     // Remove any existing selector
     document.querySelectorAll('.count-selector').forEach(s => s.remove());
-    
+
     // Create selector menu
     const selector = document.createElement('div');
     selector.className = 'count-selector';
-    
+
     // 1-9, then 0
     for (let i = 1; i <= 9; i++) {
       const item = document.createElement('div');
@@ -240,16 +242,16 @@ if (countsToggle) {
       selector.remove();
     });
     selector.appendChild(item0);
-    
+
     // Position selector below the display
     const rect = display.getBoundingClientRect();
     selector.style.position = 'fixed';
     selector.style.top = `${rect.bottom + 4}px`;
     selector.style.left = `${rect.left}px`;
     selector.style.width = `${rect.width}px`;
-    
+
     document.body.appendChild(selector);
-    
+
     // Close on click outside
     const closeSelector = (ev) => {
       if (!selector.contains(ev.target) && ev.target !== display) {
@@ -259,7 +261,7 @@ if (countsToggle) {
     };
     setTimeout(() => document.addEventListener('click', closeSelector), 0);
   });
-  
+
   // Plus button
   document.querySelectorAll(`.btn.plus[data-role="${role}"]`).forEach(btn => btn.addEventListener('click', () => {
     const current = Math.max(0, parseInt(display.textContent || '0', 10));
@@ -268,7 +270,7 @@ if (countsToggle) {
     state.counts[role] = newVal;
     updateMenuCandidates();
   }));
-  
+
   // Minus button
   document.querySelectorAll(`.btn.minus[data-role="${role}"]`).forEach(btn => btn.addEventListener('click', () => {
     const current = Math.max(0, parseInt(display.textContent || '0', 10));
@@ -395,19 +397,19 @@ if (purposeLink && purposeModal && helpModal && purposeBack) {
 // 設定ファイルを読み込んでから初期化
 async function initialize() {
   console.log('initialize() called');
-  
+
   // メニュー設定を読み込み
   await loadMenuConfig();
   console.log('Menu config loaded');
-  
+
   // 名簿設定を読み込み
   await loadRosterConfig();
   console.log('Roster config loaded');
-  
+
   // 名簿UIを生成
   renderRosterUI();
   console.log('Roster UI rendered');
-  
+
   // Initial render
   renderGrid(state);
   updateMenuCandidates();

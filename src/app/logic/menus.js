@@ -6,31 +6,32 @@ let configLoaded = false;
 // 設定ファイルを読み込む
 async function loadMenuConfig() {
   if (configLoaded) return MENUS;
-  
+
   try {
     // 常に相対パスを使用（GitHub Pages対応）
     const basePath = './config/menus-config.json';
     const response = await fetch(basePath);
     const config = await response.json();
-    
+
     // 条件オブジェクトをcondition関数に変換
     MENUS = config.menus.map(menu => ({
       ...menu,
       condition: (c) => {
         const cond = menu.conditions;
-        const total = (c.P || 0) + (c.IF || 0) + (c.OF || 0);
-        
+        // 名簿モードでc.totalが設定されている場合はそれを使用、なければP+IF+OFを計算
+        const total = c.total !== undefined ? c.total : (c.P || 0) + (c.IF || 0) + (c.OF || 0);
+
         // 各条件をチェック
         if (cond.minP && c.P < cond.minP) return false;
         if (cond.minIF && c.IF < cond.minIF) return false;
         if (cond.minOF && c.OF < cond.minOF) return false;
         if (cond.minTotal && total < cond.minTotal) return false;
         if (cond.minPlusIF && (c.P + c.IF) < cond.minPlusIF) return false;
-        
+
         return true;
       }
     }));
-    
+
     configLoaded = true;
     return MENUS;
   } catch (error) {
