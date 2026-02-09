@@ -2,7 +2,7 @@
   "menus": [
     {
       "id": "warmup",
-      "name": "アップ",
+      "name": "ウォーミングアップ",
       "categoryShort": "ｱｯﾌﾟ",
       "category": "warmup",
       "durationDefaultMin": 15,
@@ -12,7 +12,7 @@
     },
     {
       "id": "all_knock",
-      "name": "全体ノック",
+      "name": "全員ノック",
       "categoryShort": "守",
       "category": "fielding",
       "durationDefaultMin": 30,
@@ -76,7 +76,7 @@
     },
     {
       "id": "pepper",
-      "name": "ゴロペッパー",
+      "name": "ペッパー",
       "categoryShort": "守",
       "category": "fielding",
       "durationDefaultMin": 15,
