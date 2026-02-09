@@ -4,11 +4,10 @@ let ROSTER = [];
 
 export async function loadRosterConfig() {
   try {
-    // 相対パスを使用（file://プロトコルでも動作）
-    const basePath = window.location.pathname.includes('index.html') 
-      ? './config/member-config.json' 
-      : '/config/member-config.json';
+    // 常に相対パスを使用（GitHub Pages対応）
+    const basePath = './config/member-config.json';
     console.log('Loading roster from:', basePath);
+    console.log('Current pathname:', window.location.pathname);
     const response = await fetch(basePath);
     if (!response.ok) {
       console.warn('member-config.json not found, using default roster');

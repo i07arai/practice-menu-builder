@@ -8,10 +8,8 @@ async function loadMenuConfig() {
   if (configLoaded) return MENUS;
   
   try {
-    // 相対パスを使用（file://プロトコルでも動作）
-    const basePath = window.location.pathname.includes('index.html') 
-      ? './config/menus-config.json' 
-      : '/config/menus-config.json';
+    // 常に相対パスを使用（GitHub Pages対応）
+    const basePath = './config/menus-config.json';
     const response = await fetch(basePath);
     const config = await response.json();
     
