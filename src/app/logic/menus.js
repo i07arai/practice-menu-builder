@@ -8,7 +8,7 @@ async function loadMenuConfig() {
   if (configLoaded) return MENUS;
   
   try {
-    const response = await fetch('/config/position-config.json');
+    const response = await fetch('/config/menus-config.json');
     const config = await response.json();
     
     // 条件オブジェクトをcondition関数に変換

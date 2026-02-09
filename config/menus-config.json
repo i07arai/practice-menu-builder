@@ -2,8 +2,8 @@
   "menus": [
     {
       "id": "warmup",
-      "name": "ウォーミングアップ",
-      "categoryShort": "ｱｯﾌﾟ",
+      "name": "?????????",
+      "categoryShort": "????",
       "category": "warmup",
       "durationDefaultMin": 15,
       "conditions": {
@@ -12,8 +12,8 @@
     },
     {
       "id": "all_knock",
-      "name": "全員ノック",
-      "categoryShort": "守",
+      "name": "?????",
+      "categoryShort": "?",
       "category": "fielding",
       "durationDefaultMin": 30,
       "conditions": {
@@ -22,8 +22,8 @@
     },
     {
       "id": "free_batting",
-      "name": "フリーバッティング",
-      "categoryShort": "打",
+      "name": "?????????",
+      "categoryShort": "?",
       "category": "batting",
       "durationDefaultMin": 60,
       "conditions": {
@@ -33,8 +33,8 @@
     },
     {
       "id": "tee_batting",
-      "name": "ティーバッティング",
-      "categoryShort": "打",
+      "name": "?????????",
+      "categoryShort": "?",
       "category": "batting",
       "durationDefaultMin": 30,
       "conditions": {
@@ -43,8 +43,8 @@
     },
     {
       "id": "infield_knock",
-      "name": "内野ノック",
-      "categoryShort": "守",
+      "name": "?????",
+      "categoryShort": "?",
       "category": "fielding",
       "durationDefaultMin": 30,
       "conditions": {
@@ -54,8 +54,8 @@
     },
     {
       "id": "outfield_knock",
-      "name": "外野ノック",
-      "categoryShort": "守",
+      "name": "?????",
+      "categoryShort": "?",
       "category": "fielding",
       "durationDefaultMin": 30,
       "conditions": {
@@ -65,8 +65,8 @@
     },
     {
       "id": "pitching",
-      "name": "ピッチング練習",
-      "categoryShort": "投",
+      "name": "???????",
+      "categoryShort": "?",
       "category": "pitching",
       "durationDefaultMin": 30,
       "conditions": {
@@ -76,8 +76,8 @@
     },
     {
       "id": "pepper",
-      "name": "ペッパー",
-      "categoryShort": "守",
+      "name": "????",
+      "categoryShort": "?",
       "category": "fielding",
       "durationDefaultMin": 15,
       "conditions": {
@@ -85,13 +85,13 @@
       }
     }
   ],
-  "説明": {
+  "??": {
     "conditions": {
-      "minP": "投手の最小人数",
-      "minIF": "内野の最小人数",
-      "minOF": "外野の最小人数",
-      "minTotal": "全体の最小人数",
-      "minPlusIF": "投手+内野の最小人数"
+      "minP": "???????",
+      "minIF": "???????",
+      "minOF": "???????",
+      "minTotal": "???????",
+      "minPlusIF": "??+???????"
     }
   }
 }
