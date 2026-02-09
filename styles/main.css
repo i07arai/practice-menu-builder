@@ -38,7 +38,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .count-mode-select:hover { background: #f8f9fa; border-color: var(--primary); }
 .count-mode-select:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px rgba(13, 110, 253, 0.1); }
 
-/* –¼•ë“ü—ÍUI */
+/* åç°¿å…¥åŠ›UI */
 .roster-input { padding: 12px; background: var(--card-bg); border: 1px solid var(--line); border-radius: 8px; }
 .roster-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px 12px; margin-bottom: 12px; }
 .roster-grid label { display: flex; align-items: center; gap: 6px; font-size: 13px; cursor: pointer; padding: 6px 8px; border-radius: 6px; transition: var(--transition); word-break: break-all; }
@@ -47,7 +47,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .roster-summary { text-align: center; padding: 8px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border-radius: 6px; font-size: 14px; color: var(--fg); }
 .roster-summary strong { color: var(--primary); font-size: 18px; }
 
-/* ƒ|ƒWƒVƒ‡ƒ““ü—ÍUI */
+/* ãƒã‚¸ã‚·ãƒ§ãƒ³å…¥åŠ›UI */
 .position-input { display: grid; grid-template-columns: 1fr; gap: 8px; }
 .counts-toggle { width: 100%; display: flex; justify-content: space-between; align-items: center; padding: 10px 12px; font-size: 14px; background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%); border: 1px solid var(--line); border-radius: 8px; cursor: pointer; transition: var(--transition); font-weight: 500; color: var(--fg); }
 .counts-toggle:hover { background: linear-gradient(135deg, #e9ecef 0%, #dee2e6 100%); transform: translateY(-1px); }
@@ -75,14 +75,14 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .chip:hover { background: #f8f9fa; transform: translateY(-1px); box-shadow: var(--shadow-sm); }
 .chip:active { color: var(--fg); }
 
-/* ƒJƒeƒSƒŠƒtƒBƒ‹ƒ^–¢‘I‘ğ‚ÌF•t‚¯ */
+/* ã‚«ãƒ†ã‚´ãƒªãƒ•ã‚£ãƒ«ã‚¿æœªé¸æŠæ™‚ã®è‰²ä»˜ã‘ */
 .chip.category-all { background: linear-gradient(135deg, #E8E5FF 0%, #D6D3F7 100%) !important; border-color: #E8E5FF; color: #4B3F8C; }
 .chip.category-warmup { background: linear-gradient(135deg, #ffead9 0%, #ffdcc0 100%) !important; border-color: #ffead9; color: #a05a00; }
 .chip.category-pitching { background: linear-gradient(135deg, #ffe0eb 0%, #ffcdde 100%) !important; border-color: #ffe0eb; color: #b03a6a; }
 .chip.category-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; border-color: #d9ecff; color: #106287; }
 .chip.category-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; border-color: #dcf2d2; color: #198754; }
 
-/* ƒtƒBƒ‹ƒ^‘I‘ğ‚Í—\’è•\’Ç‰Áƒ{ƒ^ƒ“‚Æ“¯‚¶F */
+/* ãƒ•ã‚£ãƒ«ã‚¿é¸æŠæ™‚ã¯äºˆå®šè¡¨è¿½åŠ ãƒœã‚¿ãƒ³ã¨åŒã˜è‰² */
 .chip.active { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important; border-color: var(--primary) !important; color: white !important; box-shadow: var(--shadow-sm); }
 .app-main { display: grid; gap: 12px; padding: 16px; }
 .menu-list { display: flex; flex-direction: column; gap: 10px; }
@@ -121,12 +121,12 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .block:hover .resize-handle::after { background: rgba(0, 0, 0, 0.4); }
 .export { padding: 16px 0; text-align: right; }
 
-/* ƒ^ƒuƒŒƒbƒg‘Î‰ */
+/* ã‚¿ãƒ–ãƒ¬ãƒƒãƒˆå¯¾å¿œ */
 @media (min-width: 600px) {
   #app { max-width: 760px; }
 }
 
-/* PC‘Î‰ */
+/* PCå¯¾å¿œ */
 @media (min-width: 1024px) {
   #app { max-width: 1000px; }
 }

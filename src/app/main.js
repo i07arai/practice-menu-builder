@@ -30,25 +30,25 @@ dateInput.addEventListener('change', (e) => {
   state.session.date = e.target.value;
 });
 startInput.addEventListener('change', (e) => {
-  // Œ»İ‚ÌŠJnŠÔ‚ÆI—¹ŠÔ‚Ì·•ªi•ªj‚ğŒvZ
+  // ç¾åœ¨ã®é–‹å§‹æ™‚é–“ã¨çµ‚äº†æ™‚é–“ã®å·®åˆ†ï¼ˆåˆ†ï¼‰ã‚’è¨ˆç®—
   const oldStart = state.session.start || '09:00';
   const oldEnd = state.session.end || '11:00';
   const [oldStartH, oldStartM] = oldStart.split(':').map(Number);
   const [oldEndH, oldEndM] = oldEnd.split(':').map(Number);
   const durationMin = (oldEndH * 60 + oldEndM) - (oldStartH * 60 + oldStartM);
   
-  // V‚µ‚¢ŠJnŠÔ‚ğİ’è
+  // æ–°ã—ã„é–‹å§‹æ™‚é–“ã‚’è¨­å®š
   const newStart = e.target.value;
   state.session.start = newStart;
   
-  // V‚µ‚¢I—¹ŠÔ‚ğŒvZiŠJnŠÔ + ·•ªj
+  // æ–°ã—ã„çµ‚äº†æ™‚é–“ã‚’è¨ˆç®—ï¼ˆé–‹å§‹æ™‚é–“ + å·®åˆ†ï¼‰
   const [newStartH, newStartM] = newStart.split(':').map(Number);
   const newEndTotalMin = (newStartH * 60 + newStartM) + durationMin;
   const newEndH = Math.floor(newEndTotalMin / 60);
   const newEndM = newEndTotalMin % 60;
   const newEnd = `${String(newEndH).padStart(2, '0')}:${String(newEndM).padStart(2, '0')}`;
   
-  // I—¹ŠÔ‚ğXV
+  // çµ‚äº†æ™‚é–“ã‚’æ›´æ–°
   state.session.end = newEnd;
   endInput.value = newEnd;
   
@@ -67,7 +67,7 @@ const locationText = document.getElementById('location-text');
 state.session.location = locationSelect.value;
 
 locationSelect.addEventListener('change', (e) => {
-  if (e.target.value === '‚»‚Ì‘¼') {
+  if (e.target.value === 'ãã®ä»–') {
     locationText.style.display = 'block';
     locationText.focus();
     state.session.location = locationText.value || '';
@@ -245,7 +245,7 @@ if (countsToggle) {
   // Plus button
   document.querySelectorAll(`.btn.plus[data-role="${role}"]`).forEach(btn => btn.addEventListener('click', () => {
     const current = Math.max(0, parseInt(display.textContent || '0', 10));
-    const newVal = current + 1; // ãŒÀ‚È‚µ
+    const newVal = current + 1; // ä¸Šé™ãªã—
     display.textContent = String(newVal);
     state.counts[role] = newVal;
     updateMenuCandidates();
@@ -360,13 +360,13 @@ if (helpLink && helpModal && helpBackdrop && helpClose) {
 if (purposeLink && purposeModal && helpModal && purposeBack) {
   purposeLink.addEventListener('click', (e) => {
     e.preventDefault();
-    // g‚¢•ûƒ‚[ƒ_ƒ‹‚ğ•Â‚¶‚Ä–Ú“Iƒ‚[ƒ_ƒ‹‚ğŠJ‚­
+    // ä½¿ã„æ–¹ãƒ¢ãƒ¼ãƒ€ãƒ«ã‚’é–‰ã˜ã¦ç›®çš„ãƒ¢ãƒ¼ãƒ€ãƒ«ã‚’é–‹ã
     helpModal.hidden = true;
     purposeModal.hidden = false;
   });
 
   purposeBack.addEventListener('click', () => {
-    // –Ú“Iƒ‚[ƒ_ƒ‹‚ğ•Â‚¶‚Äg‚¢•ûƒ‚[ƒ_ƒ‹‚ğŠJ‚­
+    // ç›®çš„ãƒ¢ãƒ¼ãƒ€ãƒ«ã‚’é–‰ã˜ã¦ä½¿ã„æ–¹ãƒ¢ãƒ¼ãƒ€ãƒ«ã‚’é–‹ã
     purposeModal.hidden = true;
     helpModal.hidden = false;
   });
@@ -374,19 +374,19 @@ if (purposeLink && purposeModal && helpModal && purposeBack) {
   console.error('Some purpose modal elements not found');
 }
 
-// İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ñ‚Å‚©‚ç‰Šú‰»
+// è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚“ã§ã‹ã‚‰åˆæœŸåŒ–
 async function initialize() {
   console.log('initialize() called');
   
-  // ƒƒjƒ…[İ’è‚ğ“Ç‚İ‚İ
+  // ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¨­å®šã‚’èª­ã¿è¾¼ã¿
   await loadMenuConfig();
   console.log('Menu config loaded');
   
-  // –¼•ëİ’è‚ğ“Ç‚İ‚İ
+  // åç°¿è¨­å®šã‚’èª­ã¿è¾¼ã¿
   await loadRosterConfig();
   console.log('Roster config loaded');
   
-  // –¼•ëUI‚ğ¶¬
+  // åç°¿UIã‚’ç”Ÿæˆ
   renderRosterUI();
   console.log('Roster UI rendered');
   
@@ -395,5 +395,5 @@ async function initialize() {
   updateMenuCandidates();
 }
 
-// ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ğ‰Šú‰»
+// ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã‚’åˆæœŸåŒ–
 initialize();

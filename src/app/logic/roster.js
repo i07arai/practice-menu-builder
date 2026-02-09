@@ -4,7 +4,7 @@ let ROSTER = [];
 
 export async function loadRosterConfig() {
   try {
-    // ‘Š‘ÎƒpƒX‚ğg—pifile://ƒvƒƒgƒRƒ‹‚Å‚à“®ìj
+    // ç›¸å¯¾ãƒ‘ã‚¹ã‚’ä½¿ç”¨ï¼ˆfile://ãƒ—ãƒ­ãƒˆã‚³ãƒ«ã§ã‚‚å‹•ä½œï¼‰
     const basePath = window.location.pathname.includes('index.html') 
       ? './config/member-config.json' 
       : '/config/member-config.json';

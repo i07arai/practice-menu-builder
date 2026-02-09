@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>©“®ƒeƒXƒg - —ûKƒƒjƒ…[‘g‚İ—§‚ÄƒAƒvƒŠ</title>
+  <title>è‡ªå‹•ãƒ†ã‚¹ãƒˆ - ç·´ç¿’ãƒ¡ãƒ‹ãƒ¥ãƒ¼çµ„ã¿ç«‹ã¦ã‚¢ãƒ—ãƒª</title>
   <style>
     body {
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -85,28 +85,28 @@
   </style>
 </head>
 <body>
-  <h1>? ©“®ƒeƒXƒg</h1>
-  <button id="run-btn">ƒeƒXƒgÀs</button>
+  <h1>? è‡ªå‹•ãƒ†ã‚¹ãƒˆ</h1>
+  <button id="run-btn">ãƒ†ã‚¹ãƒˆå®Ÿè¡Œ</button>
   
   <div class="summary">
     <div class="summary-card total">
       <div id="total-count">0</div>
-      <div style="font-size: 14px; margin-top: 8px;">‘ƒeƒXƒg”</div>
+      <div style="font-size: 14px; margin-top: 8px;">ç·ãƒ†ã‚¹ãƒˆæ•°</div>
     </div>
     <div class="summary-card passed">
       <div id="pass-count">0</div>
-      <div style="font-size: 14px; margin-top: 8px;">¬Œ÷</div>
+      <div style="font-size: 14px; margin-top: 8px;">æˆåŠŸ</div>
     </div>
     <div class="summary-card failed">
       <div id="fail-count">0</div>
-      <div style="font-size: 14px; margin-top: 8px;">¸”s</div>
+      <div style="font-size: 14px; margin-top: 8px;">å¤±æ•—</div>
     </div>
   </div>
 
   <div id="results"></div>
 
   <script type="module">
-    // ƒVƒ“ƒvƒ‹‚ÈƒeƒXƒgƒ‰ƒ“ƒi[
+    // ã‚·ãƒ³ãƒ—ãƒ«ãªãƒ†ã‚¹ãƒˆãƒ©ãƒ³ãƒŠãƒ¼
     class TestRunner {
       constructor() {
         this.suites = [];
@@ -233,18 +233,18 @@
 
     const runner = new TestRunner();
 
-    // ƒeƒXƒg’è‹`
-    runner.describe('ƒƒjƒ…[İ’èƒtƒ@ƒCƒ‹', () => {
+    // ãƒ†ã‚¹ãƒˆå®šç¾©
+    runner.describe('ãƒ¡ãƒ‹ãƒ¥ãƒ¼è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«', () => {
       let config;
 
-      runner.it('İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ß‚é‚±‚Æ', async () => {
+      runner.it('è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚ã‚‹ã“ã¨', async () => {
         const response = await fetch('/config/menus-config.json');
         config = await response.json();
         runner.expect(config).toBeDefined();
         runner.expect(config.menus).toBeInstanceOf(Array);
       });
 
-      runner.it('ƒƒjƒ…[‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         if (!config) {
           const response = await fetch('/config/menus-config.json');
           config = await response.json();
@@ -252,7 +252,7 @@
         runner.expect(config.menus.length).toBeGreaterThan(0);
       });
 
-      runner.it('Šeƒƒjƒ…[‚ª•K{ƒtƒB[ƒ‹ƒh‚ğ‚Â‚±‚Æ', async () => {
+      runner.it('å„ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãŒå¿…é ˆãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’æŒã¤ã“ã¨', async () => {
         if (!config) {
           const response = await fetch('/config/menus-config.json');
           config = await response.json();
@@ -265,7 +265,7 @@
         runner.expect(menu).toHaveProperty('conditions');
       });
 
-      runner.it('ƒƒjƒ…[ID‚ªƒ†ƒj[ƒN‚Å‚ ‚é‚±‚Æ', async () => {
+      runner.it('ãƒ¡ãƒ‹ãƒ¥ãƒ¼IDãŒãƒ¦ãƒ‹ãƒ¼ã‚¯ã§ã‚ã‚‹ã“ã¨', async () => {
         if (!config) {
           const response = await fetch('/config/menus-config.json');
           config = await response.json();
@@ -276,17 +276,17 @@
       });
     });
 
-    runner.describe('–¼•ëİ’èƒtƒ@ƒCƒ‹', () => {
+    runner.describe('åç°¿è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«', () => {
       let config;
 
-      runner.it('İ’èƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ß‚é‚±‚Æ', async () => {
+      runner.it('è¨­å®šãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚ã‚‹ã“ã¨', async () => {
         const response = await fetch('/config/member-config.json');
         config = await response.json();
         runner.expect(config).toBeDefined();
         runner.expect(config.members).toBeInstanceOf(Array);
       });
 
-      runner.it('‘Iè‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('é¸æ‰‹ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         if (!config) {
           const response = await fetch('/config/member-config.json');
           config = await response.json();
@@ -294,7 +294,7 @@
         runner.expect(config.members.length).toBeGreaterThan(0);
       });
 
-      runner.it('Še‘Iè‚ª•K{ƒtƒB[ƒ‹ƒh‚ğ‚Â‚±‚Æ', async () => {
+      runner.it('å„é¸æ‰‹ãŒå¿…é ˆãƒ•ã‚£ãƒ¼ãƒ«ãƒ‰ã‚’æŒã¤ã“ã¨', async () => {
         if (!config) {
           const response = await fetch('/config/member-config.json');
           config = await response.json();
@@ -306,7 +306,7 @@
         runner.expect(member).toHaveProperty('role');
       });
 
-      runner.it('‘IèID‚ªƒ†ƒj[ƒN‚Å‚ ‚é‚±‚Æ', async () => {
+      runner.it('é¸æ‰‹IDãŒãƒ¦ãƒ‹ãƒ¼ã‚¯ã§ã‚ã‚‹ã“ã¨', async () => {
         if (!config) {
           const response = await fetch('/config/member-config.json');
           config = await response.json();
@@ -317,50 +317,50 @@
       });
     });
 
-    runner.describe('DOM—v‘f‚Ì‘¶İŠm”F', () => {
+    runner.describe('DOMè¦ç´ ã®å­˜åœ¨ç¢ºèª', () => {
       let indexHtml;
 
-      runner.it('index.html‚ğ“Ç‚İ‚ß‚é‚±‚Æ', async () => {
+      runner.it('index.htmlã‚’èª­ã¿è¾¼ã‚ã‚‹ã“ã¨', async () => {
         const response = await fetch('/index.html');
         indexHtml = await response.text();
         runner.expect(indexHtml.length).toBeGreaterThan(0);
       });
 
-      runner.it('count-mode-select—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('count-mode-selectè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="count-mode-select"')).toBe(true);
       });
 
-      runner.it('position-input—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('position-inputè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="position-input"')).toBe(true);
       });
 
-      runner.it('roster-input—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('roster-inputè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="roster-input"')).toBe(true);
       });
 
-      runner.it('roster-grid—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('roster-gridè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('class="roster-grid"')).toBe(true);
       });
 
-      runner.it('menu-list—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('menu-listè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="menu-list"')).toBe(true);
       });
 
-      runner.it('modal-help—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('modal-helpè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="modal-help"')).toBe(true);
       });
 
-      runner.it('modal-backdrop—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('modal-backdropè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="modal-backdrop"')).toBe(true);
       });
 
-      runner.it('help-close—v‘f‚ª‘¶İ‚·‚é‚±‚Æ', async () => {
+      runner.it('help-closeè¦ç´ ãŒå­˜åœ¨ã™ã‚‹ã“ã¨', async () => {
         runner.expect(indexHtml.includes('id="help-close"')).toBe(true);
       });
     });
 
-    runner.describe('ƒƒjƒ…[ƒtƒBƒ‹ƒ^ƒŠƒ“ƒOƒƒWƒbƒN', () => {
-      runner.it('l”ğŒiminTotalj‚Å³‚µ‚­ƒtƒBƒ‹ƒ^ƒŠƒ“ƒO‚Å‚«‚é‚±‚Æ', () => {
+    runner.describe('ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ãƒ­ã‚¸ãƒƒã‚¯', () => {
+      runner.it('äººæ•°æ¡ä»¶ï¼ˆminTotalï¼‰ã§æ­£ã—ããƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ã§ãã‚‹ã“ã¨', () => {
         const testCondition = (cond, playerCounts) => {
           const { P = 0, IF = 0, OF = 0 } = playerCounts;
           const total = P + IF + OF;
@@ -372,7 +372,7 @@
         runner.expect(testCondition({ minTotal: 10 }, { P: 2, IF: 2, OF: 2 })).toBe(false);
       });
 
-      runner.it('l”ğŒiminP, minIF, minOFj‚Å³‚µ‚­ƒtƒBƒ‹ƒ^ƒŠƒ“ƒO‚Å‚«‚é‚±‚Æ', () => {
+      runner.it('äººæ•°æ¡ä»¶ï¼ˆminP, minIF, minOFï¼‰ã§æ­£ã—ããƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ã§ãã‚‹ã“ã¨', () => {
         const testCondition = (cond, playerCounts) => {
           const { P = 0, IF = 0, OF = 0 } = playerCounts;
           if (cond.minP && P < cond.minP) return false;
@@ -385,7 +385,7 @@
         runner.expect(testCondition({ minP: 2, minIF: 3, minOF: 2 }, { P: 1, IF: 3, OF: 2 })).toBe(false);
       });
 
-      runner.it('l”ğŒiminPlusIFj‚Å³‚µ‚­ƒtƒBƒ‹ƒ^ƒŠƒ“ƒO‚Å‚«‚é‚±‚Æ', () => {
+      runner.it('äººæ•°æ¡ä»¶ï¼ˆminPlusIFï¼‰ã§æ­£ã—ããƒ•ã‚£ãƒ«ã‚¿ãƒªãƒ³ã‚°ã§ãã‚‹ã“ã¨', () => {
         const testCondition = (cond, playerCounts) => {
           const { P = 0, IF = 0 } = playerCounts;
           if (cond.minPlusIF && (P + IF) < cond.minPlusIF) return false;
@@ -397,16 +397,16 @@
       });
     });
 
-    // ƒeƒXƒgÀsƒ{ƒ^ƒ“
+    // ãƒ†ã‚¹ãƒˆå®Ÿè¡Œãƒœã‚¿ãƒ³
     document.getElementById('run-btn').addEventListener('click', async () => {
       const btn = document.getElementById('run-btn');
       btn.disabled = true;
-      btn.textContent = 'ƒeƒXƒgÀs’†...';
+      btn.textContent = 'ãƒ†ã‚¹ãƒˆå®Ÿè¡Œä¸­...';
       
       await runner.run();
       
       btn.disabled = false;
-      btn.textContent = 'ƒeƒXƒgÀs';
+      btn.textContent = 'ãƒ†ã‚¹ãƒˆå®Ÿè¡Œ';
     });
   </script>
 </body>

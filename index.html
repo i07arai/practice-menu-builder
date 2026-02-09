@@ -3,82 +3,82 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-  <title>�񏬃N���u�X�P�W���[��</title>
+  <title>二小クラブスケジューラ</title>
   <link rel="stylesheet" href="./styles/main.css" />
 </head>
 <body>
   <div id="app">
     <header class="app-header">
       <div class="header-title">
-        <h1>�񏬃N���u���K���j���[</h1>
-        <a href="#" id="help-link" class="help-link">�g����</a>
+        <h1>二小クラブ練習メニュー</h1>
+        <a href="#" id="help-link" class="help-link">使い方</a>
       </div>
       <div class="session-inputs">
-        <label>���t
+        <label>日付
           <input type="date" id="input-date" />
         </label>
-        <label>�J�n����
+        <label>開始時間
           <input type="time" id="input-start" placeholder="--:--" />
         </label>
-        <label>�I������
+        <label>終了時間
           <input type="time" id="input-end" placeholder="--:--" />
         </label>
       </div>
       <div class="location-section">
-        <label>���K�ꏊ</label>
+        <label>練習場所</label>
         <select id="location-select">
-          <option value="����A�O���E���h">����A�O���E���h</option>
-          <option value="����B�O���E���h">����B�O���E���h</option>
-          <option value="�{���̐X�싅��">�{���̐X�싅��</option>
-          <option value="���̑�">���̑�</option>
+          <option value="是政Aグラウンド">是政Aグラウンド</option>
+          <option value="是政Bグラウンド">是政Bグラウンド</option>
+          <option value="府中の森野球場">府中の森野球場</option>
+          <option value="その他">その他</option>
         </select>
-        <input type="text" id="location-text" placeholder="�ꏊ�����" style="display:none;" />
+        <input type="text" id="location-text" placeholder="場所を入力" style="display:none;" />
       </div>
       <div class="counts-section">
-        <label for="count-mode-select" style="font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 4px;">�l���ݒ�</label>
+        <label for="count-mode-select" style="font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 4px;">人数設定</label>
         <select id="count-mode-select" class="count-mode-select">
-          <option value="roster">�������</option>
-          <option value="position">�|�W�V��������</option>
+          <option value="roster">名簿入力</option>
+          <option value="position">ポジション入力</option>
         </select>
         
-        <!-- �������UI -->
+        <!-- 名簿入力UI -->
         <div class="roster-input" id="roster-input">
           <div class="roster-grid">
-            <!-- �����member-config.json���瓮�I�ɓǂݍ��܂�܂� -->
+            <!-- 名簿はmember-config.jsonから動的に読み込まれます -->
           </div>
           <div class="roster-summary">
-            <span>�I��l��: <strong id="roster-count">0</strong>�l</span>
+            <span>選択人数: <strong id="roster-count">0</strong>人</span>
           </div>
         </div>
         
-        <!-- �|�W�V��������UI(����) -->
+        <!-- ポジション入力UI(既存) -->
         <div class="position-input" id="position-input" style="display: none;">
           <div class="count-field">
-            <span>����</span>
+            <span>投手</span>
             <button class="btn minus" data-role="P">?</button>
             <div class="count-display" id="count-P" data-role="P">0</div>
-            <button class="btn plus" data-role="P">�{</button>
+            <button class="btn plus" data-role="P">＋</button>
           </div>
           <div class="count-field">
-            <span>����</span>
+            <span>内野</span>
             <button class="btn minus" data-role="IF">?</button>
             <div class="count-display" id="count-IF" data-role="IF">0</div>
-            <button class="btn plus" data-role="IF">�{</button>
+            <button class="btn plus" data-role="IF">＋</button>
           </div>
           <div class="count-field">
-            <span>�O��</span>
+            <span>外野</span>
             <button class="btn minus" data-role="OF">?</button>
             <div class="count-display" id="count-OF" data-role="OF">0</div>
-            <button class="btn plus" data-role="OF">�{</button>
+            <button class="btn plus" data-role="OF">＋</button>
           </div>
         </div>
       </div>
       <div class="category-filter" id="category-filter">
-        <button class="chip category-pitching" data-cat="��">��</button>
-        <button class="chip category-fielding" data-cat="��">��</button>
-        <button class="chip category-batting" data-cat="��">��</button>
-        <button class="chip category-warmup" data-cat="����">����</button>
-        <button class="chip category-all active" data-cat="all">���ׂ�</button>
+        <button class="chip category-pitching" data-cat="投">投</button>
+        <button class="chip category-fielding" data-cat="守">守</button>
+        <button class="chip category-batting" data-cat="打">打</button>
+        <button class="chip category-warmup" data-cat="ｱｯﾌﾟ">ｱｯﾌﾟ</button>
+        <button class="chip category-all active" data-cat="all">すべて</button>
       </div>
     </header>
 
@@ -86,25 +86,25 @@
       <section class="menu-list" id="menu-list"></section>
       <section class="schedule">
         <div class="schedule-header">
-          <h2>�\��\</h2>
+          <h2>予定表</h2>
           <div class="lane-headers">
             <div class="time-spacer"></div>
             <div class="lane-header" data-lane="global">
-              �S�� <button class="btn edit-lane" data-lane="global">?</button>
+              全体 <button class="btn edit-lane" data-lane="global">?</button>
             </div>
             <div class="lane-header editable" data-lane="lane1">
-              <span id="lane1-label">���̑�1</span>
+              <span id="lane1-label">その他1</span>
               <button class="btn edit-lane" data-lane="lane1">?</button>
             </div>
             <div class="lane-header editable" data-lane="lane2">
-              <span id="lane2-label">���̑�2</span>
+              <span id="lane2-label">その他2</span>
               <button class="btn edit-lane" data-lane="lane2">?</button>
             </div>
           </div>
         </div>
         <div id="grid" class="grid"></div>
         <div class="export">
-          <button class="btn primary" id="btn-export">JPG�Ƃ��ďo��</button>
+          <button class="btn primary" id="btn-export">JPGとして出力</button>
         </div>
       </section>
     </main>
@@ -115,59 +115,59 @@
   
   <div class="modal" id="modal-lane" hidden>
     <div class="modal-content">
-      <h3>���[����I��</h3>
+      <h3>レーンを選択</h3>
       <div class="radio-group" id="lane-radio-group"></div>
       <div class="modal-actions">
-        <button class="btn" id="lane-cancel">�L�����Z��</button>
-        <button class="btn primary" id="lane-ok">����</button>
+        <button class="btn" id="lane-cancel">キャンセル</button>
+        <button class="btn primary" id="lane-ok">決定</button>
       </div>
     </div>
   </div>
 
   <div class="modal" id="modal-time" hidden>
     <div class="modal-content">
-      <h3>�J�n�����Ə��v����</h3>
-      <label>�J�n�����i15�����݁j
+      <h3>開始時刻と所要時間</h3>
+      <label>開始時刻（15分刻み）
         <input type="time" id="pick-start" step="900" />
       </label>
-      <label>���v���ԁi���j
+      <label>所要時間（分）
         <input type="number" id="pick-duration" min="5" step="5" />
       </label>
       <div class="modal-actions">
-        <button class="btn" id="time-cancel">�L�����Z��</button>
-        <button class="btn primary" id="time-ok">�ǉ�</button>
+        <button class="btn" id="time-cancel">キャンセル</button>
+        <button class="btn primary" id="time-ok">追加</button>
       </div>
     </div>
   </div>
 
   <div class="modal" id="modal-rename" hidden>
     <div class="modal-content">
-      <h3>���[������ҏW</h3>
-      <label>�V��������
-        <input type="text" id="rename-input" maxlength="20" placeholder="��j����^����^�Ō�" />
+      <h3>レーン名を編集</h3>
+      <label>新しい名称
+        <input type="text" id="rename-input" maxlength="20" placeholder="例）投手／守備／打撃" />
       </label>
       <div class="modal-actions">
-        <button class="btn" id="rename-reset">���Z�b�g</button>
-        <button class="btn" id="rename-cancel">�L�����Z��</button>
-        <button class="btn primary" id="rename-ok">�ۑ�</button>
+        <button class="btn" id="rename-reset">リセット</button>
+        <button class="btn" id="rename-cancel">キャンセル</button>
+        <button class="btn primary" id="rename-ok">保存</button>
       </div>
     </div>
   </div>
 
   <div class="modal" id="modal-delete" hidden>
     <div class="modal-content">
-      <h3>�\���ҏW</h3>
-      <p id="delete-message">���̗\����ǂ����܂����H</p>
+      <h3>予定を編集</h3>
+      <p id="delete-message">この予定をどうしますか？</p>
       <div class="modal-actions">
-        <button class="btn" id="delete-cancel">�L�����Z��</button>
-        <button class="btn primary" id="delete-ok">�폜</button>
+        <button class="btn" id="delete-cancel">キャンセル</button>
+        <button class="btn primary" id="delete-ok">削除</button>
       </div>
     </div>
   </div>
 
   <div class="modal" id="modal-alert" hidden>
     <div class="modal-content">
-      <h3 id="alert-title">�ʒm</h3>
+      <h3 id="alert-title">通知</h3>
       <p id="alert-message" style="white-space: pre-line;"></p>
       <div class="modal-actions">
         <button class="btn primary" id="alert-ok">OK</button>
@@ -180,61 +180,61 @@
 
   <div class="modal" id="modal-help" hidden>
     <div class="modal-content">
-      <h3>�g����</h3>
+      <h3>使い方</h3>
       <div class="help-content">
         <section>
-          <p style="margin-bottom: 12px;"><a href="#" id="purpose-link" style="color: var(--primary); text-decoration: underline;">�� ���̃A�v���̖ړI</a></p>
+          <p style="margin-bottom: 12px;"><a href="#" id="purpose-link" style="color: var(--primary); text-decoration: underline;">→ このアプリの目的</a></p>
         </section>
         <section>
-          <h4>1. ���K������ݒ�</h4>
-          <p>���t�A�J�n�E�I�����ԁA���K�ꏊ��I�����܂��B</p>
-          <p>�����t�̏����l�͒��߂̓��j���ƂȂ��Ă��܂��B</p> 
+          <h4>1. 練習日時を設定</h4>
+          <p>日付、開始・終了時間、練習場所を選択します。</p>
+          <p>※日付の初期値は直近の日曜日となっています。</p> 
         </section>
         <section>
-          <h4>2. �l����ݒ�</h4>
-          <p>����E����E�O��̐l�����^�b�v���đI�����܂��B1?9�A0�̏��őI�ׂ܂��B10�l�ȏ�́u�{�v�{�^���Œǉ��ł��܂��B</p>
+          <h4>2. 人数を設定</h4>
+          <p>投手・内野・外野の人数をタップして選択します。1?9、0の順で選べます。10人以上は「＋」ボタンで追加できます。</p>
         </section>
         <section>
-          <h4>3. ���j���[��ǉ�</h4>
-          <p>�\�����ꂽ���j���[���^�b�v����ƁA���[���I����ʂ��\������܂��B�S�́E��1�E��2����I��Łu����v�������ƁA�X�P�W���[���ɒǉ�����܂��B</p>
-          <p>����1�E��2�́A�u���y����O��X�y�[�X�ȂǂɕύX�\�ł��B</p>
+          <h4>3. メニューを追加</h4>
+          <p>表示されたメニューをタップすると、レーン選択画面が表示されます。全体・他1・他2から選んで「決定」を押すと、スケジュールに追加されます。</p>
+          <p>※他1・他2は、ブルペンや外野スペースなどに変更可能です。</p>
         </section>
         <section>
-          <h4>4. �X�P�W���[����ҏW</h4>
-          <p><strong>�ړ��F</strong>���j���[���h���b�O���Ď��Ԃ⃌�[����ύX�ł��܂��B<br>
-          <strong>���ԕύX�F</strong>���j���[�����̉������h���b�O���ď��v���Ԃ�ύX�ł��܂��B<br>
-          <strong>�폜�F</strong>���j���[���^�b�v���āu�폜�v��I�����܂��B</p>
+          <h4>4. スケジュールを編集</h4>
+          <p><strong>移動：</strong>メニューをドラッグして時間やレーンを変更できます。<br>
+          <strong>時間変更：</strong>メニュー下部の横線をドラッグして所要時間を変更できます。<br>
+          <strong>削除：</strong>メニューをタップして「削除」を選択します。</p>
         </section>
         <section>
-          <h4>5. �摜�o��</h4>
-          <p>�u�X�P�W���[���摜�o�́v�{�^���ŉ摜�Ƃ��ĕۑ��ł��܂��B</p>
-          <p>�����K���j���[���d�Ȃ��Ă���(����Ă���)�ꍇ�͏o�͂ł��܂���̂Œ������Ă��������B</p>
+          <h4>5. 画像出力</h4>
+          <p>「スケジュール画像出力」ボタンで画像として保存できます。</p>
+          <p>※練習メニューが重なっている(被っている)場合は出力できませんので調整してください。</p>
         </section>
       </div>
       <div class="modal-actions">
-        <button class="btn primary" id="help-close">����</button>
+        <button class="btn primary" id="help-close">閉じる</button>
       </div>
     </div>
   </div>
 
   <div class="modal" id="modal-purpose" hidden>
     <div class="modal-content">
-      <h3>���̃A�v���̖ړI</h3>
+      <h3>このアプリの目的</h3>
       <div class="help-content">
         <section>
-          <h4>�P�D���Ă܂�</h4>
-          <p>���̃A�v���́A�񏬃N���u�̗��K�X�P�W���[���������I�ɍ쐬�E�Ǘ����邽�߂̃c�[���Ƃ��ĊJ���������̂ł��B</p>
-          <p>�Q���l���ɉ����ēK�؂ȃ��j���[���Ă��A���Ԕz�������o�I�Ɋm�F���Ȃ���X�P�W���[����g�ނ��Ƃ��ł��܂��B</p>
-          <p>�쐬�����X�P�W���[���͉摜�Ƃ��ĕۑ����ASNS�c�[���Ȃǂŋ��L���邱�Ƃ��ł��܂��B</p>
+          <h4>１．たてまえ</h4>
+          <p>このアプリは、二小クラブの練習スケジュールを効率的に作成・管理するためのツールとして開発したものです。</p>
+          <p>参加人数に応じて適切なメニューを提案し、時間配分を視覚的に確認しながらスケジュールを組むことができます。</p>
+          <p>作成したスケジュールは画像として保存し、SNSツールなどで共有することができます。</p>
         </section>
         <section>
-          <h4>�Q�D�ق��</h4>
-          <p>���K�Q���ۃC�x���g�ւ̎Q���^�s�Q���̕\�����ǂ����Ă��a���ɂȂ��Ă��܂��J���҂��A�Q���^�s�Q���̕\���ɈӖ����������悤�ƊJ�����܂����B</p>
-          <p>�l���ɂ���Ăł��郁�j���[�������Ă��邽�߁A�Q���^�s�Q���𑁂����߂Ȃ��ƂƎv���悤�ɂȂ邵�A���̗��K������Ȃ�s�������Ǝv����悤�ɂȂ邱�Ƃ����҂��ĊJ�����Ă��܂��B</p>
+          <h4>２．ほんね</h4>
+          <p>練習参加可否イベントへの参加／不参加の表明がどうしても疎かになってしまう開発者が、参加／不参加の表明に意味を持たせようと開発しました。</p>
+          <p>人数によってできるメニューが限られてくるため、参加／不参加を早く決めないとと思うようになるし、この練習があるなら行こうかと思えるようになることを期待して開発しています。</p>
         </section>
       </div>
       <div class="modal-actions">
-        <button class="btn primary" id="purpose-back">�g�����֖߂�</button>
+        <button class="btn primary" id="purpose-back">使い方へ戻る</button>
       </div>
     </div>
   </div>
