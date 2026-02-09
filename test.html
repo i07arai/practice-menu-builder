@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>自動テスト - 練習メニュー組み立てアプリ</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      background: #f5f5f5;
+    }
+    h1 { color: #333; }
+    .summary {
+      display: flex;
+      gap: 20px;
+      margin: 20px 0;
+    }
+    .summary-card {
+      flex: 1;
+      padding: 20px;
+      border-radius: 8px;
+      text-align: center;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    .summary-card.total { background: #e3f2fd; color: #1976d2; }
+    .summary-card.passed { background: #e8f5e9; color: #388e3c; }
+    .summary-card.failed { background: #ffebee; color: #d32f2f; }
+    .test-suite {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    .test-suite h2 {
+      margin-top: 0;
+      color: #1976d2;
+    }
+    .test-case {
+      padding: 10px;
+      border-left: 4px solid #ddd;
+      margin: 10px 0;
+      background: #fafafa;
+    }
+    .test-case.pass {
+      border-color: #4caf50;
+      background: #f1f8f4;
+    }
+    .test-case.fail {
+      border-color: #f44336;
+      background: #fef5f5;
+    }
+    .test-case .name { font-weight: 600; }
+    .test-case .error {
+      color: #d32f2f;
+      font-family: monospace;
+      font-size: 12px;
+      margin-top: 5px;
+      padding: 8px;
+      background: #ffebee;
+      border-radius: 4px;
+    }
+    .icon { margin-right: 8px; }
+    .pass .icon::before { content: "?"; color: #4caf50; }
+    .fail .icon::before { content: "?"; color: #f44336; }
+    #run-btn {
+      background: #1976d2;
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 4px;
+      font-size: 16px;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+    #run-btn:hover { background: #1565c0; }
+    #run-btn:disabled {
+      background: #ccc;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+<body>
+  <h1>? 自動テスト</h1>
+  <button id="run-btn">テスト実行</button>
+  
+  <div class="summary">
+    <div class="summary-card total">
+      <div id="total-count">0</div>
+      <div style="font-size: 14px; margin-top: 8px;">総テスト数</div>
+    </div>
+    <div class="summary-card passed">
+      <div id="pass-count">0</div>
+      <div style="font-size: 14px; margin-top: 8px;">成功</div>
+    </div>
+    <div class="summary-card failed">
+      <div id="fail-count">0</div>
+      <div style="font-size: 14px; margin-top: 8px;">失敗</div>
+    </div>
+  </div>
+
+  <div id="results"></div>
+
+  <script type="module">
+    // シンプルなテストランナー
+    class TestRunner {
+      constructor() {
+        this.suites = [];
+        this.totalTests = 0;
+        this.passedTests = 0;
+        this.failedTests = 0;
+      }
+
+      describe(name, fn) {
+        const suite = { name, tests: [] };
+        this.suites.push(suite);
+        this.currentSuite = suite;
+        fn();
+        this.currentSuite = null;
+      }
+
+      it(name, fn) {
+        if (!this.currentSuite) {
+          throw new Error('it() must be called inside describe()');
+        }
+        this.currentSuite.tests.push({ name, fn });
+      }
+
+      expect(actual) {
+        return {
+          toBe: (expected) => {
+            if (actual !== expected) {
+              throw new Error(`Expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+            }
+          },
+          toEqual: (expected) => {
+            if (JSON.stringify(actual) !== JSON.stringify(expected)) {
+              throw new Error(`Expected ${JSON.stringify(expected)}, got ${JSON.stringify(actual)}`);
+            }
+          },
+          toBeDefined: () => {
+            if (actual === undefined) {
+              throw new Error('Expected value to be defined');
+            }
+          },
+          toBeNull: () => {
+            if (actual !== null) {
+              throw new Error(`Expected null, got ${JSON.stringify(actual)}`);
+            }
+          },
+          not: {
+            toBeNull: () => {
+              if (actual === null) {
+                throw new Error('Expected value not to be null');
+              }
+            }
+          },
+          toBeGreaterThan: (expected) => {
+            if (!(actual > expected)) {
+              throw new Error(`Expected ${actual} to be greater than ${expected}`);
+            }
+          },
+          toBeGreaterThanOrEqual: (expected) => {
+            if (!(actual >= expected)) {
+              throw new Error(`Expected ${actual} to be >= ${expected}`);
+            }
+          },
+          toContain: (item) => {
+            if (!Array.isArray(actual) || !actual.includes(item)) {
+              throw new Error(`Expected array to contain ${JSON.stringify(item)}`);
+            }
+          },
+          toHaveProperty: (prop) => {
+            if (!(prop in actual)) {
+              throw new Error(`Expected object to have property "${prop}"`);
+            }
+          },
+          toBeInstanceOf: (constructor) => {
+            if (!(actual instanceof constructor)) {
+              throw new Error(`Expected value to be instance of ${constructor.name}`);
+            }
+          }
+        };
+      }
+
+      async run() {
+        this.totalTests = 0;
+        this.passedTests = 0;
+        this.failedTests = 0;
+
+        const results = document.getElementById('results');
+        results.innerHTML = '';
+
+        for (const suite of this.suites) {
+          const suiteDiv = document.createElement('div');
+          suiteDiv.className = 'test-suite';
+          suiteDiv.innerHTML = `<h2>${suite.name}</h2>`;
+
+          for (const test of suite.tests) {
+            this.totalTests++;
+            const testDiv = document.createElement('div');
+            testDiv.className = 'test-case';
+
+            try {
+              await test.fn();
+              this.passedTests++;
+              testDiv.classList.add('pass');
+              testDiv.innerHTML = `<div class="name"><span class="icon"></span>${test.name}</div>`;
+            } catch (error) {
+              this.failedTests++;
+              testDiv.classList.add('fail');
+              testDiv.innerHTML = `
+                <div class="name"><span class="icon"></span>${test.name}</div>
+                <div class="error">${error.message}</div>
+              `;
+            }
+
+            suiteDiv.appendChild(testDiv);
+          }
+
+          results.appendChild(suiteDiv);
+        }
+
+        document.getElementById('total-count').textContent = this.totalTests;
+        document.getElementById('pass-count').textContent = this.passedTests;
+        document.getElementById('fail-count').textContent = this.failedTests;
+      }
+    }
+
+    const runner = new TestRunner();
+
+    // テスト定義
+    runner.describe('メニュー設定ファイル', () => {
+      let config;
+
+      runner.it('設定ファイルを読み込めること', async () => {
+        const response = await fetch('/config/menus-config.json');
+        config = await response.json();
+        runner.expect(config).toBeDefined();
+        runner.expect(config.menus).toBeInstanceOf(Array);
+      });
+
+      runner.it('メニューが存在すること', async () => {
+        if (!config) {
+          const response = await fetch('/config/menus-config.json');
+          config = await response.json();
+        }
+        runner.expect(config.menus.length).toBeGreaterThan(0);
+      });
+
+      runner.it('各メニューが必須フィールドを持つこと', async () => {
+        if (!config) {
+          const response = await fetch('/config/menus-config.json');
+          config = await response.json();
+        }
+        const menu = config.menus[0];
+        runner.expect(menu).toHaveProperty('id');
+        runner.expect(menu).toHaveProperty('name');
+        runner.expect(menu).toHaveProperty('category');
+        runner.expect(menu).toHaveProperty('durationDefaultMin');
+        runner.expect(menu).toHaveProperty('conditions');
+      });
+
+      runner.it('メニューIDがユニークであること', async () => {
+        if (!config) {
+          const response = await fetch('/config/menus-config.json');
+          config = await response.json();
+        }
+        const ids = config.menus.map(m => m.id);
+        const uniqueIds = new Set(ids);
+        runner.expect(uniqueIds.size).toBe(ids.length);
+      });
+    });
+
+    runner.describe('名簿設定ファイル', () => {
+      let config;
+
+      runner.it('設定ファイルを読み込めること', async () => {
+        const response = await fetch('/config/member-config.json');
+        config = await response.json();
+        runner.expect(config).toBeDefined();
+        runner.expect(config.members).toBeInstanceOf(Array);
+      });
+
+      runner.it('選手が存在すること', async () => {
+        if (!config) {
+          const response = await fetch('/config/member-config.json');
+          config = await response.json();
+        }
+        runner.expect(config.members.length).toBeGreaterThan(0);
+      });
+
+      runner.it('各選手が必須フィールドを持つこと', async () => {
+        if (!config) {
+          const response = await fetch('/config/member-config.json');
+          config = await response.json();
+        }
+        const member = config.members[0];
+        runner.expect(member).toHaveProperty('id');
+        runner.expect(member).toHaveProperty('name');
+        runner.expect(member).toHaveProperty('position');
+        runner.expect(member).toHaveProperty('role');
+      });
+
+      runner.it('選手IDがユニークであること', async () => {
+        if (!config) {
+          const response = await fetch('/config/member-config.json');
+          config = await response.json();
+        }
+        const ids = config.members.map(m => m.id);
+        const uniqueIds = new Set(ids);
+        runner.expect(uniqueIds.size).toBe(ids.length);
+      });
+    });
+
+    runner.describe('DOM要素の存在確認', () => {
+      let indexHtml;
+
+      runner.it('index.htmlを読み込めること', async () => {
+        const response = await fetch('/index.html');
+        indexHtml = await response.text();
+        runner.expect(indexHtml.length).toBeGreaterThan(0);
+      });
+
+      runner.it('count-mode-select要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="count-mode-select"')).toBe(true);
+      });
+
+      runner.it('position-input要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="position-input"')).toBe(true);
+      });
+
+      runner.it('roster-input要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="roster-input"')).toBe(true);
+      });
+
+      runner.it('roster-grid要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('class="roster-grid"')).toBe(true);
+      });
+
+      runner.it('menu-list要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="menu-list"')).toBe(true);
+      });
+
+      runner.it('modal-help要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="modal-help"')).toBe(true);
+      });
+
+      runner.it('modal-backdrop要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="modal-backdrop"')).toBe(true);
+      });
+
+      runner.it('help-close要素が存在すること', async () => {
+        runner.expect(indexHtml.includes('id="help-close"')).toBe(true);
+      });
+    });
+
+    runner.describe('メニューフィルタリングロジック', () => {
+      runner.it('人数条件（minTotal）で正しくフィルタリングできること', () => {
+        const testCondition = (cond, playerCounts) => {
+          const { P = 0, IF = 0, OF = 0 } = playerCounts;
+          const total = P + IF + OF;
+          if (cond.minTotal && total < cond.minTotal) return false;
+          return true;
+        };
+
+        runner.expect(testCondition({ minTotal: 10 }, { P: 3, IF: 4, OF: 3 })).toBe(true);
+        runner.expect(testCondition({ minTotal: 10 }, { P: 2, IF: 2, OF: 2 })).toBe(false);
+      });
+
+      runner.it('人数条件（minP, minIF, minOF）で正しくフィルタリングできること', () => {
+        const testCondition = (cond, playerCounts) => {
+          const { P = 0, IF = 0, OF = 0 } = playerCounts;
+          if (cond.minP && P < cond.minP) return false;
+          if (cond.minIF && IF < cond.minIF) return false;
+          if (cond.minOF && OF < cond.minOF) return false;
+          return true;
+        };
+
+        runner.expect(testCondition({ minP: 2, minIF: 3, minOF: 2 }, { P: 2, IF: 3, OF: 2 })).toBe(true);
+        runner.expect(testCondition({ minP: 2, minIF: 3, minOF: 2 }, { P: 1, IF: 3, OF: 2 })).toBe(false);
+      });
+
+      runner.it('人数条件（minPlusIF）で正しくフィルタリングできること', () => {
+        const testCondition = (cond, playerCounts) => {
+          const { P = 0, IF = 0 } = playerCounts;
+          if (cond.minPlusIF && (P + IF) < cond.minPlusIF) return false;
+          return true;
+        };
+
+        runner.expect(testCondition({ minPlusIF: 5 }, { P: 3, IF: 2 })).toBe(true);
+        runner.expect(testCondition({ minPlusIF: 5 }, { P: 2, IF: 2 })).toBe(false);
+      });
+    });
+
+    // テスト実行ボタン
+    document.getElementById('run-btn').addEventListener('click', async () => {
+      const btn = document.getElementById('run-btn');
+      btn.disabled = true;
+      btn.textContent = 'テスト実行中...';
+      
+      await runner.run();
+      
+      btn.disabled = false;
+      btn.textContent = 'テスト実行';
+    });
+  </script>
+</body>
+</html>
