@@ -87,10 +87,19 @@ const rosterInput = document.getElementById('roster-input');
 const positionInput = document.getElementById('position-input');
 const rosterCountDisplay = document.getElementById('roster-count');
 
+console.log('DOM elements:', {
+  countModeSelect,
+  rosterInput,
+  positionInput,
+  rosterCountDisplay
+});
+
 // Initialize: show roster input by default
 let countMode = 'roster';
-rosterInput.style.display = 'block';
-positionInput.style.display = 'none';
+if (rosterInput && positionInput) {
+  rosterInput.style.display = 'block';
+  positionInput.style.display = 'none';
+}
 
 countModeSelect.addEventListener('change', (e) => {
   countMode = e.target.value;
@@ -148,6 +157,11 @@ function renderRosterUI() {
 }
 
 function updateRosterCount() {
+  if (!rosterInput || !rosterCountDisplay) {
+    console.warn('rosterInput or rosterCountDisplay not found');
+    return;
+  }
+  
   const rosterCheckboxes = rosterInput.querySelectorAll('input[type="checkbox"]');
   const checkedCount = Array.from(rosterCheckboxes).filter(cb => cb.checked).length;
   rosterCountDisplay.textContent = checkedCount;
@@ -344,14 +358,19 @@ purposeBack.addEventListener('click', () => {
 
 // 設定ファイルを読み込んでから初期化
 async function initialize() {
+  console.log('initialize() called');
+  
   // メニュー設定を読み込み
   await loadMenuConfig();
+  console.log('Menu config loaded');
   
   // 名簿設定を読み込み
   await loadRosterConfig();
+  console.log('Roster config loaded');
   
   // 名簿UIを生成
   renderRosterUI();
+  console.log('Roster UI rendered');
   
   // Initial render
   renderGrid(state);
