@@ -15,7 +15,7 @@ export async function loadRosterConfig() {
       return;
     }
     const config = await response.json();
-    ROSTER = config.members || [];
+    ROSTER = config.players || [];
     console.log('Roster config loaded:', ROSTER.length, 'players');
   } catch (err) {
     console.error('Failed to load roster config:', err);
