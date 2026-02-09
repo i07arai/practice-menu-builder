@@ -139,8 +139,6 @@ function renderRosterUI() {
     console.warn('Roster is empty');
     return;
   }
-    return;
-  }
   
   // Clear existing content
   rosterGrid.innerHTML = '';
