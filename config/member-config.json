@@ -4,12 +4,13 @@
   "_fields": {
     "id": "一意のID（必須、数値）",
     "name": "メンバーの名前（必須、文字列）",
-    "position": "ポジション（任意、'P'=投手、'IF'=内野、'OF'=外野、'C'=捕手、null=未設定）",
+    "position": "メインポジション（任意、'P'=投手、'IF'=内野、'OF'=外野、'C'=捕手、null=未設定）",
+    "subPositions": "サブポジション（任意、配列形式で複数指定可能。例: ['IF', 'OF']）",
     "role": "役割（'player'=選手、'coach'=コーチ）",
+    "isOver40": "40歳以上かどうか（任意、true/false）",
     "attributes": "追加の属性情報（任意、オブジェクト）"
   },
   "_example_attributes": {
-    "grade": "学年（例: 6）",
     "number": "背番号（例: 10）",
     "skill": "得意分野（例: '打撃'、'守備'、'走塁'）",
     "notes": "備考（例: 'リーダー'）"
@@ -19,168 +20,216 @@
       "id": 1,
       "name": "ああああ",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 2,
       "name": "いいい",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 3,
       "name": "田中",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 4,
       "name": "１２３",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 5,
       "name": "ああ（あ）",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 6,
       "name": "ああ(あ)",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 7,
       "name": "SHISHIDA",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 8,
       "name": "岡田：88",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 9,
       "name": "かんとく:00",
       "position": null,
+      "subPositions": [],
       "role": "coach",
+      "isOver40": true,
       "attributes": {}
     },
     {
       "id": 10,
       "name": "こーち:22",
       "position": null,
+      "subPositions": [],
       "role": "coach",
+      "isOver40": true,
       "attributes": {}
     },
     {
       "id": 11,
       "name": "テスト",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 12,
       "name": "12345",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 13,
       "name": "いい（あ）",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 14,
       "name": "灘灘(あ)",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 15,
       "name": "テティス",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 16,
       "name": "abcde",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 17,
       "name": "むむむ",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 18,
       "name": "らいらい",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 19,
       "name": "&&",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 20,
       "name": "?!?!",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 21,
       "name": "：:33",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 22,
       "name": "どどんぱ",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 23,
       "name": "－－－－－－",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     },
     {
       "id": 24,
       "name": "最大値",
       "position": null,
+      "subPositions": [],
       "role": "player",
+      "isOver40": false,
       "attributes": {}
     }
   ]
