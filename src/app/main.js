@@ -152,15 +152,44 @@ function updateRosterCount() {
   }
   
   const rosterCheckboxes = rosterInput.querySelectorAll('input[type="checkbox"]');
-  const checkedCount = Array.from(rosterCheckboxes).filter(cb => cb.checked).length;
+  const checkedBoxes = Array.from(rosterCheckboxes).filter(cb => cb.checked);
+  const checkedCount = checkedBoxes.length;
   rosterCountDisplay.textContent = checkedCount;
   
   // Update state.counts for menu filtering
-  // When in roster mode, treat all checked as total count
+  // When in roster mode, calculate actual position counts from selected members
   if (countMode === 'roster') {
-    state.counts.P = Math.ceil(checkedCount / 3);  // Rough distribution
-    state.counts.IF = Math.ceil(checkedCount / 3);
-    state.counts.OF = Math.ceil(checkedCount / 3);
+    // Get selected player IDs
+    const selectedPlayerIds = checkedBoxes.map(cb => parseInt(cb.dataset.playerId));
+    const roster = getRoster();
+    
+    // Calculate position counts from selected players
+    let pCount = 0;
+    let ifCount = 0;
+    let ofCount = 0;
+    
+    selectedPlayerIds.forEach(playerId => {
+      const player = roster.find(p => p.id === playerId);
+      if (!player) return;
+      
+      // Count main position
+      if (player.position === 'P') pCount++;
+      else if (player.position === 'IF') ifCount++;
+      else if (player.position === 'OF') ofCount++;
+      
+      // Count sub positions (if any)
+      if (player.subPositions && Array.isArray(player.subPositions)) {
+        player.subPositions.forEach(pos => {
+          if (pos === 'P') pCount++;
+          else if (pos === 'IF') ifCount++;
+          else if (pos === 'OF') ofCount++;
+        });
+      }
+    });
+    
+    state.counts.P = pCount;
+    state.counts.IF = ifCount;
+    state.counts.OF = ofCount;
   }
 }
 
