@@ -90,19 +90,19 @@
           <div class="lane-headers">
             <div class="time-spacer"></div>
             <div class="lane-header" data-lane="global">
-              全体 <button class="btn edit-lane" data-lane="global">✎</button>
+              <span class="lane-name" id="lane-name-global">全体</span>
             </div>
             <div class="lane-header editable" data-lane="lane1">
-              <span id="lane1-label">他1</span>
-              <button class="btn edit-lane" data-lane="lane1">✎</button>
+              <span class="lane-name" id="lane-name-lane1">他1</span>
+              <button class="edit-lane" data-lane="lane1" title="レーン名編集">✎</button>
             </div>
             <div class="lane-header editable" data-lane="lane2">
-              <span id="lane2-label">他2</span>
-              <button class="btn edit-lane" data-lane="lane2">✎</button>
+              <span class="lane-name" id="lane-name-lane2">他2</span>
+              <button class="edit-lane" data-lane="lane2" title="レーン名編集">✎</button>
             </div>
           </div>
         </div>
-        <div id="grid" class="grid"></div>
+        <div class="grid" id="grid"></div>
         <div class="export">
           <button class="btn primary" id="btn-export">スケジュール画像出力</button>
         </div>
