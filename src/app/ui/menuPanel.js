@@ -3,6 +3,12 @@ import { total } from '../logic/menus.js';
 
 export function renderMenuList(menus, { onSelect }) {
   const host = document.getElementById('menu-list');
+  if (!host) {
+    console.error('menu-list element not found! Current URL:', window.location.href);
+    console.error('Available elements with id:', 
+      Array.from(document.querySelectorAll('[id]')).map(el => el.id));
+    return;
+  }
   host.innerHTML = '';
   if (menus.length === 0) {
     const empty = document.createElement('div');

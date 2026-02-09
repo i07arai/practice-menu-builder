@@ -321,40 +321,58 @@ const purposeLink = document.getElementById('purpose-link');
 const purposeModal = document.getElementById('modal-purpose');
 const purposeBack = document.getElementById('purpose-back');
 
-helpLink.addEventListener('click', (e) => {
-  e.preventDefault();
-  helpBackdrop.hidden = false;
-  helpModal.hidden = false;
+console.log('Modal elements:', {
+  helpLink,
+  helpModal,
+  helpBackdrop,
+  helpClose,
+  purposeLink,
+  purposeModal,
+  purposeBack
 });
 
-helpClose.addEventListener('click', () => {
-  helpBackdrop.hidden = true;
-  helpModal.hidden = true;
-});
+if (helpLink && helpModal && helpBackdrop && helpClose) {
+  helpLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    helpBackdrop.hidden = false;
+    helpModal.hidden = false;
+  });
 
-helpBackdrop.addEventListener('click', () => {
-  if (!helpModal.hidden) {
+  helpClose.addEventListener('click', () => {
     helpBackdrop.hidden = true;
     helpModal.hidden = true;
-  }
-  if (!purposeModal.hidden) {
-    helpBackdrop.hidden = true;
+  });
+
+  helpBackdrop.addEventListener('click', () => {
+    if (!helpModal.hidden) {
+      helpBackdrop.hidden = true;
+      helpModal.hidden = true;
+    }
+    if (purposeModal && !purposeModal.hidden) {
+      helpBackdrop.hidden = true;
+      purposeModal.hidden = true;
+    }
+  });
+} else {
+  console.error('Some help modal elements not found');
+}
+
+if (purposeLink && purposeModal && helpModal && purposeBack) {
+  purposeLink.addEventListener('click', (e) => {
+    e.preventDefault();
+    // 使い方モーダルを閉じて目的モーダルを開く
+    helpModal.hidden = true;
+    purposeModal.hidden = false;
+  });
+
+  purposeBack.addEventListener('click', () => {
+    // 目的モーダルを閉じて使い方モーダルを開く
     purposeModal.hidden = true;
-  }
-});
-
-purposeLink.addEventListener('click', (e) => {
-  e.preventDefault();
-  // 使い方モーダルを閉じて目的モーダルを開く
-  helpModal.hidden = true;
-  purposeModal.hidden = false;
-});
-
-purposeBack.addEventListener('click', () => {
-  // 目的モーダルを閉じて使い方モーダルを開く
-  purposeModal.hidden = true;
-  helpModal.hidden = false;
-});
+    helpModal.hidden = false;
+  });
+} else {
+  console.error('Some purpose modal elements not found');
+}
 
 // 設定ファイルを読み込んでから初期化
 async function initialize() {
