@@ -18,219 +18,223 @@
   "players": [
     {
       "id": 1,
-      "name": "ああああ",
-      "position": null,
-      "subPositions": [],
+      "name": "阿部",
+      "position": "IF",
+      "subPositions": ["OF"],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "abe"
+      }
     },
     {
       "id": 2,
-      "name": "いいい",
-      "position": null,
-      "subPositions": [],
+      "name": "荒井",
+      "position": "OF",
+      "subPositions": ["IF", "P"],
       "role": "player",
       "isOver40": false,
-      "attributes": {}
+      "attributes": {
+        "romanName": "arai"
+      }
     },
     {
       "id": 3,
-      "name": "田中",
-      "position": null,
-      "subPositions": [],
+      "name": "馬場",
+      "position": "IF",
+      "subPositions": ["OF", "P"],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "baba"
+      }
     },
     {
       "id": 4,
-      "name": "１２３",
-      "position": null,
+      "name": "今泉",
+      "position": "IF",
       "subPositions": [],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "imaizumi"
+      }
     },
     {
       "id": 5,
-      "name": "ああ（あ）",
-      "position": null,
+      "name": "伊藤",
+      "position": "IF",
       "subPositions": [],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "ito"
+      }
     },
     {
       "id": 6,
-      "name": "ああ(あ)",
+      "name": "角",
       "position": null,
       "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "role": "support",
+      "isOver40": true,
+      "attributes": {
+        "romanName": "kado"
+      }
     },
     {
       "id": 7,
-      "name": "SHISHIDA",
-      "position": null,
+      "name": "加藤",
+      "position": "OF",
       "subPositions": [],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "kato"
+      }
     },
     {
       "id": 8,
-      "name": "岡田：88",
-      "position": null,
+      "name": "菊地",
+      "position": "OF",
       "subPositions": [],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "kikuchi"
+      }
     },
     {
       "id": 9,
-      "name": "かんとく:00",
+      "name": "木下",
       "position": null,
       "subPositions": [],
       "role": "support",
       "isOver40": true,
-      "attributes": {}
+      "attributes": {
+        "romanName": "kinoshita"
+      }
     },
     {
       "id": 10,
-      "name": "こーち:22",
+      "name": "Lisa",
       "position": null,
       "subPositions": [],
       "role": "support",
       "isOver40": true,
-      "attributes": {}
+      "attributes": {
+        "romanName": "Lisa"
+      }
     },
     {
       "id": 11,
-      "name": "テスト",
-      "position": null,
+      "name": "村井",
+      "position": "IF",
       "subPositions": [],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "murai"
+      }
     },
     {
       "id": 12,
-      "name": "12345",
+      "name": "小川",
       "position": null,
       "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "role": "support",
+      "isOver40": true,
+      "attributes": {
+        "romanName": "ogawa"
+      }
     },
     {
       "id": 13,
-      "name": "いい（あ）",
+      "name": "坂口",
       "position": null,
       "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "role": "support",
+      "isOver40": true,
+      "attributes": {
+        "romanName": "sakaguchi"
+      }
     },
     {
       "id": 14,
-      "name": "灘灘(あ)",
-      "position": null,
-      "subPositions": [],
+      "name": "酒井",
+      "position": "IF",
+      "subPositions": ["OF"],
       "role": "player",
       "isOver40": false,
-      "attributes": {}
+      "attributes": {
+        "romanName": "sakai"
+      }
     },
     {
       "id": 15,
-      "name": "テティス",
-      "position": null,
-      "subPositions": [],
+      "name": "末永",
+      "position": "IF",
+      "subPositions": ["OF"],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "suenaga"
+      }
     },
     {
       "id": 16,
-      "name": "abcde",
+      "name": "杉山",
       "position": null,
       "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "role": "support",
+      "isOver40": true,
+      "attributes": {
+        "romanName": "sugiyama"
+      }
     },
     {
       "id": 17,
-      "name": "むむむ",
-      "position": null,
-      "subPositions": [],
+      "name": "竹内宏",
+      "position": "OF",
+      "subPositions": ["IF", "P"],
       "role": "player",
       "isOver40": false,
-      "attributes": {}
+      "attributes": {
+        "romanName": "takeuchi"
+      }
     },
     {
       "id": 18,
-      "name": "らいらい",
-      "position": null,
-      "subPositions": [],
+      "name": "竹内伸",
+      "position": "P",
+      "subPositions": ["OF"],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "takeuchi"
+      }
     },
     {
       "id": 19,
-      "name": "&&",
-      "position": null,
+      "name": "山村",
+      "position": "IF",
       "subPositions": [],
       "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "isOver40": true,
+      "attributes": {
+        "romanName": "yamamura"
+      }
     },
     {
       "id": 20,
-      "name": "?!?!",
-      "position": null,
-      "subPositions": [],
+      "name": "吉田",
+      "position": "IF",
+      "subPositions": ["P"],
       "role": "player",
       "isOver40": false,
-      "attributes": {}
-    },
-    {
-      "id": 21,
-      "name": "：:33",
-      "position": null,
-      "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
-    },
-    {
-      "id": 22,
-      "name": "どどんぱ",
-      "position": null,
-      "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
-    },
-    {
-      "id": 23,
-      "name": "－－－－－－",
-      "position": null,
-      "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
-    },
-    {
-      "id": 24,
-      "name": "最大値",
-      "position": null,
-      "subPositions": [],
-      "role": "player",
-      "isOver40": false,
-      "attributes": {}
+      "attributes": {
+        "romanName": "yoshida"
+      }
     }
   ]
 }
