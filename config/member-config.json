@@ -13,9 +13,9 @@
   "_example_attributes": {
     "romanName": "ローマ字名（例: 'yamada'）",
     "skill": "得意分野（例: '打撃'、'守備'、'走塁'）",
-    "notes": "備考（例: 'リーダー'）",
     "canCatch": "キャッチャー可能（任意、true/false）",
-    "isPitcherTraining": "ピッチャー練習中（任意、true/false）"
+    "isPitcherTraining": "ピッチャー練習中（任意、true/false）",
+    "notes": "備考（例: 'リーダー'）"
   },
   "players": [
     {
@@ -37,7 +37,9 @@
       "role": "player",
       "isOver40": false,
       "attributes": {
-        "romanName": "arai"
+        "romanName": "arai",
+        "canCatch": true,
+        "isPitcherTraining": true
       }
     },
     {
@@ -48,7 +50,9 @@
       "role": "player",
       "isOver40": true,
       "attributes": {
-        "romanName": "baba"
+        "romanName": "baba",
+        "canCatch": true,
+        "isPitcherTraining": true
       }
     },
     {
@@ -70,7 +74,8 @@
       "role": "player",
       "isOver40": true,
       "attributes": {
-        "romanName": "ito"
+        "romanName": "ito",
+        "canCatch": true
       }
     },
     {
@@ -147,7 +152,8 @@
       "role": "support",
       "isOver40": true,
       "attributes": {
-        "romanName": "ogawa"
+        "romanName": "ogawa",
+        "canCatch": true
       }
     },
     {
@@ -180,7 +186,8 @@
       "role": "player",
       "isOver40": true,
       "attributes": {
-        "romanName": "suenaga"
+        "romanName": "suenaga",
+        "canCatch": true
       }
     },
     {
@@ -202,7 +209,9 @@
       "role": "player",
       "isOver40": false,
       "attributes": {
-        "romanName": "takeuchi"
+        "romanName": "takeuchi",
+        "canCatch": true,
+        "isPitcherTraining": true
       }
     },
     {
@@ -235,7 +244,9 @@
       "role": "player",
       "isOver40": false,
       "attributes": {
-        "romanName": "yoshida"
+        "romanName": "yoshida",
+        "canCatch": true,
+        "isPitcherTraining": true
       }
     }
   ]
