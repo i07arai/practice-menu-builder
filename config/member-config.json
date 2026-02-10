@@ -11,7 +11,7 @@
     "attributes": "追加の属性情報（任意、オブジェクト）"
   },
   "_example_attributes": {
-    "number": "背番号（例: 10）",
+    "romanName": "ローマ字名（例: 'yamada'）",
     "skill": "得意分野（例: '打撃'、'守備'、'走塁'）",
     "notes": "備考（例: 'リーダー'）"
   },
