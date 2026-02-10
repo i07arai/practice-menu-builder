@@ -66,4 +66,6 @@ export function isEligible(menu, counts) {
   try { return !!menu.condition(counts); } catch(e) { return false; }
 }
 
-export function total(c) { return (c.P||0) + (c.IF||0) + (c.OF||0); }
+export function total(c) { 
+  return c.total !== undefined ? c.total : (c.P||0) + (c.IF||0) + (c.OF||0); 
+}
