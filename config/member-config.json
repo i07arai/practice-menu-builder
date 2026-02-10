@@ -13,7 +13,9 @@
   "_example_attributes": {
     "romanName": "ローマ字名（例: 'yamada'）",
     "skill": "得意分野（例: '打撃'、'守備'、'走塁'）",
-    "notes": "備考（例: 'リーダー'）"
+    "notes": "備考（例: 'リーダー'）",
+    "canCatch": "キャッチャー可能（任意、true/false）",
+    "isPitcherTraining": "ピッチャー練習中（任意、true/false）"
   },
   "players": [
     {
