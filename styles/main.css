@@ -124,6 +124,29 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 /* タブレット対応 */
 @media (min-width: 600px) {
   #app { max-width: 760px; }
+  
+  /* 日付・開始時間・終了時間の均等配置 */
+  .session-inputs { 
+    padding: 0 20px;
+    justify-items: center;
+  }
+  .session-inputs label {
+    width: 100%;
+    text-align: center;
+  }
+  .session-inputs input {
+    text-align: center;
+  }
+  
+  /* 名簿チェックボックスと表示名を大きく */
+  .roster-grid input[type="checkbox"] {
+    width: 20px;
+    height: 20px;
+  }
+  .roster-grid label {
+    font-size: 16px;
+    padding: 8px 10px;
+  }
 }
 
 /* PC対応 */
