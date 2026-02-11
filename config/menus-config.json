@@ -2,7 +2,7 @@
   "menus": [
     {
       "id": "warmup",
-      "name": "体操・ランニング",
+      "name": "アップ(柔軟・キャッチボール)",
       "categoryShort": "アップ",
       "category": "warmup",
       "durationDefaultMin": 15,
@@ -21,8 +21,8 @@
       }
     },
     {
-      "id": "free_batting",
-      "name": "フリーバッティング",
+      "id": "team_batting",
+      "name": "3人制チームバッティング",
       "categoryShort": "打",
       "category": "batting",
       "durationDefaultMin": 60,
@@ -33,7 +33,7 @@
     },
     {
       "id": "tee_batting",
-      "name": "ティーバッティング",
+      "name": "置きティーバッティング",
       "categoryShort": "打",
       "category": "batting",
       "durationDefaultMin": 30,
@@ -75,10 +75,10 @@
       }
     },
     {
-      "id": "pepper",
-      "name": "ペッパー",
-      "categoryShort": "守",
-      "category": "fielding",
+      "id": "pair_pepper",
+      "name": "2人組ゴロペッパー",
+      "categoryShort": "アップ",
+      "category": "warmup",
       "durationDefaultMin": 15,
       "conditions": {
         "minTotal": 2
