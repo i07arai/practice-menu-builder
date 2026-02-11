@@ -12,7 +12,7 @@
   },
   "_example_attributes": {
     "romanName": "ローマ字名（例: 'yamada'）",
-    "skill": "得意分野（例: '打撃'、'守備'、'走塁'）",
+    "skills": "得意分野（配列）。例: ['skill_pitch', 'skill_bat', 'skill_field', 'skill_run', 'skill_c-read', 'skill_coach']",
     "canCatch": "キャッチャー可能（任意、true/false）",
     "isPitcherTraining": "ピッチャー練習中（任意、true/false）",
     "notes": "備考（例: 'リーダー'）"
@@ -26,7 +26,8 @@
       "role": "player",
       "isOver40": true,
       "attributes": {
-        "romanName": "abe"
+        "romanName": "abe",
+        "skills": ["skill_coach"]
       }
     },
     {
@@ -38,6 +39,7 @@
       "isOver40": false,
       "attributes": {
         "romanName": "arai",
+        "skills": ["skill_field", "skill_run", "skill_c-read"],
         "canCatch": true,
         "isPitcherTraining": true
       }
@@ -51,6 +53,7 @@
       "isOver40": true,
       "attributes": {
         "romanName": "baba",
+        "skills": ["skill_bat", "skill_field", "skill_run"],
         "canCatch": true,
         "isPitcherTraining": true
       }
@@ -86,7 +89,8 @@
       "role": "support",
       "isOver40": true,
       "attributes": {
-        "romanName": "kado"
+        "romanName": "kado",
+        "skills": ["skill_bat", "skill_coach"]
       }
     },
     {
@@ -141,7 +145,8 @@
       "role": "player",
       "isOver40": true,
       "attributes": {
-        "romanName": "murai"
+        "romanName": "murai",
+        "skills": ["skill_coach"]
       }
     },
     {
@@ -153,6 +158,7 @@
       "isOver40": true,
       "attributes": {
         "romanName": "ogawa",
+        "skills": ["skill_c-read", "skill_coach"],
         "canCatch": true
       }
     },
@@ -164,7 +170,8 @@
       "role": "support",
       "isOver40": true,
       "attributes": {
-        "romanName": "sakaguchi"
+        "romanName": "sakaguchi",
+        "skills": ["skill_coach"]
       }
     },
     {
@@ -210,6 +217,7 @@
       "isOver40": false,
       "attributes": {
         "romanName": "takeuchi",
+        "skills": ["skill_bat", "skill_field", "skill_run", "skill_c-read", "skill_coach"],
         "canCatch": true,
         "isPitcherTraining": true
       }
@@ -222,7 +230,8 @@
       "role": "player",
       "isOver40": true,
       "attributes": {
-        "romanName": "takeuchi"
+        "romanName": "takeuchi",
+        "skills": ["skill_pitch", "skill_bat", "skill_c-read", "skill_coach"]
       }
     },
     {
@@ -245,6 +254,7 @@
       "isOver40": false,
       "attributes": {
         "romanName": "yoshida",
+        "skills": ["skill_pitch", "skill_bat", "skill_field", "skill_c-read", "skill_coach"],
         "canCatch": true,
         "isPitcherTraining": true
       }
