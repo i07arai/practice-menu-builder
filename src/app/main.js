@@ -312,7 +312,16 @@ chips.forEach(ch => ch.addEventListener('click', () => {
 function updateMenuCandidates() {
   const list = MENUS.filter(m => isEligible(m, state.counts));
   const filtered = state.ui.filterCat ? list.filter(m => m.categoryShort === state.ui.filterCat) : list;
-  renderMenuList(filtered, {
+
+  // カテゴリ順でソート：アップ→守備→投手→打撃
+  const categoryOrder = { 'warmup': 1, 'fielding': 2, 'pitching': 3, 'batting': 4, 'other': 5 };
+  const sorted = filtered.sort((a, b) => {
+    const orderA = categoryOrder[a.category] || 99;
+    const orderB = categoryOrder[b.category] || 99;
+    return orderA - orderB;
+  });
+
+  renderMenuList(sorted, {
     onSelect: (menu) => {
       // 1) lane picker
       openLanePicker(state, (laneId) => {

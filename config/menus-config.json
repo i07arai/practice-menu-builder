@@ -81,17 +81,7 @@
     },
     {
       "id": "pair_pepper",
-      "name": "2人組ゴロペッパー",
-      "categoryShort": "アップ",
-      "category": "warmup",
-      "durationDefaultMin": 15,
-      "conditions": {
-        "minTotal": 2
-      }
-    },
-    {
-      "id": "fly_pepper",
-      "name": "フライペッパー",
+      "name": "2人組ペッパー",
       "categoryShort": "アップ",
       "category": "warmup",
       "durationDefaultMin": 15,
