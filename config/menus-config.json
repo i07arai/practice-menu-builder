@@ -2,7 +2,7 @@
   "menus": [
     {
       "id": "warmup",
-      "name": "アップ(柔軟・キャッチボール)",
+      "name": "アップ(キャッチボール等)",
       "categoryShort": "アップ",
       "category": "warmup",
       "durationDefaultMin": 15,
