@@ -12,7 +12,20 @@
 - ポジション情報：
   - **メインポジション**: P（投手）、IF（内野）、OF（外野）、null（未設定）
   - **サブポジション**: 複数ポジション対応可能（例: IFができる外野手）
-  - **属性**: キャッチャー可能、ピッチャー練習中など
+  - **スキル**: 複数のスキルを持つことができます
+    - `skill_pitch`: 投球指導可能
+    - `skill_bat`: 打撃指導可能
+    - `skill_field`: 守備指導可能
+    - `skill_run`: 走塁指導可能
+    - `skill_c-read`: キャッチャー指導可能
+    - `skill_coach`: コーチング全般
+  - **キャッチャー可否**: `canCatch`属性でキャッチャーができるかを指定
+  - **その他属性**: ピッチャー練習中など
+
+**スキル条件によるフィルタリング**：
+- メニューに `requiredSkills` が設定されている場合、選択されたメンバーが必要なスキルを持っているかチェックされます
+- 例：投げ込み練習には `skill_pitch` と `skill_c-read` が必要
+- ポジション別人数入力モードでは、スキル条件は無視されます
 
 ### 2. ポジション別人数入力モード
 - P（投手）、IF（内野）、OF（外野）の人数を直接入力
@@ -40,24 +53,35 @@
 - `subPositions`: サブポジション（配列）
 - `role`: 役割（player=選手、support=サポート要員）
 - `isOver40`: 40歳以上かどうか
+- `skills`: スキル配列（skill_pitch、skill_bat、skill_field、skill_run、skill_c-read、skill_coach）
+- `canCatch`: キャッチャー可能（boolean）
 - `attributes`: 追加属性
   - `romanName`: ローマ字名
-  - `canCatch`: キャッチャー可能
   - `isPitcherTraining`: ピッチャー練習中
-  - `skill`: 得意分野
   - `notes`: 備考
 
+**スキルの使い方**：
+- `skills`配列に文字列でスキルを追加します（例: `["skill_pitch", "skill_c-read"]`）
+- メニューの`requiredSkills`条件と照合され、必要なスキルを持つメンバーが選択されているかチェックされます
+
 ### メニュー設定（`config/menus-config.json`）
-練習メニューを定義します。以下の情報を設定できます：
+練習メニューを定義します（現在13メニュー）。以下の情報を設定できます：
 - `name`: メニュー名
 - `category`: カテゴリ（warmup/batting/fielding/pitching/other）
 - `durationDefaultMin`: デフォルト所要時間（分）
-- `conditions`: 実施に必要な人数条件
-  - `minP`: 投手の最小人数
-  - `minIF`: 内野の最小人数
-  - `minOF`: 外野の最小人数
-  - `minTotal`: 全体の最小人数
-  - `minPlusIF`: 投手+内野の最小人数
+- `conditions`: 実施に必要な条件
+  - **人数条件**（ポジション別人数入力モード・名簿入力モード共通）：
+    - `minP`: 投手の最小人数
+    - `minIF`: 内野の最小人数
+    - `minOF`: 外野の最小人数
+    - `minTotal`: 全体の最小人数
+    - `minPlusIF`: 投手+内野の最小人数
+  - **スキル条件**（名簿入力モードのみ）：
+    - `requiredSkills`: 必要なスキルの配列（例: `["skill_pitch", "skill_c-read"]`）
+    - 選択されたメンバーが指定されたスキルを持っているかチェックされます
+  - **キャッチャー条件**（名簿入力モードのみ）：
+    - `minCatch`: キャッチャー可能な最小人数
+    - 選択されたメンバーの`canCatch`属性がtrueの人数をカウントします
 
 ## ディレクトリ構成
 ```
@@ -109,6 +133,8 @@ https://i07arai.github.io/practice-menu-builder/
 
 ## 開発情報
 - **言語**: HTML/CSS/JavaScript (ES6 Modules)
-- **総行数**: 約2,500行（JS: 1,412行、CSS: 159行、HTML: 901行）
+- **総行数**: 約3,000行（JS: 1,442行、CSS: 183行、HTML: 901行、JSON: 443行）
 - **エンコーディング**: UTF-8 (BOM無し)
+- **メニュー数**: 13種類
+- **メンバー数**: 20名（選手14名、サポート要員6名）
 

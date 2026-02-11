@@ -40,7 +40,7 @@
           <option value="roster">名簿入力</option>
           <option value="position">ポジション別人数入力</option>
         </select>
-        
+
         <!-- 名簿入力UI -->
         <div class="roster-input" id="roster-input">
           <div class="roster-grid">
@@ -50,7 +50,7 @@
             <span>選択人数: <strong id="roster-count">0</strong>人</span>
           </div>
         </div>
-        
+
         <!-- ポジション入力UI(既存) -->
         <div class="position-input" id="position-input" style="display: none;">
           <div class="count-field">
@@ -112,7 +112,7 @@
 
   <!-- Modals -->
   <div class="modal-backdrop" id="modal-backdrop" hidden></div>
-  
+
   <div class="modal" id="modal-lane" hidden>
     <div class="modal-content">
       <h3>レーンを選択</h3>
@@ -188,11 +188,13 @@
         <section>
           <h4>1. 練習日時を設定</h4>
           <p>日付、開始・終了時間、練習場所を選択します。</p>
-          <p>※日付の初期値は直近の日曜日となっています。</p> 
+          <p>※日付の初期値は直近の日曜日となっています。</p>
         </section>
         <section>
-          <h4>2. 人数を設定</h4>
-          <p>投手・内野・外野の人数をタップして選択します。1?9、0の順で選べます。10人以上は「＋」ボタンで追加できます。</p>
+          <h4>2. 人数を設定（2つのモード）</h4>
+          <p><strong>名簿入力モード（推奨）：</strong>メンバー名簿から参加者をチェックします。選択されたメンバーのポジション、スキル、キャッチャー可否などから、実施可能なメニューが自動で表示されます。</p>
+          <p>例：投げ込み練習は、投球指導とキャッチャー指導ができるメンバーが必要です。</p>
+          <p><strong>ポジション別人数入力モード：</strong>投手・内野・外野の人数を直接入力します。1～9、0の順で選べます。10人以上は「＋」ボタンで追加できます。</p>
         </section>
         <section>
           <h4>3. メニューを追加</h4>
