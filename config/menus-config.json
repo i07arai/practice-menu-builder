@@ -17,8 +17,10 @@
       "category": "fielding",
       "durationDefaultMin": 30,
       "conditions": {
-        "minTotal": 4,
-        "requiredSkills": ["skill_coach"]
+        "minTotal": 6,
+        "requiredSkills": [
+          "skill_coach"
+        ]
       }
     },
     {
@@ -51,8 +53,10 @@
       "durationDefaultMin": 30,
       "conditions": {
         "minPlusIF": 3,
-        "minTotal": 6,
-        "requiredSkills": ["skill_coach"]
+        "minTotal": 4,
+        "requiredSkills": [
+          "skill_coach"
+        ]
       }
     },
     {
@@ -62,9 +66,11 @@
       "category": "fielding",
       "durationDefaultMin": 30,
       "conditions": {
-        "minOF": 3,
-        "minTotal": 6,
-        "requiredSkills": ["skill_coach"]
+        "minOF": 2,
+        "minTotal": 4,
+        "requiredSkills": [
+          "skill_coach"
+        ]
       }
     },
     {
@@ -107,7 +113,9 @@
       "durationDefaultMin": 15,
       "conditions": {
         "minTotal": 2,
-        "requiredSkills": ["skill_bat"]
+        "requiredSkills": [
+          "skill_bat"
+        ]
       }
     },
     {
@@ -118,7 +126,9 @@
       "durationDefaultMin": 30,
       "conditions": {
         "minTotal": 2,
-        "requiredSkills": ["skill_pitch"],
+        "requiredSkills": [
+          "skill_pitch"
+        ],
         "minCanCatch": 1
       }
     }
