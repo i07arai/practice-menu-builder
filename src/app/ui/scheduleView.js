@@ -12,12 +12,12 @@ export function renderGrid(state) {
   // Determine time range: if start/end exist use them; else show placeholder lines from 9:00 to 12:00
   let start = state.session.start || '09:00';
   let end = state.session.end || '12:00';
-  
+
   // Validate time range: if start is after end, swap them
   if (start && end && timeToMinutes(start) >= timeToMinutes(end)) {
     [start, end] = [end, start];
   }
-  
+
   const step = state.timeStepMin; // 15
 
   const times = enumerateTimes(start, end, step);
@@ -52,7 +52,7 @@ export function renderGrid(state) {
     col.style.position = 'relative';
     col.style.borderLeft = '1px solid #d9d9d9';
     col.dataset.laneId = laneId;
-    
+
     // Add horizontal lines for each time slot
     times.forEach((t, idx) => {
       const line = document.createElement('div');
@@ -61,7 +61,7 @@ export function renderGrid(state) {
       line.style.left = '0';
       line.style.right = '0';
       line.style.height = '1px';
-      
+
       // 30分ごと（偶数インデックス）は実線、15分ごと（奇数）は点線
       if (idx % 2 === 0) {
         line.style.borderTop = '1px solid #d9d9d9';
@@ -71,7 +71,7 @@ export function renderGrid(state) {
       line.style.pointerEvents = 'none';
       col.appendChild(line);
     });
-    
+
     // Render blocks for this lane
     const blocks = state.blocks.filter(b => b.laneId === laneId);
     console.log(`Lane: ${laneId}, Blocks: ${blocks.length}`, blocks); // デバッグ
@@ -90,23 +90,23 @@ export function renderGrid(state) {
       el.style.top = `${top}px`;
       el.style.height = `${height}px`;
       el.innerHTML = `<div class="title">${b.title}</div><div class="sub">${b.durationMin}分</div><div class="resize-handle"></div>`;
-      
+
       // Cache DOM elements
       const subDiv = el.querySelector('.sub');
-      
+
       // Drag and drop functionality (mouse and touch)
       let isDragging = false;
       let isResizing = false;
       let dragStartTime = 0;
       let startX, startY, startTop, startHeight;
-      
+
       const handleStart = (clientX, clientY, target) => {
         dragStartTime = Date.now();
         startX = clientX;
         startY = clientY;
         startTop = el.offsetTop;
         startHeight = el.offsetHeight;
-        
+
         // Check if clicking on resize handle
         if (target && target.classList.contains('resize-handle')) {
           isResizing = true;
@@ -114,14 +114,14 @@ export function renderGrid(state) {
           el.style.willChange = 'height';
         }
       };
-      
+
       const handleMove = (clientX, clientY) => {
         if (isResizing) {
           // Resize mode
           const deltaY = clientY - startY;
           const newHeight = Math.max(rowHeight(step), startHeight + deltaY);
           el.style.height = `${newHeight}px`;
-          
+
           // Update duration display
           const newDuration = Math.round(newHeight / rowHeight(step)) * step;
           if (subDiv) {
@@ -134,11 +134,11 @@ export function renderGrid(state) {
           el.style.opacity = '0.7';
           el.style.zIndex = '1000';
         }
-        
+
         if (isDragging) {
           const deltaY = clientY - startY;
           el.style.top = `${startTop + deltaY}px`;
-          
+
           // Highlight target lane
           const wrapperRect = wrapper.getBoundingClientRect();
           const relativeX = clientX - wrapperRect.left;
@@ -147,24 +147,24 @@ export function renderGrid(state) {
           const targetLaneIndex = Math.floor((relativeX - timeColWidth) / laneWidth);
           const lanes = ['global', 'lane1', 'lane2'];
           const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
-          
+
           // Remove highlight from all lanes and existing preview
           wrapper.querySelectorAll('.grid-col').forEach(c => c.classList.remove('drag-target'));
           const existingPreview = wrapper.querySelector('.drag-preview');
           if (existingPreview) existingPreview.remove();
-          
+
           // Add highlight to target lane
           const targetCol = wrapper.querySelector(`.grid-col[data-lane-id="${targetLaneId}"]`);
           if (targetCol) {
             targetCol.classList.add('drag-target');
-            
+
             // Calculate preview position using current Y position
             const colRect = targetCol.getBoundingClientRect();
             const blockTop = clientY - colRect.top + targetCol.parentElement.scrollTop;
             const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
             const newTime = times[Math.min(newTimeIndex, times.length - 1)];
             const topPx = positionFromTime(times, newTime, step);
-            
+
             // Create preview shadow
             const preview = document.createElement('div');
             preview.className = 'drag-preview';
@@ -178,7 +178,7 @@ export function renderGrid(state) {
             preview.style.background = 'rgba(16, 98, 135, 0.1)';
             preview.style.pointerEvents = 'none';
             preview.style.zIndex = '999';
-            
+
             // Add time label to preview
             const timeLabel = document.createElement('div');
             timeLabel.textContent = `${newTime}〜`;
@@ -187,19 +187,19 @@ export function renderGrid(state) {
             timeLabel.style.fontWeight = '600';
             timeLabel.style.padding = '4px';
             preview.appendChild(timeLabel);
-            
+
             targetCol.appendChild(preview);
           }
         }
       };
-      
+
       const handleEnd = (clientX, clientY) => {
         if (isResizing) {
           // Update block duration
           const newHeight = parseInt(el.style.height);
           const newDuration = Math.round(newHeight / rowHeight(step)) * step;
           b.durationMin = Math.max(step, newDuration);
-          
+
           el.style.transition = '';
           el.style.willChange = '';
           renderGrid(state);
@@ -208,24 +208,24 @@ export function renderGrid(state) {
           // Calculate new position
           const wrapperRect = wrapper.getBoundingClientRect();
           const relativeX = clientX - wrapperRect.left;
-          
+
           // Determine target lane
           const timeColWidth = 64;
           const laneWidth = (wrapperRect.width - timeColWidth) / 3;
           const targetLaneIndex = Math.floor((relativeX - timeColWidth) / laneWidth);
           const lanes = ['global', 'lane1', 'lane2'];
           const targetLaneId = lanes[Math.max(0, Math.min(2, targetLaneIndex))];
-          
+
           // Calculate new time
           const colTop = wrapper.querySelector('.grid-col').getBoundingClientRect().top;
           const blockTop = clientY - colTop + wrapper.scrollTop;
           const newTimeIndex = Math.max(0, Math.round(blockTop / rowHeight(step)));
           const newTime = times[Math.min(newTimeIndex, times.length - 1)];
-          
+
           // Update block
           b.laneId = targetLaneId;
           b.start = newTime;
-          
+
           renderGrid(state);
         } else if (Date.now() - dragStartTime < 300) {
           // Quick click/tap - show delete dialog
@@ -233,44 +233,44 @@ export function renderGrid(state) {
             renderGrid(state);
           });
         }
-        
+
         if (isDragging || isResizing) {
           el.style.transition = '';
           el.style.willChange = '';
         }
-        
+
         // Remove lane highlight
         wrapper.querySelectorAll('.grid-col').forEach(c => c.classList.remove('drag-target'));
         const existingPreview = wrapper.querySelector('.drag-preview');
         if (existingPreview) existingPreview.remove();
-        
+
         el.style.opacity = '1';
         el.style.zIndex = 'auto';
         isDragging = false;
       };
-      
+
       // Mouse events
       el.addEventListener('mousedown', (e) => {
         e.preventDefault();
         handleStart(e.clientX, e.clientY, e.target);
-        
+
         const onMouseMove = (e) => handleMove(e.clientX, e.clientY);
         const onMouseUp = (e) => {
           document.removeEventListener('mousemove', onMouseMove);
           document.removeEventListener('mouseup', onMouseUp);
           handleEnd(e.clientX, e.clientY);
         };
-        
+
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
       });
-      
+
       // Touch events
       el.addEventListener('touchstart', (e) => {
         e.preventDefault();
         const touch = e.touches[0];
         handleStart(touch.clientX, touch.clientY, e.target);
-        
+
         const onTouchMove = (e) => {
           const touch = e.touches[0];
           handleMove(touch.clientX, touch.clientY);
@@ -281,11 +281,11 @@ export function renderGrid(state) {
           const touch = e.changedTouches[0];
           handleEnd(touch.clientX, touch.clientY);
         };
-        
+
         document.addEventListener('touchmove', onTouchMove, { passive: false });
         document.addEventListener('touchend', onTouchEnd);
       });
-      
+
       col.appendChild(el);
     });
     wrapper.appendChild(col);
@@ -360,7 +360,7 @@ export function openTimePicker(state, defaultDuration, onDone, laneId = null) {
 
   // Calculate suggested start time
   let suggestedStart = state.session.start || '09:00';
-  
+
   if (laneId) {
     // Find the last block in the selected lane
     const laneBlocks = state.blocks.filter(b => b.laneId === laneId);
@@ -368,12 +368,12 @@ export function openTimePicker(state, defaultDuration, onDone, laneId = null) {
       // Find the block with the latest end time
       let latestEndTime = null;
       let latestEndMinutes = -1;
-      
+
       laneBlocks.forEach(block => {
         const [h, m] = block.start.split(':').map(n => parseInt(n, 10));
         const startMinutes = h * 60 + m;
         const endMinutes = startMinutes + block.durationMin;
-        
+
         if (endMinutes > latestEndMinutes) {
           latestEndMinutes = endMinutes;
           const endH = Math.floor(endMinutes / 60);
@@ -381,13 +381,13 @@ export function openTimePicker(state, defaultDuration, onDone, laneId = null) {
           latestEndTime = `${String(endH).padStart(2, '0')}:${String(endM).padStart(2, '0')}`;
         }
       });
-      
+
       if (latestEndTime) {
         suggestedStart = latestEndTime;
       }
     }
   }
-  
+
   startInput.value = suggestedStart;
 
   const ok = document.getElementById('time-ok');
@@ -408,29 +408,29 @@ export function openTimePickerForEdit(state, currentStart, currentDuration, onDo
   const modal = document.getElementById('modal-time');
   const startInput = document.getElementById('pick-start');
   const durInput = document.getElementById('pick-duration');
-  
+
   // 開始時間を固定し、読み取り専用に
   startInput.value = currentStart;
   startInput.readOnly = true;
   startInput.style.backgroundColor = '#f0f0f0';
-  
+
   durInput.value = String(currentDuration);
 
   const ok = document.getElementById('time-ok');
   const cancel = document.getElementById('time-cancel');
   backdrop.hidden = false; modal.hidden = false;
-  
+
   ok.onclick = () => {
     const dur = Math.max(5, parseInt(durInput.value||'15',10));
     backdrop.hidden = true; modal.hidden = true;
     // 開始時間は変更せず、所要時間だけ変更
     onDone(currentStart, dur);
-    
+
     // リセット
     startInput.readOnly = false;
     startInput.style.backgroundColor = '';
   };
-  
+
   cancel.onclick = () => {
     backdrop.hidden = true; modal.hidden = true;
     // リセット
@@ -457,9 +457,9 @@ export function openRenameLane(state, laneId, onSave, onReset) {
 
 // Export to JPG (1080x1920 - doubled row spacing)
 export function exportScheduleAsJPG(state) {
-  const btnExport = document.getElementById('btn-export-jpg');
+  const btnExport = document.getElementById('btn-export');
   if (!btnExport) return;
-  
+
   btnExport.addEventListener('click', () => {
     // 重複チェック
     const overlaps = findOverlappingBlocks(state);
@@ -473,18 +473,18 @@ export function exportScheduleAsJPG(state) {
       showAlert('JPEG出力エラー', message);
       return;
     }
-    
+
     const width = 1080, height = 1920;
     const dataUrl = drawJPG(state, width, height);
     const a = document.createElement('a');
-    
+
     // Format filename: YYYY年MM月DD日 練習スケジュール.jpg
     let filename = '練習スケジュール.jpg';
     if (state.session.date) {
       const [year, month, day] = state.session.date.split('-');
       filename = `${year}年${month}月${day}日 練習スケジュール.jpg`;
     }
-    
+
     a.href = dataUrl; a.download = filename;
     document.body.appendChild(a); a.click(); a.remove();
   });
@@ -494,28 +494,28 @@ export function exportScheduleAsJPG(state) {
 function findOverlappingBlocks(state) {
   const overlaps = [];
   const lanes = ['global', 'lane1', 'lane2'];
-  
+
   for (const laneId of lanes) {
     const laneBlocks = state.blocks.filter(b => b.laneId === laneId);
-    
+
     // ブロックを時間順にソート
     laneBlocks.sort((a, b) => {
       const [ah, am] = a.start.split(':').map(n => parseInt(n, 10));
       const [bh, bm] = b.start.split(':').map(n => parseInt(n, 10));
       return (ah * 60 + am) - (bh * 60 + bm);
     });
-    
+
     // 隣接するブロックをチェック
     for (let i = 0; i < laneBlocks.length - 1; i++) {
       const current = laneBlocks[i];
       const next = laneBlocks[i + 1];
-      
+
       const [ch, cm] = current.start.split(':').map(n => parseInt(n, 10));
       const currentEnd = ch * 60 + cm + current.durationMin;
-      
+
       const [nh, nm] = next.start.split(':').map(n => parseInt(n, 10));
       const nextStart = nh * 60 + nm;
-      
+
       if (currentEnd > nextStart) {
         overlaps.push({
           laneId,
@@ -525,7 +525,7 @@ function findOverlappingBlocks(state) {
       }
     }
   }
-  
+
   return overlaps;
 }
 
@@ -539,7 +539,7 @@ export function openDeleteConfirm(state, block, onDeleted) {
 
   message.textContent = `「${block.title}」（${block.start}〜、${block.durationMin}分）`;
   backdrop.hidden = false; modal.hidden = false;
-  
+
   ok.onclick = () => {
     const index = state.blocks.indexOf(block);
     if (index > -1) {
@@ -548,7 +548,7 @@ export function openDeleteConfirm(state, block, onDeleted) {
     backdrop.hidden = true; modal.hidden = true;
     onDeleted();
   };
-  
+
   cancel.onclick = () => {
     backdrop.hidden = true; modal.hidden = true;
   };
@@ -561,17 +561,17 @@ function showAlert(title, message) {
   const titleEl = document.getElementById('alert-title');
   const messageEl = document.getElementById('alert-message');
   const okBtn = document.getElementById('alert-ok');
-  
+
   titleEl.textContent = title;
   messageEl.textContent = message;
   backdrop.hidden = false;
   modal.hidden = false;
-  
+
   okBtn.onclick = () => {
     backdrop.hidden = true;
     modal.hidden = true;
   };
-  
+
   // Enterキーでも閉じられるように
   const handleEnter = (e) => {
     if (e.key === 'Enter') {
