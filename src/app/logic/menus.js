@@ -28,6 +28,18 @@ async function loadMenuConfig() {
         if (cond.minTotal && total < cond.minTotal) return false;
         if (cond.minPlusIF && (c.P + c.IF) < cond.minPlusIF) return false;
 
+        // スキル条件（名簿モードのみ、c.skillsが存在する場合のみチェック）
+        if (cond.requiredSkills && c.skills) {
+          for (const skill of cond.requiredSkills) {
+            if ((c.skills[skill] || 0) < 1) return false;
+          }
+        }
+
+        // キャッチャー可能条件（名簿モードのみ、c.canCatchが存在する場合のみチェック）
+        if (cond.minCanCatch && c.canCatch !== undefined) {
+          if (c.canCatch < cond.minCanCatch) return false;
+        }
+
         return true;
       }
     }));

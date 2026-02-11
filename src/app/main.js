@@ -167,6 +167,8 @@ function updateRosterCount() {
     let pCount = 0;
     let ifCount = 0;
     let ofCount = 0;
+    const skillCounts = {};
+    let canCatchCount = 0;
 
     selectedPlayerIds.forEach(playerId => {
       const player = roster.find(p => p.id === playerId);
@@ -185,6 +187,18 @@ function updateRosterCount() {
           else if (pos === 'OF') ofCount++;
         });
       }
+
+      // Count skills
+      if (player.attributes?.skills && Array.isArray(player.attributes.skills)) {
+        player.attributes.skills.forEach(skill => {
+          skillCounts[skill] = (skillCounts[skill] || 0) + 1;
+        });
+      }
+
+      // Count canCatch
+      if (player.attributes?.canCatch === true) {
+        canCatchCount++;
+      }
     });
 
     state.counts.P = pCount;
@@ -192,6 +206,10 @@ function updateRosterCount() {
     state.counts.OF = ofCount;
     // 合計人数（positionがnullの人も含む）
     state.counts.total = checkedCount;
+    // スキルカウント（名簿モードのみ）
+    state.counts.skills = skillCounts;
+    // キャッチャー可能人数（名簿モードのみ）
+    state.counts.canCatch = canCatchCount;
   }
 }
 

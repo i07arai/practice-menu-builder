@@ -17,7 +17,8 @@
       "category": "fielding",
       "durationDefaultMin": 30,
       "conditions": {
-        "minTotal": 4
+        "minTotal": 4,
+        "requiredSkills": ["skill_coach"]
       }
     },
     {
@@ -27,18 +28,19 @@
       "category": "batting",
       "durationDefaultMin": 60,
       "conditions": {
-        "minP": 1,
-        "minTotal": 9
+        "minP": 2,
+        "minTotal": 9,
+        "minCanCatch": 1
       }
     },
     {
-      "id": "tee_batting",
-      "name": "置きティーバッティング",
+      "id": "tee_long",
+      "name": "置きティーロングティー",
       "categoryShort": "打",
       "category": "batting",
       "durationDefaultMin": 30,
       "conditions": {
-        "minTotal": 2
+        "minTotal": 5
       }
     },
     {
@@ -49,7 +51,8 @@
       "durationDefaultMin": 30,
       "conditions": {
         "minPlusIF": 3,
-        "minTotal": 6
+        "minTotal": 6,
+        "requiredSkills": ["skill_coach"]
       }
     },
     {
@@ -60,18 +63,20 @@
       "durationDefaultMin": 30,
       "conditions": {
         "minOF": 3,
-        "minTotal": 6
+        "minTotal": 6,
+        "requiredSkills": ["skill_coach"]
       }
     },
     {
       "id": "pitching",
-      "name": "ピッチング練習",
+      "name": "投げ込み",
       "categoryShort": "投",
       "category": "pitching",
       "durationDefaultMin": 30,
       "conditions": {
         "minP": 1,
-        "minTotal": 4
+        "minTotal": 2,
+        "minCanCatch": 1
       }
     },
     {
@@ -83,6 +88,49 @@
       "conditions": {
         "minTotal": 2
       }
+    },
+    {
+      "id": "fly_pepper",
+      "name": "フライペッパー",
+      "categoryShort": "アップ",
+      "category": "warmup",
+      "durationDefaultMin": 15,
+      "conditions": {
+        "minTotal": 2
+      }
+    },
+    {
+      "id": "pair_toss_batting",
+      "name": "2人組トスバッティング",
+      "categoryShort": "打",
+      "category": "batting",
+      "durationDefaultMin": 15,
+      "conditions": {
+        "minTotal": 2
+      }
+    },
+    {
+      "id": "one_on_one_batting",
+      "name": "1on1打撃改善",
+      "categoryShort": "打",
+      "category": "batting",
+      "durationDefaultMin": 15,
+      "conditions": {
+        "minTotal": 2,
+        "requiredSkills": ["skill_bat"]
+      }
+    },
+    {
+      "id": "one_on_one_pitching",
+      "name": "1on1ピッチング練習",
+      "categoryShort": "投",
+      "category": "pitching",
+      "durationDefaultMin": 30,
+      "conditions": {
+        "minTotal": 2,
+        "requiredSkills": ["skill_pitch"],
+        "minCanCatch": 1
+      }
     }
   ],
   "説明": {
@@ -91,7 +139,9 @@
       "minIF": "内野最小人数",
       "minOF": "外野最小人数",
       "minTotal": "合計最小人数",
-      "minPlusIF": "投手+内野最小人数"
+      "minPlusIF": "投手+内野最小人数",
+      "requiredSkills": "必須スキル（配列）。名簿モードのみ有効。例: ['skill_coach', 'skill_pitch']",
+      "minCanCatch": "キャッチャー可能最小人数。名簿モードのみ有効"
     }
   }
 }
