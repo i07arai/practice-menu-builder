@@ -131,6 +131,16 @@
         ],
         "minCanCatch": 1
       }
+    },
+    {
+      "id": "紅白戦",
+      "name": "紅白戦",
+      "categoryShort": "その他",
+      "category": "other",
+      "durationDefaultMin": 60,
+      "conditions": {
+        "minTotal": 15
+      }
     }
   ],
   "説明": {

@@ -81,6 +81,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .chip.category-pitching { background: linear-gradient(135deg, #ffe0eb 0%, #ffcdde 100%) !important; border-color: #ffe0eb; color: #b03a6a; }
 .chip.category-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; border-color: #d9ecff; color: #106287; }
 .chip.category-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; border-color: #dcf2d2; color: #198754; }
+.chip.category-other { background: linear-gradient(135deg, #E8E5FF 0%, #D6D3F7 100%) !important; border-color: #E8E5FF; color: #4B3F8C; }
 
 /* フィルタ選択時は予定表追加ボタンと同じ色 */
 .chip.active { background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%) !important; border-color: var(--primary) !important; color: white !important; box-shadow: var(--shadow-sm); }
@@ -92,6 +93,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .menu-card.menu-pitching { background: linear-gradient(135deg, #ffe0eb 0%, #ffcdde 100%) !important; }
 .menu-card.menu-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; }
 .menu-card.menu-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; }
+.menu-card.menu-other { background: linear-gradient(135deg, #E8E5FF 0%, #D6D3F7 100%) !important; }
 .menu-card h3 { margin: 0; font-size: 16px; font-weight: 600; color: var(--fg); }
 .menu-meta { font-size: 12px; color: var(--muted); margin-top: 4px; }
 .menu-actions { display: flex; gap: 8px; }
@@ -114,6 +116,7 @@ body { margin: 0; font-family: system-ui, -apple-system, "Hiragino Sans", "Noto 
 .block-pitching { background: linear-gradient(135deg, #ffe0eb 0%, #ffcdde 100%) !important; }
 .block-fielding { background: linear-gradient(135deg, #d9ecff 0%, #c0dfff 100%) !important; }
 .block-batting { background: linear-gradient(135deg, #dcf2d2 0%, #caedbc 100%) !important; }
+.block-other { background: linear-gradient(135deg, #E8E5FF 0%, #D6D3F7 100%) !important; }
 .block .title { font-weight: 600; font-size: 13px; line-height: 1.4; margin-bottom: 4px; word-break: break-word; color: var(--fg); }
 .block .sub { font-size: 11px; color: var(--muted); line-height: 1.3; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .resize-handle { position: absolute; bottom: 0; left: 0; right: 0; height: 12px; cursor: ns-resize; display: flex; align-items: center; justify-content: center; }
