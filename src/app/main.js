@@ -5,6 +5,8 @@ import { getRoster, loadRosterConfig } from './logic/roster.js';
 import { renderMenuList } from './ui/menuPanel.js';
 import { renderGrid, addBlockToSchedule, exportScheduleAsJPG, previewSchedule, openLanePicker, openTimePicker, openRenameLane } from './ui/scheduleView.js';
 
+console.log('main.js loaded');
+
 const state = new AppState();
 
 // --- Initialize session date (next future Sunday) ---
