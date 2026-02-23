@@ -46,7 +46,7 @@ export function renderGrid(state) {
   });
   wrapper.appendChild(timeCol);
 
-  ['global','lane1','lane2'].forEach((laneId, laneIndex) => {
+  ['global', 'lane1', 'lane2'].forEach((laneId, laneIndex) => {
     const col = document.createElement('div');
     col.className = 'grid-col';
     col.style.position = 'relative';
@@ -301,14 +301,14 @@ function timeToMinutes(timeStr) {
 }
 function enumerateTimes(start, end, step) {
   const times = [];
-  const [sh, sm] = start.split(':').map(x=>parseInt(x,10));
-  const [eh, em] = end.split(':').map(x=>parseInt(x,10));
-  let totalStart = sh*60+sm;
-  const totalEnd = eh*60+em;
+  const [sh, sm] = start.split(':').map(x => parseInt(x, 10));
+  const [eh, em] = end.split(':').map(x => parseInt(x, 10));
+  let totalStart = sh * 60 + sm;
+  const totalEnd = eh * 60 + em;
   for (let t = totalStart; t <= totalEnd; t += step) {
-    const h = Math.floor(t/60);
-    const m = String(t%60).padStart(2,'0');
-    times.push(`${String(h).padStart(2,'0')}:${m}`);
+    const h = Math.floor(t / 60);
+    const m = String(t % 60).padStart(2, '0');
+    times.push(`${String(h).padStart(2, '0')}:${m}`);
   }
   return times;
 }
@@ -330,7 +330,7 @@ export function openLanePicker(state, onDone) {
   const ok = document.getElementById('lane-ok');
   const cancel = document.getElementById('lane-cancel');
   group.innerHTML = '';
-  const lanes = ['global','lane1','lane2'];
+  const lanes = ['global', 'lane1', 'lane2'];
   lanes.forEach(id => {
     const l = state.lanesById[id];
     const label = document.createElement('label');
@@ -395,7 +395,7 @@ export function openTimePicker(state, defaultDuration, onDone, laneId = null) {
   backdrop.hidden = false; modal.hidden = false;
   ok.onclick = () => {
     const start = startInput.value || '09:00';
-    const dur = Math.max(5, parseInt(durInput.value||'15',10));
+    const dur = Math.max(5, parseInt(durInput.value || '15', 10));
     backdrop.hidden = true; modal.hidden = true;
     onDone(start, dur);
   };
@@ -421,7 +421,7 @@ export function openTimePickerForEdit(state, currentStart, currentDuration, onDo
   backdrop.hidden = false; modal.hidden = false;
 
   ok.onclick = () => {
-    const dur = Math.max(5, parseInt(durInput.value||'15',10));
+    const dur = Math.max(5, parseInt(durInput.value || '15', 10));
     backdrop.hidden = true; modal.hidden = true;
     // 開始時間は変更せず、所要時間だけ変更
     onDone(currentStart, dur);
@@ -450,14 +450,14 @@ export function openRenameLane(state, laneId, onSave, onReset) {
 
   input.value = state.lanesById[laneId].name;
   backdrop.hidden = false; modal.hidden = false;
-  ok.onclick = () => { const v = input.value.trim(); if (v.length<1||v.length>20) return; backdrop.hidden = true; modal.hidden = true; onSave(v); };
+  ok.onclick = () => { const v = input.value.trim(); if (v.length < 1 || v.length > 20) return; backdrop.hidden = true; modal.hidden = true; onSave(v); };
   cancel.onclick = () => { backdrop.hidden = true; modal.hidden = true; };
   reset.onclick = () => { backdrop.hidden = true; modal.hidden = true; onReset(); };
 }
 
 // Export to JPG (1080x1920 - doubled row spacing)
 export function exportScheduleAsJPG(state) {
-  const btnExport = document.getElementById('btn-export');
+  const btnExport = document.getElementById('btn-export-jpg');
   if (!btnExport) return;
 
   btnExport.addEventListener('click', () => {
@@ -581,4 +581,296 @@ function showAlert(title, message) {
     }
   };
   document.addEventListener('keydown', handleEnter);
+}
+
+// プレビュー機能：新しいウィンドウでスケジュールを表示
+export function previewSchedule(state) {
+  const btnPreview = document.getElementById('btn-preview');
+  if (!btnPreview) return;
+
+  btnPreview.addEventListener('click', () => {
+    // HTML生成
+    const html = generatePreviewHTML(state);
+
+    // 新しいウィンドウを開く
+    const previewWindow = window.open('', 'SchedulePreview', 'width=1080,height=1920,menubar=no,toolbar=no,location=no');
+
+    if (previewWindow) {
+      previewWindow.document.open();
+      previewWindow.document.write(html);
+      previewWindow.document.close();
+    } else {
+      showAlert('プレビューエラー', 'ポップアップがブロックされました。ブラウザの設定を確認してください。');
+    }
+  });
+}
+
+// プレビュー用HTML生成
+function generatePreviewHTML(state) {
+  // 表示するレーンを決定
+  const lanesWithBlocks = {
+    global: state.blocks.some(b => b.laneId === 'global'),
+    lane1: state.blocks.some(b => b.laneId === 'lane1'),
+    lane2: state.blocks.some(b => b.laneId === 'lane2')
+  };
+
+  let visibleLanes = [];
+  if (!lanesWithBlocks.lane1 && !lanesWithBlocks.lane2) {
+    visibleLanes = ['global'];
+  } else if (lanesWithBlocks.lane1 && !lanesWithBlocks.lane2) {
+    visibleLanes = ['global', 'lane1'];
+  } else if (!lanesWithBlocks.lane1 && lanesWithBlocks.lane2) {
+    visibleLanes = ['global', 'lane2'];
+  } else {
+    visibleLanes = ['global', 'lane1', 'lane2'];
+  }
+
+  // タイトル生成
+  let title = 'スケジュール';
+  if (state.session.location) {
+    title += `＠${state.session.location}`;
+  }
+
+  // 日時情報
+  let dateTimeInfo = '';
+  if (state.session.date) {
+    const dateStr = state.session.date.replace(/-/g, '/');
+    const startTime = state.session.start || '';
+    const endTime = state.session.end || '';
+    dateTimeInfo = `日時:${dateStr} ${startTime}～${endTime}`;
+  }
+
+  // 時間範囲
+  const startTime = state.session.start || '09:00';
+  const endTime = state.session.end || '12:00';
+  const step = state.timeStepMin;
+  const times = enumerateTimes(startTime, endTime, step);
+
+  // レーンのヘッダー生成
+  let laneHeaders = '';
+  visibleLanes.forEach(id => {
+    const name = state.lanesById[id].name;
+    laneHeaders += `<div class="lane-header">${name}</div>`;
+  });
+
+  // グリッド列数（時間列 + レーン数）
+  const gridColumns = `60px repeat(${visibleLanes.length}, 1fr)`;
+
+  // グリッド行生成
+  let gridRows = '';
+  times.forEach((t, idx) => {
+    const isMainLine = idx % 2 === 0;
+    const timeLabel = isMainLine ? `<div class="time-label">${t}</div>` : '<div class="time-label"></div>';
+
+    let rowCells = timeLabel;
+    visibleLanes.forEach(laneId => {
+      rowCells += `<div class="grid-cell ${isMainLine ? 'main-line' : 'sub-line'}"></div>`;
+    });
+
+    gridRows += `<div class="grid-row">${rowCells}</div>`;
+  });
+
+  // ブロック生成
+  let blocks = '';
+  state.blocks.forEach(b => {
+    const laneIndex = visibleLanes.indexOf(b.laneId);
+    if (laneIndex === -1) return;
+
+    const topIdx = times.indexOf(b.start);
+    if (topIdx === -1) return;
+
+    const menu = MENUS.find(m => m.id === b.menuId);
+    const categoryClass = menu ? `block-${menu.category}` : '';
+
+    const rowSpan = Math.max(1, Math.round(b.durationMin / step));
+
+    blocks += `
+      <div class="schedule-block ${categoryClass}" style="
+        grid-column: ${laneIndex + 2};
+        grid-row: ${topIdx + 1} / span ${rowSpan};
+      ">
+        <div class="block-title">${b.title}</div>
+        <div class="block-duration">${b.durationMin}分</div>
+      </div>
+    `;
+  });
+
+  return `<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>スケジュールプレビュー</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: system-ui, -apple-system, sans-serif;
+      background: white;
+      padding: 40px 20px;
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .title {
+      font-size: 42px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .date-time {
+      font-size: 32px;
+      color: #666;
+    }
+
+    .lane-headers {
+      display: grid;
+      grid-template-columns: ${gridColumns};
+      gap: 0;
+      margin-bottom: 10px;
+    }
+
+    .lane-headers > div:first-child {
+      /* 時間列のスペーサー */
+    }
+
+    .lane-header {
+      border: 2px solid #000;
+      border-radius: 8px;
+      padding: 15px;
+      text-align: center;
+      font-weight: bold;
+      font-size: 28px;
+      background: white;
+    }
+
+    .schedule-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: ${gridColumns};
+      grid-template-rows: repeat(${times.length}, 60px);
+      gap: 0;
+    }
+
+    .grid-row {
+      display: contents;
+    }
+
+    .time-label {
+      font-size: 22px;
+      color: #666;
+      padding: 8px 5px;
+      text-align: right;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .grid-cell {
+      border-left: 1px solid #ccc;
+      height: 60px;
+      position: relative;
+    }
+
+    .grid-cell.main-line {
+      border-top: 1px solid #ccc;
+    }
+
+    .grid-cell.sub-line {
+      border-top: 1px dashed #e0e0e0;
+    }
+
+    .schedule-block {
+      border: 2px solid #000;
+      border-radius: 8px;
+      padding: 10px;
+      position: relative;
+      z-index: 1;
+      margin: 2px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .block-warmup {
+      background-color: #ffdcc0;
+    }
+
+    .block-pitching {
+      background-color: #ffcdde;
+    }
+
+    .block-fielding {
+      background-color: #c0dfff;
+    }
+
+    .block-batting {
+      background-color: #caedbc;
+    }
+
+    .block-other {
+      background-color: #f0f0f0;
+    }
+
+    .block-title {
+      font-size: 24px;
+      font-weight: bold;
+      word-break: break-all;
+      margin-bottom: 5px;
+    }
+
+    .block-duration {
+      font-size: 20px;
+      color: #666;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <div class="title">${title}</div>
+    <div class="date-time">${dateTimeInfo}</div>
+  </div>
+
+  <div class="lane-headers">
+    <div></div>
+    ${laneHeaders}
+  </div>
+
+  <div class="schedule-grid">
+    ${gridRows}
+    ${blocks}
+  </div>
+</body>
+</html>`;
+}
+
+// enumerateTimes helper（exporter.jsから複製）
+function enumerateTimes(start, end, step) {
+  const out = [];
+  const [sh, sm] = start.split(':').map(n => parseInt(n, 10));
+  const [eh, em] = end.split(':').map(n => parseInt(n, 10));
+  let t = sh * 60 + sm;
+  const endMin = eh * 60 + em;
+  for (; t <= endMin; t += step) {
+    const h = String(Math.floor(t / 60)).padStart(2, '0');
+    const m = String(t % 60).padStart(2, '0');
+    out.push(`${h}:${m}`);
+  }
+  return out;
 }

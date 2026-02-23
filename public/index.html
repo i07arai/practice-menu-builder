@@ -1,12 +1,13 @@
-
 <!doctype html>
 <html lang="ja">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>二小クラブスケジューラ</title>
   <link rel="stylesheet" href="../styles/main.css" />
 </head>
+
 <body>
   <div id="app">
     <header class="app-header">
@@ -36,7 +37,8 @@
         <input type="text" id="location-text" placeholder="場所を入力" style="display:none;" />
       </div>
       <div class="counts-section">
-        <label for="count-mode-select" style="font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 4px;">人数設定</label>
+        <label for="count-mode-select"
+          style="font-size: 12px; color: var(--muted); font-weight: 500; margin-bottom: 4px;">人数設定</label>
         <select id="count-mode-select" class="count-mode-select">
           <option value="roster">名簿入力</option>
           <option value="position">ポジション入力</option>
@@ -109,6 +111,7 @@
           <!-- 時間グリッド／ブロックはJSで描画 -->
         </div>
         <div class="export">
+          <button id="btn-preview" class="btn">スケジュールプレビュー</button>
           <button id="btn-export-jpg" class="btn primary">スケジュール画像出力</button>
         </div>
       </section>
@@ -184,7 +187,8 @@
       <h3>使い方</h3>
       <div class="help-content">
         <section>
-          <p style="margin-bottom: 12px;"><a href="#" id="purpose-link" style="color: var(--primary); text-decoration: underline;">→ このアプリの目的</a></p>
+          <p style="margin-bottom: 12px;"><a href="#" id="purpose-link"
+              style="color: var(--primary); text-decoration: underline;">→ このアプリの目的</a></p>
         </section>
         <section>
           <h4>1. 練習日時を設定</h4>
@@ -203,8 +207,9 @@
         <section>
           <h4>4. スケジュールを編集</h4>
           <p><strong>移動：</strong>メニューをドラッグして時間やレーンを変更できます。<br>
-          <strong>時間変更：</strong>メニュー下部の横線をドラッグして所要時間を変更できます。<br>
-          <strong>削除：</strong>メニューをタップして「削除」を選択します。</p>
+            <strong>時間変更：</strong>メニュー下部の横線をドラッグして所要時間を変更できます。<br>
+            <strong>削除：</strong>メニューをタップして「削除」を選択します。
+          </p>
         </section>
         <section>
           <h4>5. 画像出力</h4>
@@ -242,4 +247,5 @@
 
   <script type="module" src="../src/app/main.js"></script>
 </body>
+
 </html>

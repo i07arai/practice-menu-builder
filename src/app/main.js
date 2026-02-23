@@ -3,7 +3,7 @@ import { AppState, nextFutureSundayYMD } from './utils/state.js';
 import { MENUS, isEligible, loadMenuConfig } from './logic/menus.js';
 import { getRoster, loadRosterConfig } from './logic/roster.js';
 import { renderMenuList } from './ui/menuPanel.js';
-import { renderGrid, addBlockToSchedule, exportScheduleAsJPG, openLanePicker, openTimePicker, openRenameLane } from './ui/scheduleView.js';
+import { renderGrid, addBlockToSchedule, exportScheduleAsJPG, previewSchedule, openLanePicker, openTimePicker, openRenameLane } from './ui/scheduleView.js';
 
 const state = new AppState();
 
@@ -224,7 +224,7 @@ if (countsToggle) {
 }
 
 // Counts inputs and +/- buttons
-['P','IF','OF'].forEach(role => {
+['P', 'IF', 'OF'].forEach(role => {
   const display = document.getElementById(`count-${role}`);
 
   // Click to show selector
@@ -342,7 +342,7 @@ function updateMenuCandidates() {
 }
 
 // Lane rename buttons
-['lane1','lane2'].forEach(laneId => {
+['lane1', 'lane2'].forEach(laneId => {
   document.querySelector(`.edit-lane[data-lane="${laneId}"]`).addEventListener('click', () => {
     openRenameLane(state, laneId, (newName) => {
       state.renameLane(laneId, newName);
@@ -356,6 +356,9 @@ function updateMenuCandidates() {
 
 // Export button setup (delegated to scheduleView)
 exportScheduleAsJPG(state);
+
+// Preview button setup
+previewSchedule(state);
 
 // Help modal
 const helpLink = document.getElementById('help-link');
